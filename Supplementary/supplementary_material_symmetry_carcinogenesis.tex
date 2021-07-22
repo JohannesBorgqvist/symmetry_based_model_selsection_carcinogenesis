@@ -1,22 +1,57 @@
-\documentclass{article}
+\documentclass[12pt]{article}
     % General document formatting
-    \usepackage[margin=0.7in]{geometry}
+    \usepackage[margin=1in]{geometry}
     \usepackage[parfill]{parskip}
     \usepackage[utf8]{inputenc}
-    
+    \usepackage[T1]{fontenc}    
+    % Set the font for the document
+    \usepackage[scaled=1]{helvet}
+    \renewcommand{\familydefault}{\sfdefault}    
     % Related to math
     \usepackage{amsmath,amssymb,amsfonts,amsthm}
-
+    \usepackage{mathtools}
+    % To set the mathematical font to helvetica as well
+    \usepackage[helvet]{sfmath}
+    \everymath={\sf}
+    % To write differential equations in an easy way
+    \usepackage{physics}
+    % For referencing footnotes
+    \usepackage[symbol]{footmisc}
+    % To add links in the text
+    \usepackage{url}
+    % To add figures
+    \usepackage{graphicx}
+    % Set the graphics-path, i.e. where we store the figures
+    \graphicspath{{./images/}}
+% THE DOCUMENT BEGINS
 \begin{document}
 
-Name, date, Exercise X
+\begin{titlepage}
+  \Large \textbf{Supplementary material for the article}\\[1cm]
+  \Huge \textbf{A symmetry based methodology reveal the correct model for predicting disease incidence with increasing age in the context of cancer}\\[1cm]\normalsize
 
-\section*{Part a}
+ \vspace{3.0cm}
+        \setcounter{footnote}{1}
+       Johannes Borgqvist\footnote{\label{Oxford}Wolfson Centre for Mathematical Biology, Mathematical Institute, University of Oxford, United Kingdom}\footnote{\label{WennerGren} Research fellow, Wenner-Gren Foundations, Sweden}\footnote{\label{Linacre} Linacre College, University of Oxford, United Kingdom}\footnote{E-mail: \url{Johannes.Borgqvist@maths.ox.ac.uk}} and Sam Palmer\footref{Oxford}.
 
-Put your answer to part a here
+  
+  
+\end{titlepage}
 
-\section*{Part b}
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
 
-etc
 
+\section{Finding the symmetries of the three candidate\\models}
+
+\input{./Input/derivation_symmetries}
+
+
+\newpage
+\bibliography{model_selection_symmetries_cancer} 
+\bibliographystyle{ieeetr}
+
+% THE DOCUMENT ENDS
 \end{document}
