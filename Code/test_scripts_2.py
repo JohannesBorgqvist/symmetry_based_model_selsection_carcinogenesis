@@ -45,17 +45,7 @@ for i in range(len(R)):
     R[i] = np.log(R[i])
 
 
-# PLOT DATA
-# Define the string were the plot will be stored
-file_str = "../Figures/FigS4/Input/colon_cancer_2.tex"
-# Define the string defining the settings for the plot
-#plot_str = "only marks,scatter,mark=halfcircle*,mark size=2.9pt,color=black"
-plot_str = "only marks, mark=halfcircle*,mark size=1.5pt,color=black,"
-# Define the string with the legend
-legend_str = "Data colon cancer"
-# Define the plot
-R_plot = [np.exp(R_val) for R_val in R]
-write_output.plot_LaTeX_2D(t,R,file_str,plot_str,legend_str)    
+
 #---------------------------------------------------------------------------------
 # PLOT DATA
 # Define the plot
@@ -92,8 +82,6 @@ tau_opt_mixed_Sam = 58.40023718059162
 #tau_opt_mixed_Sam = 58.400
 R_hat_mixed_Sam = np.array([fit_to_data.objective_mixed(t_val,A_opt_mixed_Sam,tau_opt_mixed_Sam,alpha) for t_val in list(t)])
 R_adj_new = fit_to_data.calculate_R_adj(R,R_hat_mixed_Sam,"mixed")
-# Save the estimated parameters
-write_output.save_data_PE(data_str,model_str,opt_para_mixed,SS_mixed,alpha)
 # FIT POWER LAW
 # Define the model string entailing that we are concentrating on the exponential
 # model
@@ -101,10 +89,6 @@ model_str = "power_law"
 # Fit the model to the data
 #print("Model 2")
 R_hat_pow, opt_para_PLM, SS_PLM = fit_to_data.PE_risk_profiles(t,R,model_str,para_pow)
-print("PLM fit\t=\t%s"%(str(SS_PLM)))
-print("IM-II fit\t=\t%s"%(str(SS_mixed)))
-# Save the estimated parameters
-write_output.save_data_PE(data_str,model_str,opt_para_PLM,SS_PLM,alpha)
 
 #---------------------------------------------------------------------------------
 # PLOT MODELS
@@ -152,22 +136,3 @@ plt.ylabel("Incidence, $R(t)$")
 plt.show()
 
 #=====================================================================================================
-epsilon_test = [11]
-para_pow.append(opt_para_PLM[1])
-para_mixed.append(opt_para_mixed[1])
-Delta_fit_test = symmetry_based_model_selection.sym_model_sel_old_version(t,R,epsilon_test,para_pow,"power_law")
-Delta_fit_test_2 = symmetry_based_model_selection.sym_model_sel_old_version(t,R,epsilon_test,para_mixed,"mixed")
-print("PLM:\t(%0.3f,%0.3f)"%(epsilon_test[0],Delta_fit_test[0]))
-print("IM-II:\t(%0.3f,%0.3f)"%(epsilon_test[0],Delta_fit_test_2[0]))
-
-
-# Define an epsilon vector
-epsilon_vector = list(np.linspace(0.0,10.0,num=100))
-# PLM: Calculate the relative fit
-Delta_fit_pow = symmetry_based_model_selection.sym_model_sel(t,R,epsilon_vector,para_pow,"power_law")
-# IM_II: Calculate the relative fit
-Delta_fit_mixed = symmetry_based_model_selection.sym_model_sel(t,R,epsilon_vector,para_mixed,"mixed")
-# Save the power law
-write_output.plot_LaTeX_2D(epsilon_vector,Delta_fit_pow,"../Figures/Fig3/Input/PLM.tex","color=pow_1,line width=2pt,","PLM")
-# Save the mixed
-write_output.plot_LaTeX_2D(epsilon_vector,Delta_fit_mixed,"../Figures/Fig3/Input/IM_II.tex","color=mixed_1,line width=2pt,","IM-II")
