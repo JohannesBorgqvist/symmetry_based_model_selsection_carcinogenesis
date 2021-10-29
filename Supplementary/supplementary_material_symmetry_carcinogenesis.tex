@@ -23,6 +23,13 @@
     \usepackage{graphicx}
     % Set the graphics-path, i.e. where we store the figures
     \graphicspath{{./images/}}
+    % To allow for greek letters in equation mode
+    \usepackage{sansmathfonts}
+    \usepackage{sansmath}
+    \sansmath
+    % To allow for alignment in tables
+    \usepackage{tabularx}
+
 % THE DOCUMENT BEGINS
 \begin{document}
 
@@ -34,20 +41,44 @@
         \setcounter{footnote}{1}
        Johannes Borgqvist\footnote{\label{Oxford}Wolfson Centre for Mathematical Biology, Mathematical Institute, University of Oxford, United Kingdom}\footnote{\label{WennerGren} Research fellow, Wenner-Gren Foundations, Sweden}\footnote{\label{Linacre} Linacre College, University of Oxford, United Kingdom}\footnote{E-mail: \url{Johannes.Borgqvist@maths.ox.ac.uk}} and Sam Palmer\footref{Oxford}.
 
-  
+
   
 \end{titlepage}
 
+       \renewcommand*{\thefootnote}{\arabic{footnote}}
+        \setcounter{footnote}{0}
 \tableofcontents
 \listoffigures
 \listoftables
 \newpage
 
 
+
+
 \section{Finding the symmetries of the three candidate\\models}
 
 \input{./Input/derivation_symmetries}
 
+\section{Summary of the calculated symmetries}
+
+\input{./Input/symmetries}
+
+\section{Processing of the data and the curve fitting}
+
+\input{./Input/data_processing}
+
+
+\section{Analytical validation of the $t$-directional generators of the PLM and the IM-II}
+
+\input{./Input/ana_val}
+
+\section{Numerical validation of the $t$-directional  symmetries of the PLM and the IM-II}
+
+\input{./Input/num_val}
+
+\section{Illustration of the symmetry based model selection for the PLM and the IM-II}
+
+\input{./Input/model_sel}
 
 \newpage
 \bibliography{model_selection_symmetries_cancer} 

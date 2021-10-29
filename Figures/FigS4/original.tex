@@ -1,0 +1,54 @@
+\documentclass[tikz,crop,convert={density=200,outext=.png},border=0.4cm]{standalone}
+
+\usepackage{pgfplots}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta}
+\usepackage{physics}
+\usepackage{xcolor}
+\definecolor{pow_1}{RGB}{0,68,27}
+\pgfplotsset{compat=newest,
+    %width=6cm,
+    %height=3cm,
+    scale only axis=true,
+    max space between ticks=25pt,
+    try min ticks=5,
+    every axis/.style={
+        axis y line=middle,
+        axis x line=left,
+        axis line style={thick,->,>=latex, shorten >=-.3cm}
+    },
+    every axis plot/.append style={thick},
+    tick style={black, thick},
+}
+\tikzset{
+    semithick/.style={line width=0.8pt},
+}
+\usepgfplotslibrary{groupplots}
+\usepgfplotslibrary{dateplot}
+% Document begins
+\begin{document}
+\begin{tikzpicture}
+  % The axis of the plot
+\begin{axis}[
+    title style = {align=left},
+    xlabel={Age, $t$},
+    ylabel={Incidence, $R(t)$},
+    x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
+    y label style={at={(axis description cs:-0.1,0.55)},rotate=90,anchor=south},    
+    xmin=0, xmax=82.5,
+    %ymin=-20, ymax=20,
+    xtick={0,10,...,60,70,82},
+    %ytick={-15,-10,...,15},
+    legend style={at={(axis description cs:0.05,0.9)},anchor=west},    
+    %legend pos=north west,
+    %ymajorgrids=true,
+    grid style=dashed,
+]
+% Plot the data
+\input{./Input/colon_cancer.tex}
+% Plot the model
+%\input{./Input/power_law.tex}
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

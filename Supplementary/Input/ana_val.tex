@@ -1,0 +1,54 @@
+The validation of the $t$-direcitonal generators of the PLM and the IM-II is conducted using the \textit{linearised symmetry condition}. More precisely, by plugging in the tangents of these generators into \eqref{eq:lin_sym} on page \pageref{eq:lin_sym} it is necessary that the resulting left hand side equals the resulting right hand side. Using this methodogy, it is possible to validate the scaling generator of the PLM given by
+$$X_{1,1}=t\partial_t$$
+and the generator of the IM-II given by
+$$X_{2}=\left(e^{\alpha t}\exp\left(-e^{-\alpha(t-\tau)}\right)\right)\partial_t.$$
+These two generators have two properties in common. Firstly, the tangent in the $t$-direction is univariate as $\xi(t,R)=\xi(t)$ and the tangent in the $R$-direction is zero implying that $\eta(t,R)=0$. Consequently, the linearised symmetry condition in \eqref{eq:lin_sym} on page \pageref{eq:lin_sym} decomposes to the following
+\begin{equation}
+-\dv{\xi(t)}{t}\omega(t,R)=\xi(t)\pdv{\omega(t,R)}{t}
+  \label{eq:lin_sym_val}
+\end{equation}
+where $\omega(t,R)$ is the reaction term of the ODE corresponding to a certain model. The reaction term of the PLM is given by
+$$\omega(t,R)=\gamma\dfrac{R}{t}$$
+and the reaction term of the IM-II is given by
+$$\omega(t,R)=\frac{\alpha}{A}R^2e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right).$$
+Thus, using these reactions terms and the corresponding generators the validation procedure is conducted by controlling that \eqref{eq:lin_sym_val} is satisfied.
+
+For the scaling generator $X_{1,1}$ of the PLM, the LHS of \eqref{eq:lin_sym_val} equals the following
+
+\begin{align*}
+  -\dv{\xi(t)}{t}\omega(t,R)&=-\underset{=1}{\underbrace{\dv{}{t}\left(t\right)}}\gamma\dfrac{R}{t}=-\gamma\dfrac{R}{t}
+\end{align*}
+and the RHS of \eqref{eq:lin_sym_val} is given by the following calculations
+\begin{align*}
+  \xi(t)\pdv{\omega(t,R)}{t}&=t\pdv{}{t}\left(\gamma\dfrac{R}{t}\right)=-t\gamma\dfrac{R}{t^2}=-\gamma\dfrac{R}{t}.\\
+\end{align*}
+Hence, the scaling generator $X_{1,1}$ of the PLM satisfies the linearised symmetry condition in \eqref{eq:lin_sym_val}.
+$$\qed$$
+
+In the case of the generator $X_2$ of the IM-II, the calculations are slightly longer but the methodology is the same. Starting with the LHS of \eqref{eq:lin_sym_val}, the first factor involving the time derivative is given by the following calculations
+
+\begin{align*}
+  \dv{\xi}{t}&=\dv{}{t}\left(e^{\alpha t}\exp\left(-e^{-\alpha (t-\tau)}\right)\right)\\
+             &=\alpha e^{\alpha t}\exp\left(-e^{-\alpha (t-\tau)}\right)+e^{\alpha t}\exp\left(-e^{-\alpha (t-\tau)}\right)\alpha e^{-\alpha (t-\tau)}\\
+  &=\alpha e^{\alpha t}\exp\left(-e^{-\alpha (t-\tau)}\right)\left(1+e^{-\alpha (t-\tau)}\right).\\
+\end{align*}
+Thus, it follows that the LHS of \eqref{eq:lin_sym_val} in the case of the generator $X_{2}$ for the IM-II is given by
+\begin{align*}
+  -\dv{\xi(t)}{t}\omega(t,R)&=-\alpha e^{\alpha t}\exp\left(-e^{-\alpha (t-\tau)}\right)\left(1+e^{-\alpha (t-\tau)}\right)\frac{\alpha}{A}R^2e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)\\
+  &=-\dfrac{\alpha^2R^2}{A}e^{\alpha\tau}\left(1+e^{-\alpha (t-\tau)}\right).
+\end{align*}
+Similarly, the second factor involving the time derivative in the RHS of \eqref{eq:lin_sym_val} for the generator $X_{2}$ of the IM-II is given by the following calculations
+
+\begin{align*}
+  \pdv{\omega(t,R)}{t}&=\pdv{}{t}\left(\frac{\alpha}{A}R^2e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)\right)\\
+                      &=\dfrac{\alpha}{A}R^2\left(-\alpha e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)+e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)-\alpha e^{-\alpha(t-\tau)}\right)\\
+  &=-\dfrac{\alpha^2R^2}{A} e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)\left(1+e^{-\alpha (t-\tau)}\right)
+\end{align*}
+and thus the RHS is given by
+\begin{align*}
+  \pdv{\omega(t,R)}{t}\xi(t)&=-\dfrac{\alpha^2R^2}{A} e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)\left(1+e^{-\alpha (t-\tau)}\right)\left(e^{\alpha t}\exp\left(-e^{-\alpha(t-\tau)}\right)\right)\\
+  &=-\dfrac{\alpha^2R^2}{A}e^{\alpha\tau}\left(1+e^{-\alpha (t-\tau)}\right).
+\end{align*}
+Consequently, the generator $X_{2}$ of the IM-II satisfies \eqref{eq:lin_sym_val} since the LHS equals the RHS.
+$$\qed$$
+The symmetries corresponding to these generators, i.e. $\Gamma_{1,1}$ and $\Gamma_{2}$ respectively, were obtained by using the exponential map in \eqref{eq:exp_map} on page \pageref{eq:exp_map}. Subsequently, these operators are validated numerically by using the defining property of a symmetry, namely that it maps solution curves to other solutions curves. 

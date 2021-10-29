@@ -12,6 +12,8 @@
    (TeX-run-style-hooks
     "latex2e"
     "./Input/derivation_symmetries"
+    "./Input/data_processing"
+    "./Input/num_val"
     "article"
     "art12"
     "geometry"
@@ -28,7 +30,9 @@
     "physics"
     "footmisc"
     "url"
-    "graphicx")
+    "graphicx"
+    "sansmathfonts"
+    "sansmath")
    (LaTeX-add-labels
     "Oxford"
     "WennerGren"

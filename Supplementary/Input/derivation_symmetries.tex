@@ -1,10 +1,426 @@
-The aim is to find the symmetries of three models predicting risk profiles over time. The focus of the article is the following three models
+The aim is to find the symmetries of three models predicting risk profiles over time. The focus of the article is the following three models \cite{Palmer1883}:
 
 \begin{align}
 R(t)&=Ae^{\alpha t},\label{eq:exp}\\
 R(t)&=At^{\gamma},\label{eq:power_law}\\
-R(t)&=\dfrac{A}{e^{e^{-\alpha(t-\tau)}}-1}.\label{eq:mixed}
+R(t)&=\dfrac{A}{\exp\left(e^{-\alpha(t-\tau)}\right)-1}.\label{eq:mixed}
 \end{align}
+More precisely, the comparison in the main article is between \eqref{eq:power_law} and \eqref{eq:mixed} as these two models fit the data the best. Despite the fact that the model in \eqref{eq:exp} is excluded from the symmetry test due to its bad fit its symmetries are also calculated in this supplementary document. 
+
+These models are referred to as the IM-I in \eqref{eq:exp}, the \textit{power law model} (PLM) in \eqref{eq:power_law} and the IM-II in \eqref{eq:mixed}. The idea is to use the symmetry based framework for model selection presented in \cite{ohlsson2020symmetry} on these models and the data presented in \cite{Palmer1883} in order to deduce which model that best predicts the risk profile. To this end, it is necessary to re-write these models as \textit{ordinary differential equations} (ODEs) and then solve the so called \textit{linearised symmetry condition} \cite{hydon2000symmetry} in order to find the symmetries of the models at hand. Subsequently, the ODE models will be derived, then the theory of symmetries of first order ODEs will be described briefly and then the symmetries for each of the three models will be derived.
 
 
-The three models originally presented in \cite{Palmer1883} will be referred to as the exponential model in \eqref{eq:exp}, the power law model in \eqref{eq:power_law} and the mixed model in \eqref{eq:mixed}. 
+\subsection{Derivation of the ODE models}
+As symmetry methods are well-established for differential equations, it is advantageous to formulate the candidate models in this way. The corresponding ODE formulation of each model is derived by differentiating the curves in \eqref{eq:exp} to \eqref{eq:mixed} and then substituting the equation for the actual curve into the equation for the derivative. For \eqref{eq:exp}, we have
+
+$$\dv{R}{t}=\dv{}{t}\left(Ae^{\alpha t}\right)=\alpha \underset{=R}{\underbrace{Ae^{\alpha t}}}=\alpha R$$
+so
+$$\dv{R}{t}=\alpha R.$$
+For \eqref{eq:power_law}, we have
+$$\dv{R}{t}=\dv{}{t}\left(At^{\gamma}\right)=\gamma A t^{\gamma-1}=\gamma\underset{=R}{\underbrace{\left(At^{\gamma}\right)}}t^{-1}=\gamma\dfrac{R}{t}$$
+so
+$$\dv{R}{t}=\gamma\dfrac{R}{t}.$$
+
+Lastly, for \eqref{eq:mixed} we have
+
+
+\begin{align*}
+  \dv{R}{t}&=\dv{}{t}\left[A\left(\exp\left(e^{-\alpha(t-\tau)}\right)-1\right)^{-1}\right]\\
+           &=-A\left(\exp\left(e^{-\alpha(t-\tau)}\right)-1\right)^{-2}\exp\left(e^{-\alpha(t-\tau)}\right)\left(-\alpha e^{-\alpha(t-\tau)}\right)\\            &=\dfrac{\alpha}{A}\underset{=R^2}{\underbrace{\left(\dfrac{A}{\exp\left(e^{-\alpha(t-\tau)}\right)-1}\right)^2}}\exp\left(e^{-\alpha(t-\tau)}\right)e^{-\alpha(t-\tau)}\\
+  &=\dfrac{\alpha}{A}R^2e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)
+\end{align*}
+so
+$$\dv{R}{t}=\dfrac{\alpha}{A}R^2e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right).$$
+
+An important classification of an ODE is whether or not it is autonomous. This term implies that there is no dependence on the variable, e.g. the time $t$, in the right hand side of the ODE. As can be seen by comparing the ODE formulations it is possible to conclude that the three candidate models are qualitatively different (Tab \ref{tab:ODEs}). This qualitative difference is reflected in the symmetries as a well-known symmetry that characterises the autonomous family of ODEs which is not a symmetry of non-autonomous ODEs is the famous \textit{translation symmetry} which will be described later in the text.
+
+Throughout the text, the right hand side of the ODE will be denoted by $\omega(t,R)$ and this will be referred to as the \textit{reaction term}. More precisely, for the three models predicting the risk profiles the ODEs will be written on the following form:
+
+\begin{equation}
+\dv{R}{t}=\omega(t,R).
+\label{eq:general_ODE}
+\end{equation}
+
+\begin{table}[htbp!]
+\begin{center}
+\caption[ODE formulations of the three models.]{\textit{ODE formulations of the three models}. In the three columns from left to right the following is presented: the original model, the ODE formulation of the model and the characterisation of the ODE as either autonomous or non-autonomous. }
+\begin{tabular}{||c|c|c|c||}
+  \hline\hline
+ & & & \\
+\textit{Model}  & \textit{Curve} & \textit{ODE} & \textit{Characterisation}\\
+ & & & \\  
+  \hline\hline
+ & & & \\
+IM-I & $R(t)=Ae^{\alpha t}$  & $\dv{R}{t}=\alpha R$ & Autonomous\\
+ & & & \\
+  \hline
+ & & & \\
+PLM & $R(t)=At^{\gamma}$  & $\dv{R}{t}=\gamma\frac{R}{t}$ & Non-autonomous\\
+ & & & \\
+  \hline
+ & & & \\
+IM-II & $R(t)=\dfrac{A}{\exp\left(e^{-\alpha(t-\tau)}\right)-1}$  & $\dv{R}{t}=\frac{\alpha}{A}R^2e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)$ & Non-autonomous\\
+ & & & \\
+  \hline\hline
+  \end{tabular}
+ \label{tab:ODEs}
+\end{center}
+\end{table}
+
+
+Before the symmetries of the three models are derived, a brief presentation of the theory of symmetries are presented in order to properly define the involved concepts. 
+
+\subsection{Mathematical theory of symmetries of a single first order ODE}
+In order for the symmetry based model selection framework proposed in \cite{ohlsson2020symmetry} to work, it is necessary to find symmetries that are \textit{unique} to each model. Before these calculations are conducted, the notion of a symmetry as a mathematical object will be presented.  
+
+A symmetry denoted by $\Gamma$ is an operator that maps a solution curve $\gamma=(t,R(t))$ to another solution curve $\hat{\gamma}=(\hat{t},\hat{R})$ \cite{hydon2000symmetry}. Mathematically, this can be expressed as follows: $\Gamma:\gamma\mapsto\hat{\gamma}$. A more rigorous definition of these operators requires the introduction of some notation. If $B=\left\{t\in\mathbb{R}\right\}\simeq\mathbb{R}$ denotes the so called \textit{base space} which is the space of the variable and $F=\left\{y(t)\in\mathbb{R}\right\}\simeq\mathbb{R}$ denotes the so called \textit{fibre} being the space of the dependent variable or the function then the solutions curves $\gamma=(t,R(t))$ reside in the so called \textit{total space} $E=B\times F\simeq\mathbb{R}^2$ being the product space of the two previously mentioned spaces. Now, a pointwise symmetry $\Gamma$ maps every point on a solution curve to another point on another solution curve which can be summarised as follows $\Gamma:E\mapsto E$. In the context of this article, we are interested in symmetries that are so called $\mathcal{C}^\infty$ diffeomorphisms (an isomorphism of smooth manifolds) which are parametrised by a single parameter $\epsilon$. In particular, this means that the symmetry is continuous in the parameter $\epsilon$, it is also invertible and it can be represented as a Taylor series around $\epsilon=0$ \cite{hydon2000symmetry}. From now on, when we say that we are looking for a symmetry it will be understood to be of this type, and we will denote these by
+
+$$\Gamma (\epsilon):(t,R)\mapsto(\hat{t}(\epsilon),\hat{R}(\epsilon)).$$
+
+Due to the continuity of these symmetries, it is possible to obtain a local description of their action.
+
+The key for finding symmetries is the local representation of them in terms of their Taylor series. For a given symmetry $\Gamma (\epsilon):(t,R)\mapsto(\hat{t}(\epsilon),\hat{R}(\epsilon))$, the Taylor expansion of the transformed coordinates around $\epsilon=0$ is the following
+
+\begin{align*}
+\hat{t}(\epsilon)&=t+\xi(t,R)\epsilon+\mathcal{O}\left(\epsilon^2\right)\\
+\hat{R}(\epsilon)&=t+\eta(t,R)\epsilon+\mathcal{O}\left(\epsilon^2\right)\\
+\end{align*}
+where
+$$\xi(t,R)=\left.\dv{\hat{t}}{\epsilon}\right|_{\epsilon=0}\;\;\mathrm{and}\;\;\eta(t,R)=\left.\dv{\hat{R}}{\epsilon}\right|_{\epsilon=0}.$$
+These latter two terms $\left(\xi,\eta\right)$ are referred to as the tangents of the symmetry and they define the vector field
+\begin{equation}
+  X=\xi(t,R)\partial t+\eta(t,R)\partial R
+  \label{eq:generator}
+\end{equation}
+
+  
+which is called the \textit{infinitesimal generator of the Lie group} as the set of symmetries form a one parameter Lie group \cite{hydon2000symmetry}. By defining the exponential map as follows
+
+$$e^{\epsilon X}=\sum_{j=0}^{\infty}\frac{\epsilon^j}{j!}X^j$$
+the symmetry $\Gamma:(t,R)\mapsto(\hat{t}(\epsilon),\hat{y}(\epsilon))$ is generated by the infinitesimal generator of the Lie group in the following manner
+\begin{equation}
+  \Gamma(\epsilon):(t,R)\mapsto\left(e^{\epsilon X}t,e^{\epsilon X}R\right).
+  \label{eq:exp_map}
+\end{equation}
+In other words, it is enough to calculate the tangents to obtain the generator $X$ in \eqref{eq:generator} which subsequently can be used to obtain the symmetries through the exponential map according to \eqref{eq:exp_map}. Thus, the task of finding symmetries revolves around finding the tangents $\xi$ and $\eta$ in the infinitesimal generator of the Lie group $X$.
+
+The tangents can be found by solving the \textit{linearised symmetry condition}. For a first order ODE \cite{hydon2000symmetry}, this condition corresponds to solving a two dimensional PDE which looks as follows:
+
+\begin{equation}
+  \pdv{\eta}{t}+\left(\pdv{\eta}{R}-\pdv{\xi}{t}\right)\omega(t,R)-\pdv{\xi}{R}\omega(t,R)^2=\xi\pdv{\omega}{t}+\eta\pdv{\omega}{R}.
+  \label{eq:lin_sym}
+\end{equation}
+Again, $\omega$ corresponds to the reaction term of the ODE in question as in \eqref{eq:general_ODE}. So the tangents $(\xi,\eta)$ are found by solving the linearised symmetry condition in \eqref{eq:lin_sym}, and then the symmetries are obtained using the exponential map as in \eqref{eq:exp_map}. Furthermore, it is possible to classify the action of a symmetry in a similar way to the classification of the ODEs in terms of their qualitative behaviour (Tab \ref{tab:ODEs}). The reason why this classification is necessary is on account of the fact that symmetries that map solutions curves to \textit{different} solution curves are required for the model selection procedure to work.
+
+The so called \textit{reduced characteristic} denoted by $\overline{Q}$ is used to classify symmetries. For a first order ODE, this is defined as follows: \cite{hydon2000symmetry}
+
+\begin{equation}
+\overline{Q}(X)=\left.\overline{Q}(t,R)\right|_{\xi,\eta\;\textrm{defined by}\;X}=\eta(t,R)-\omega(t,R)\xi(t,R).
+\label{eq:Q}
+\end{equation}
+If $\overline{Q}(X)=0$ for a specific solution $\gamma=(t,R)$, the solution is \textit{trivial} under the action of the symmetry. This implies that the symmetry maps points along the \textit{same} solution curve. Moreover, if $\overline{Q}(X)\equiv 0$ then the symmetry itself is \textit{trivial} meaning that it does not transform any point for any solution curve (for an illustration of the geometrical interpretation of the characteristic see \cite{borgqvist2020phdthesis}). In order for the symmetry framework to work, we require at least one unique and \textit{non-trivial} symmetry for each model, i.e. $\overline{Q}(X)\neq 0$ for the particular symmetry $X$ at hand, meaning that points on a solution curve are transformed to points on \textit{another} solution curve for each model. Hence, after the linearised symmetry condition is solved for each of the three models, the calculated symmetries will be characterised using the reduced characteristic in \eqref{eq:Q}. 
+
+
+\subsection{Derivation of the symmetries}
+For the purpose of selecting a model, we are looking for three non-trivial symmetries $\Gamma_1(\epsilon),\Gamma_2(\epsilon)$ and $\Gamma_3(\epsilon)$ that are \textit{unique} to each of the candidate models in \eqref{eq:exp}, \eqref{eq:power_law} and \eqref{eq:mixed} respectively. Subsequently, the derivation of each of these three symmetries is presented in chronological order. 
+%-------------------------------------------------------------------------------------------
+% THE IM-I
+%-------------------------------------------------------------------------------------------
+\subsubsection{The IM-I}
+For the sake of notation, let's denote the tangents in the infinitesimal generator of the Lie group for the IM-I by $\xi_3(t,R)$ and $\eta_3(t,R)$ respectively. The reaction term in \eqref{eq:exp} is given by $\omega_3(t,R)=\alpha R$. For the partial derivatives in the linearised symmetry condition, we have
+
+$$\pdv{\omega_3}{t}=0,\;\;\pdv{\omega_3}{R}=\alpha\;\;\mathrm{and}\;\;\omega_3^2=\alpha^2R^2 .$$
+Plugging in these expressions into \eqref{eq:lin_sym} yields
+$$\pdv{\eta_3}{t}+\left(\pdv{\eta_3}{R}-\pdv{\xi_3}{t}\right)\alpha R-\pdv{\xi_3}{R}\alpha^2R^2=\eta_3\alpha$$
+and by organising this as a polynomial in $R$, the above expression can be written as follows:
+$$\left[\pdv{\eta_3}{t}-\alpha\eta_3\right]R^0+\left[\alpha\left(\pdv{\eta_3}{R}-\pdv{\xi_3}{t}\right)\right]R+\left[\alpha^2\pdv{\xi_3}{R}\right]R^2=0 .$$
+Now, since the monomials $\left\{R^0,R^1,R^2\right\}$ in the above polynomial are linearly independent it follows that the following so called \textit{determining equations} \cite{hydon2000symmetry} must hold:
+\begin{align}
+  \pdv{\eta_3}{t}-\alpha\eta_3&=0,\label{eq:mod_1_det_1}\\
+  \alpha\left(\pdv{\eta_3}{R}-\pdv{\xi_3}{t}\right)&=0,\label{eq:mod_1_det_2}\\
+  \alpha^2\pdv{\xi_3}{R}&=0.\label{eq:mod_1_det_3}
+\end{align}
+From \eqref{eq:mod_1_det_1}, it follows that $\eta_3$ must be of the form
+$$\eta_{3}(t,R)=C_1(R)e^{\alpha t} .$$
+From \eqref{eq:mod_1_det_3}, it follows that that the tangent in the time direction is univariate implying that $\xi_3(t,R)=\xi_3(t)$. Plugging in these two expressions into \eqref{eq:mod_1_det_2} results in the following equation
+$$C_1'(R)e^{\alpha t}=\pdv{\xi_3}{t}$$
+and since $\xi_3$ is independent of $R$ it must hold that $C_1'(R)=C_2$ is a constant and hence
+$$C_1(R)=C_2R+C_3$$
+for two arbitrary constants $C_2,C_3$. Moreover, the solution to the above equation is given by the following calculations
+\begin{align*}
+  \pdv{\xi_3}{t}&=C_2e^{\alpha t}\\
+  \Longrightarrow \xi_3(t)&=C_4+\dfrac{C_2}{\alpha}e^{\alpha t}
+\end{align*}
+for an additional arbitrary constant $C_4$. In summary, the tangents are given by
+\begin{align*}
+  \xi_3(t,R)&=C_4+\dfrac{C_2}{\alpha}e^{\alpha t},\\
+  \eta_3(t,R)&= \left(C_2R+C_3\right)e^{\alpha t}.\\   
+\end{align*}
+Now, by plugging in these expressions into \eqref{eq:generator}, it is possible to organise the expressions according to the arbitrary constants $C_2,C_3$ and $C_4$ respectively. It follows that the most general infinitesimal generator of the Lie group $X_1$ for the IM-I in \eqref{eq:exp} is given by
+\begin{align*}
+  X_3&=\left(C_4+\dfrac{C_2}{\alpha}e^{\alpha t}\right)\partial_t+\left(\left(C_2R+C_3\right)e^{\alpha t}\right)\partial_R\\
+   &=C_2\left[\underset{=X_{3,0}}{\underbrace{\frac{1}{\alpha}e^{\alpha t}\partial_t+Re^{\alpha t}\partial_R}}\right]+C_4\left[\underset{=X_{3,1}}{\underbrace{\partial_t}}\right]+C_3\left[\underset{=X_{3,2}}{\underbrace{e^{\alpha t}\partial_R}}\right]\\
+     &=C_2X_{3,0}+C_4X_{3,1}+C_3X_{3,2},\\
+  \Longrightarrow X_3&=C_2X_{3,0}+C_4X_{3,1}+C_3X_{3,2}.
+\end{align*}
+Note that the generator $X_3$ in fact corresponds to a set of generators. This set of generators is called the \textit{Lie Algebra} which is in fact a special type of vector space\footnote{A Lie Algebra is a vector space that is also equipped with an operation referred to as the Lie bracket and this type if vector space is closed under the Lie Bracket in addition to the standard requirements of a vector space.} \cite{hydon2000symmetry}. Thus, the set of generators is spanned by $\left\{X_{3,0},X_{3,1},X_{3,2}\right\}$ which forms a basis of the Lie algebra of the model in \eqref{eq:exp} and thus we have the following three generators to choose from:
+\begin{align}
+  X_{3,0}&=\frac{1}{\alpha}e^{\alpha t}\partial_t+Re^{\alpha t}\partial_R,\label{eq:mod_1_gen_1}\\
+  X_{3,1}&=\partial_t,\label{eq:translation}\\
+  X_{3,2}&=e^{\alpha t}\partial_R.\label{eq:mod_1_gen_2}
+\end{align}
+A non-trivial generator is chosen for the model selection procedure. Thus, each of these candidate generators are subsequently analysed by means of the reduced characteristic $\overline{Q}$ in \eqref{eq:Q}. For \eqref{eq:mod_1_gen_1}, the following holds
+$$\overline{Q}(X_{3,0})=\eta_{3,0}-\omega_{3}\xi_{3,0}=Re^{\alpha t}-\left(\alpha R\right)\left(\frac{1}{\alpha}e^{\alpha t}\right)=0$$
+and hence the generator $X_{3,0}$ is \textit{trivial}. For \eqref{eq:translation}, the following holds
+$$\overline{Q}(X_{3,1})=\eta_{3,2}-\omega_{3}\xi_{3,2}=0-\left(\alpha R\right)\left(1\right)=-\alpha R\neq 0$$
+and hence the generator $X_{3,1}$ is \textit{non-trivial}.  For \eqref{eq:mod_1_gen_2}, the following holds
+$$\overline{Q}(X_{3,2})=\eta_{3,2}-\omega_{3}\xi_{3,2}=e^{\alpha t}-\left(\alpha R\right)\left(0\right)=e^{\alpha t}\neq 0$$
+and hence the generator $X_{3,2}$ is \textit{non-trivial}. Thus, both symmetries stemming from the two non-trivial generators $X_{3,1}$ and $X_{3,2}$ will be calculated next. 
+
+
+The generator $X_{3,1}$ is so well-known that it has a name and it is called the \textit{translation generator}. The reason why it is well-known is because it is common to all autonomous models. In order to find the corresponding symmetry, it is necessary to plug in the translation generator $X_{3,1}$ in \eqref{eq:translation} into the exponential map according to \eqref{eq:exp_map}.
+
+For the transformed coordinate $\hat{t}(\epsilon)$, it is possible to apply the generator $X_{3,1}$ recursively on $t$. It follows that
+
+\begin{align*}
+X^{0}_{3,1}(t)&=t,\\  
+X^{1}_{3,1}(t)&=\partial t(t)=1,\\
+X^{2}_{3,1}(t)&=X_{3,1}(X_{3,1}(t))=X_{3,1}(1)=\partial t(1)=0,\\
+X^{3}_{3,1}(t)&=X_{3,1}(X_{3,1}(t)^2)=X_{3,1}(0)=\partial t(0)=0,\\
+&\vdots
+\end{align*}
+and thus it is only the first two terms in the exponential map that are non-zero. Note that the zeroth power of any generator corresponds to the trivial generator which leaves the point it transforms unchanged which is why the very first term satisfies $X^{0}_{3,1}(t)=t$. By \eqref{eq:exp_map}, it follows that
+$$e^{\epsilon X_{3,1}}t=\sum_{j=0}^{\infty}\frac{\epsilon^j}{j!}X_{3,1}^j(t)=t+\epsilon.$$
+Similarly, for the transformed coordinate $\hat{R}(\epsilon)$, the generator $X_{3,1}$ is applied recursively on $R$ which gives 
+\begin{align*}
+X^{0}_{3,1}(R)&=R,\\  
+X^{1}_{3,1}(R)&=\partial t(R)=0,\\
+X^{2}_{3,1}(R)&=X_{3,1}(X_{3,1}(R))=X_{3,1}(0)=\partial t(0)=0,\\
+X^{3}_{3,1}(R)&=X_{3,1}(X_{3,1}(R)^2)=X_{3,1}(0)=\partial t(0)=0,\\
+&\vdots
+\end{align*}
+and thus all terms are zero for this coordinate with the exception of the zeroth trivial term $X^{0}_{3,1}$. By \eqref{eq:exp_map}, the second coordinate is given by
+$$e^{\epsilon X_{3,1}}R=\sum_{j=0}^{\infty}\frac{\epsilon^j}{j!}X_{3,1}^j(R)=R.$$
+In conclusion, the translation symmetry $\Gamma_{3,1}(\epsilon)$ associated to the IM-I in \eqref{eq:exp} is given by
+$$\Gamma_{3,1}(\epsilon):(t,R)\mapsto(t+\epsilon,R).$$
+For most generators including the generator $X_{3,2}=e^{\alpha t}\partial R$, the corresponding symmetry is calculated by using a change of coordinates. More precisely, instead of calculating the symmetry using the exponential map it is beneficial to use a coordinate change from $(t,R)$ to, say, $(s,r)$ where the latter coordinates have the same properties as the translation generator in $X_{3,1}$. These coordinates are called the \textit{canonical coordinates} \cite{hydon2000symmetry} and they satisfy the following criteria
+$$\Gamma_{3,2}:(s,r)\mapsto(s+\epsilon,r).$$
+In other words, the transformed canonical coordinates satisfy $(\hat{s}(\epsilon),\hat{r}(\epsilon))=(s+\epsilon,r)$ which is equivalently formulated in terms of the infinitesimal generator of the Lie group by the equation $X_{3,2}=\partial_s$. The coordinate change from $(t,R)$ to $(s,r)$ is characterised by the following equations \cite{hydon2000symmetry}
+
+\begin{align*}
+\xi_{3,2}(t,R)\pdv{r}{t}+\eta_{3,2}(t,R)\pdv{r}{R}&=0,\\
+\xi_{3,2}(t,R)\pdv{s}{t}+\eta_{3,2}(t,R)\pdv{s}{R}&=1.\\
+\end{align*}
+In the case of the generator $X_{3,2}$, the tangents are given by $(\xi_{3,2},\eta_{3,2})=\left(0,e^{\alpha t}\right)$ which results in the equations
+\begin{align*}
+e^{\alpha t}\pdv{r}{R}&=0,\\
+e^{\alpha t}\pdv{s}{R}&=1.\\
+\end{align*}
+The solution to the first equation is that $r$ is a univariate function according to $r(t,R)=r(t)$ so we might as well choose $r=t$ implying that the symmetry will not move points in the $t$-direction which is in fact the case as $\xi_{3,2}=0$. The second equation yields the canonical coordinate
+$$s=Re^{-\alpha t}=Re^{-\alpha r}.$$
+By solving this equation for $R$ it follows that
+$$R=se^{\alpha r}.$$
+Now, the transformed coordinate $\hat{t}$ is defined in terms of the canonical coordinate $r$ as follows
+$$\hat{t}(\epsilon)=\hat{r}(\epsilon)=r=t.$$
+The transformed coordinate $\hat{R}$ is defined in terms of both canonical coordinates $s$ and $r$ and is given by the following calculations
+
+\begin{align*}
+  \hat{R}(\epsilon)&=\hat{s}(\epsilon)e^{\alpha \hat{r}(\epsilon)}\\
+         &=\left(s+\epsilon\right)e^{\alpha r}\\
+         &=\underset{=R}{\underbrace{se^{\alpha r}}}+\epsilon e^{\alpha r}=R+\epsilon e^{\alpha t}\\
+    \Longrightarrow \hat{R}(\epsilon)&=R+\epsilon e^{\alpha t}.
+\end{align*}
+Consequently, the infinitesimal generator of the Lie group given by
+$$X_{3,2}=e^{\alpha t}\partial R$$
+generates the following non-trivial symmetry
+$$\Gamma_{3,2}(\epsilon):(t,R)\mapsto (t,R+\epsilon e^{\alpha t}) .$$
+%-------------------------------------------------------------------------------------------
+% THE PLM
+%-------------------------------------------------------------------------------------------
+\subsubsection{The PLM}
+Denote the tangents in the infinitesimal generator of the Lie group for the PLM by $\xi_1(t,R)$ and $\eta_1(t,R)$ respectively. The reaction term in \eqref{eq:exp} is given by
+
+$$\omega_1(t,R)=\frac{\gamma R}{t} .$$
+
+For the partial derivatives in the linearised symmetry condition, we have
+
+$$\pdv{\omega_1}{t}=-\frac{\gamma R}{t^2},\;\;\pdv{\omega_1}{R}=\frac{\gamma}{t}\;\;\mathrm{and}\;\;\omega_1^2=\frac{\gamma^2 R^2}{t^2}.$$
+Plugging in these derivatives into the linearised symmetry condition yields the following equation
+$$\pdv{\eta_1}{t}+\left(\pdv{\eta_1}{R}-\pdv{\xi_1}{t}\right)\frac{\gamma R}{t}-\pdv{\xi_1}{R}\frac{\gamma^2 R^2}{t^2}=-\xi_1\frac{\gamma R}{t^2}+\eta_1\frac{\gamma}{t}$$
+which can be organised according to the different powers of R
+$$\left[\pdv{\eta_1}{t}-\eta_1\frac{\gamma}{t}\right]R^0+\left[\left(\pdv{\eta_1}{R}-\pdv{\xi_1}{t}\right)\frac{\gamma }{t}+\xi_1\frac{\gamma }{t^2}\right]R^1-\left[\pdv{\xi_1}{R}\frac{\gamma^2}{t^2}\right]R^2=0.$$
+Since the monomials $\left\{R^0,R^1,R^2\right\}$ are linearly independent, the following determining equations must hold
+\begin{align}
+  \pdv{\eta_1}{t}-\eta_2\frac{\gamma}{t}&=0\label{eq:mod_2_det_1},\\
+  \left(\pdv{\eta_1}{R}-\pdv{\xi_1}{t}\right)\frac{\gamma }{t}+\xi_1\frac{\gamma }{t^2}&=0\label{eq:mod_2_det_2},\\
+\pdv{\xi_1}{R}\frac{\gamma^2}{t^2}&=0.\label{eq:mod_2_det_3}  
+\end{align}
+By \eqref{eq:mod_2_det_3}, the tangent $\xi$ is a univariate function of the variable $t$, i.e. $\xi(t,R)=\xi(t)$. By \eqref{eq:mod_2_det_1}, the following calculations hold
+
+\begin{align*}
+  \dv{\eta_1}{t}&=\dfrac{\gamma\eta_1}{t},\\
+  \Longrightarrow \dfrac{\dd\eta_1}{\eta_1}&=\gamma\dfrac{\dd t}{t},\\
+  \Longrightarrow \ln\left(\eta_1\right)&=\gamma\ln\left(t\right)+\tilde{C_1}(R)=\ln\left(t^\gamma\right)+\tilde{C_1}(R),\\
+  \Longrightarrow \eta_1(t,R)&=\underset{=C_1(R)}{\underbrace{\exp\left(\tilde{C_1}(R)\right)}}t^\gamma=C_1(R)t^\gamma,                                                                         \end{align*}
+where $C_1(R)$ is an arbitrary function of $R$. By plugging in these two expressions, into \eqref{eq:mod_2_det_2} the following equation must hold
+$$\left(C_1'(R)t^\gamma-\pdv{\xi_1}{t}\right)\frac{\gamma }{t}+\xi_1\frac{\gamma }{t^2}=0.$$
+and since $\xi_2$ is independent of $t$ it must follow that $C_1'(R)=C_2$ and $C_1(R)=C_2R+C_3$ for two arbitrary integration constants $C_2,C_3$. Moreover, the solution to the last ODE is given by the following calculations:
+
+
+\begin{align*}
+  C_2t^\gamma-\pdv{\xi_1}{t}+\frac{\xi_1 }{t}&=0\\
+  \Longrightarrow \pdv{\xi_1}{t}&=\frac{\xi_1 }{t}+C_2t^\gamma\\
+  \left\{\textrm{Multiply with integrating factor}:\;\;\exp(-\ln(t))=\dfrac{1}{\exp(\ln(t))}=\dfrac{1}{t}\right\}&\\
+  \Longrightarrow \dfrac{1}{t}\pdv{\xi_1}{t}&=\frac{\xi_1 }{t^2}+C_2t^{\gamma-1}\\
+  \Longrightarrow \dfrac{1}{t}\pdv{\xi_1}{t}-\frac{\xi_1 }{t^2}&=C_2t^{\gamma-1}\\
+  \Longrightarrow \dv{}{t}\left(\dfrac{1}{t}\xi_1(t)\right)&=C_2t^{\gamma-1}\\
+  \Longrightarrow \dfrac{1}{t}\xi_1(t)&=\int C_2t^{\gamma-1}\dd t=\dfrac{C_2}{\gamma}t^\gamma+C_4\\
+  \Longrightarrow \xi_1(t)=\dfrac{C_2}{\gamma}t^{\gamma+1}+C_4t
+\end{align*}
+where $C_4$ is an additional arbitrary coefficient. Thus, the tangents for the model in \eqref{eq:power_law} are given by
+
+\begin{align*}
+\xi_1(t)&=\dfrac{C_2}{\gamma}t^{\gamma+1}+C_4t,\\
+\eta_1(t,R)&=\left(C_2R+C_3\right)t^\gamma.  
+\end{align*}
+Similarly, as with the previous generator it is possible to organise the most general form of the infinitesimal generator of the Lie group $X_1$ for the PLM in \eqref{eq:power_law} with respect to the integration constants $C_2$, $C_3$ and $C_4$ respectively. This organisation is summarised in the following calculations
+\begin{align*}
+  X_1&=\left[\dfrac{C_2}{\gamma}t^{\gamma+1}+C_4t\right]\partial_t+\left[\left(C_2R+C_3\right)t^\gamma\right]\partial_R\\
+     &=C_2\left[\underset{=X_{1,0}}{\underbrace{\dfrac{t^{\gamma+1}}{\gamma}\partial_t+Rt^{\gamma}\partial_R}}\right]+C_4\left[\underset{=X_{1,1}}{\underbrace{t\partial_t}}\right]+C_3\left[\underset{X_{1,2}}{\underbrace{t^{\gamma}\partial_R}}\right]\\
+&=C_2X_{1,0}+C_4X_{1,1}+C_3X_{1,2}.
+\end{align*}
+In similarity with the previous model, the Lie algebra of the PLM in \eqref{eq:power_law} is spanned by the set of basis generators $\left\{X_{2,1},X_{2,2},X_{2,3}\right\}$ listed below
+\begin{align*}
+  X_{1,0}&=\dfrac{t^{\gamma+1}}{\gamma}\partial_t+Rt^{\gamma}\partial_R,\\
+  X_{1,1}&=t\partial_t,\\
+  X_{1,2}&=t^{\gamma}\partial_R.\\
+\end{align*}
+Similarly as before, these three generators will now be classified as either trivial or non-trivial. For the first generator, the reduced characteristic $\overline{Q}$ in \eqref{eq:Q} is given by
+$$\overline{Q}(X_{1,0})=\eta_{1,0}-\omega_1\xi_{1,0}=Rt^{\gamma}-\left(\dfrac{\gamma R}{t}\right)\left(\dfrac{t^{\gamma+1}}{\gamma}\right)=0$$
+and hence the generator $X_{1,0}$ is trivial. For the second generator, it follows that
+$$\overline{Q}(X_{1,1})=\eta_{1,1}-\omega_1\xi_{1,1}=0-\left(\dfrac{\gamma R}{t}\right)\left(t\right)=\gamma R\neq 0$$
+and hence the generator $X_{1,1}$ is non-trivial. For the third generator, it follows that
+$$\overline{Q}(X_{1,2})=\eta_{1,2}-\omega_1\xi_{1,2}=t^{\gamma}-\left(\dfrac{\gamma R}{t}\right)\left(0\right)=t^{\gamma}\neq 0$$
+and hence the generator $X_{1,2}$ is non-trivial.  Thus, the symmetries generated by $X_{1,1}$ and $X_{1,2}$ respectively will be calculated next.
+
+Just as the translation generator, the generator $X_{1,1}=t\partial t$ has a name which is the \textit{scaling generator}. Its symmetry can be calculated using the exponential map as in \eqref{eq:exp_map}. By applying the generator recursively to $t$, it follows that
+
+\begin{align*}
+  X^{0}_{1,1}(t)&=t\\
+  X^{1}_{1,1}(t)&=t\underset{=1}{\underbrace{\partial_t(t)}}=t\\
+  X^{2}_{1,1}(t)&=X_{1,1}(\underset{=t}{\underbrace{X_{1,1}(t)}})=t\\
+  X^{3}_{1,1}(t)&=X_{1,1}(\underset{=t}{\underbrace{X^{2}_{1,1}(t)}})=t\\  
+  &\vdots
+\end{align*}
+and hence all terms in the exponential map equals $t$ for the scaling generator. Thus, it follows that the transformed coordinate is given by
+$$e^{\epsilon X_{1,1}}t=\sum_{j=0}^{\infty}\frac{\epsilon^j}{j!}\underset{=t}{\underbrace{X_{1,1}^j(t)}}=t\underset{=e^{\epsilon}}{\underbrace{\sum_{j=0}^{\infty}\frac{\epsilon^j}{j!}}}=te^{\epsilon}.$$
+The $R$-coordinate is unaffected by the action of the symmetry implying that
+$$e^{\epsilon X_{1,1}}R=R$$
+and hence the \textit{scaling symmetry} $\Gamma_{2,3}$ is given by
+$$\Gamma_{1,1}(\epsilon):(t,R)\mapsto \left(te^{\epsilon},R\right).$$
+To calculate the symmetry generated by $X_{1,2}=t^{\gamma}\partial_R$, the method based on the canonical coordinates will be used. Note that for this generator, the tangents are given by $\xi_{1,2}=0$ and $\eta_{1,2}=t^{\gamma}$ respectively and the canonical coordinates $(s,r)$ satisfy the following equations
+
+\begin{align*}
+\xi_{1,2}(t,R)\pdv{r}{t}+\eta_{1,2}(t,R)\pdv{r}{R}&=0,\\
+\xi_{1,2}(t,R)\pdv{s}{t}+\eta_{1,2}(t,R)\pdv{s}{R}&=1.\\
+\end{align*}
+By plugging in the tangents $\xi_{1,2}$ and $\eta_{1,2}$, these equation become
+\begin{align*}
+t^{\gamma}\pdv{r}{R}&=0,\\
+t^{\gamma}\pdv{s}{R}&=1.\\
+\end{align*}
+By the same arguments as for the previous model, since the generator $X_{1,2}$ does not transform points in the $t$-direction the second canonical coordinate is set to $r=t$. Consequently, the transformed coordinate for $t$ is given by
+$$\hat{t}(\epsilon)=\hat{r}(\epsilon)=r=t.$$
+The first canonical coordinate is given by
+$$s=\dfrac{R}{t^{\gamma}}$$
+and solving this equation for $R$ as well as re-writing the equation in terms of the canonical coordinates yields
+$$R=st^{\gamma}=sr^{\gamma}.$$
+Lastly, the transformed coordinate for $R$ is given by
+$$\hat{R}(\epsilon)=\hat{s}(\epsilon)\hat{r}(\epsilon)^{\gamma}=(s+\epsilon)r^{\gamma}=\underset{=R}{\underbrace{sr^{\gamma}}}+\epsilon r^{\gamma}=R+\epsilon t^{\gamma}.$$
+In summary, the infinitesimal generator of the Lie group generated by $X_{2,2}=t^{\gamma}\partial_R$ generates the following symmetry
+$$\Gamma_{1,2}(\epsilon):(t,R)\mapsto (t,R+\epsilon t^{\gamma}).$$
+%-------------------------------------------------------------------------------------------
+% THE IM-II
+%-------------------------------------------------------------------------------------------
+\subsubsection{The IM-II}
+Denote the tangents of the IM-II by $\xi_{2}(t,R)$ and $\eta_{2}(t,R)$ respectively. The reaction term for this model is given by
+
+$$\omega_2(t,R)=\frac{\alpha}{A}R^2e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)$$
+and the linearised symmetry condition is given by
+$$\pdv{\eta_2}{t}+\left(\pdv{\eta_2}{R}-\pdv{\xi_2}{t}\right)\omega_2-\pdv{\eta_2}{t}\omega_2^2=\xi_3\pdv{\omega_2}{t}+\eta_3\pdv{\omega_2}{R}.$$
+Thus, the task at hand is to calculate the three terms $\omega_2^2$, $\partial\omega_2/\partial t$ and $\partial\omega_2/\partial R$ in order to plug these expressions into the linearised symmetry condition above. For the quadratic term, it follows that the middle factor satisfies
+$$\left(\exp\left(e^{-\alpha(t-\tau)}\right)\right)^2=\exp\left(e^{-\alpha(t-\tau)}\right)\exp\left(e^{-\alpha(t-\tau)}\right)=\exp\left(2e^{-\alpha(t-\tau)}\right)$$
+and hence the quadratic term is given by
+$$\omega_2^2=\dfrac{\alpha^2}{A^2}R^4e^{-2\alpha(t-\tau)}\exp\left(2e^{-\alpha(t-\tau)}\right).$$
+For the time derivative, it follows that
+\begin{align*}
+  \pdv{\omega_2}{t}&=\pdv{}{t}\left[\dfrac{\alpha}{A}e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)R^2\right]\\
+  &=\dfrac{\alpha R^2}{A}\left[-\alpha e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)+e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)-\alpha e^{-\alpha(t-\tau)}\right]\\
+  &=-\dfrac{\alpha^2R^2}{A}\left[e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)+e^{-2\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)\right]
+\end{align*}
+holds. For the derivative with respect to $R$, we have
+$$\pdv{\omega_2}{R}=2\dfrac{\alpha}{A}e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)R.$$
+Now, plugging in these expressions into the linearised symmetry condition leads to the following equation
+\begin{align*} \pdv{\eta_2}{t}&+\left(\pdv{\eta_2}{R}-\pdv{\xi_2}{t}\right)\left[\frac{\alpha}{A}R^2e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)\right]-\pdv{\xi_2}{R}\left[\dfrac{\alpha^2}{A^2}R^4e^{-2\alpha(t-\tau)}\exp\left(2e^{-\alpha(t-\tau)}\right)\right]\\ &=\xi_2\left(-\dfrac{\alpha^2R^2}{A}\left[e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)+e^{-2\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)\right]\right)\\
+  &+\eta_2\left(2\dfrac{\alpha}{A}e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)R\right).
+\end{align*}
+Since the monomials $\left\{R^0,R^1,R^2,R^4\right\}$ are \textit{linearly independent}, it follows that the following four equations must hold
+\begin{align}
+  R^{0}:&\;\;\;\;\;\pdv{\eta_2}{t}=0,\label{eq:3_1}\\
+  R^{1}:&\;\;\;\;\;2\eta_2\dfrac{\alpha}{A}e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)=0,\label{eq:3_2}\\ R^{2}:&\;\;\;\;\;\dfrac{\alpha}{A}e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)\left[\left(\pdv{\eta_2}{R}-\pdv{\xi_2}{t}\right)+\alpha\xi_2\left(1+e^{-\alpha(t-\tau)}\right)\right]=0,\label{eq:3_3}\\
+R^{4}:&\;\;\;\;\; \left[\dfrac{\alpha^2}{A^2}e^{-2\alpha(t-\tau)}\exp\left(2e^{-\alpha(t-\tau)}\right)\right]\pdv{\xi_2}{R}=0.\label{eq:3_4} 
+\end{align}
+The tangent in the $R$-direction $\eta_2$ must satisfy $\eta_2=0$ according to \eqref{eq:3_1} and \eqref{eq:3_2}. Moreover, the tangent in the $t$-direction must be a univariate function of $t$, i.e. $\xi_2(t,R)=\xi_2(t)$, as it follows that $\partial\xi_2/\partial R=0$ according to \eqref{eq:3_4}. Lastly, tangent $\xi_2$ in the $t$-direction must satisfy the following ODE
+$$\dv{\xi_2}{t}=\alpha\xi_2\left(1+e^{-\alpha(t-\tau)}\right)$$
+according to \eqref{eq:3_3}. Now, by defining the function $f(t)=\alpha\left(1+e^{-\alpha(t-\tau)}\right)$ its primitive function is
+$$F(t)=\alpha t-e^{-\alpha(t-\tau)}.$$
+Thus, by multiplying the above ODE with the integrating factor ``$\exp\left(-F(t)\right)$'', the resulting equation is
+$$\underset{=\pdv{}{t}\left(\exp\left(-F(t)\right)\xi_2\right)\left\{=\exp\left(-F(t)\right)\dv{\xi_2}{t}+\dv{\exp\left(-F(t)\right)}{t}\xi_2\right\}}{\underbrace{\exp\left(-\left(\alpha t-e^{-\alpha(t-\tau)}\right)\right)\dv{\xi_2}{t}-\underset{=-\pdv{\exp\left(-F(t)\right)}{t}}{\underbrace{\exp\left(-\left(\alpha t-e^{-\alpha(t-\tau)}\right)\right)\alpha\left(1+e^{-\alpha(t-\tau)}\right)}}\xi_2}}=0$$
+which can be re-written by using the product rule as follows
+$$\pdv{}{t}\left(\exp\left(-\left(\alpha t-e^{-\alpha(t-\tau)}\right)\right)\xi_2\right)=0.$$
+Finally, by integrating with respect to $t$ the tangent is given by
+$$\xi_2(t)=C_1\exp\left(\left(\alpha t-e^{-\alpha(t-\tau)}\right)\right)=C_1e^{\alpha t}\exp\left(-e^{-\alpha(t-\tau)}\right)$$
+for an arbitrary integration constant $C_1$. Hence, the generator for the IM-II is given by
+$$X_2=e^{\alpha t}\exp\left(-e^{-\alpha(t-\tau)}\right)\partial_t.$$
+The generator is non-trivial as
+\begin{align*}
+  \overline{Q}(X_2)&=\eta_2-\omega_2\xi_2=0-\left[\frac{\alpha}{A}R^2e^{-\alpha(t-\tau)}\exp\left(e^{-\alpha(t-\tau)}\right)\right]\left[e^{\alpha t}\exp\left(-e^{-\alpha(t-\tau)}\right)\right]\\
+  &=\frac{\alpha}{A}R^2e^{\alpha\tau}\neq 0.
+\end{align*}
+
+To calculate the symmetry $\Gamma_2$ generated by the infinitesimal generator of the Lie group $X_2$, the approach based on the canonical coordinates is used. For the generator $X_2$, the tangents are given by
+$$\left(\xi_2,\eta_2\right)=\left(e^{\alpha t}\exp\left(-e^{-\alpha(t-\tau)}\right),0\right).$$
+The canical coordinates $(s,r)$ satisfy the following equations 
+\begin{align*}
+\xi_{2}(t,R)\pdv{r}{t}+\eta_{2}(t,R)\pdv{r}{R}&=0,\\
+\xi_{2}(t,R)\pdv{s}{t}+\eta_{2}(t,R)\pdv{s}{R}&=1,\\
+\end{align*}
+which by plugging in the tangents $\left(\xi_2,\eta_2\right)$ results in the following equations
+\begin{align*}
+e^{\alpha t}\exp\left(-e^{-\alpha(t-\tau)}\right)\pdv{r}{t}&=0,\\
+e^{\alpha t}\exp\left(-e^{-\alpha(t-\tau)}\right)\pdv{s}{t}&=1.\\
+\end{align*}
+Since the generator $X_2$ is unidirectional in the sense that it only moves points in the $t$-direction and as $\partial r/\partial t=0$ we can set $r=R$. From the second equation, it follows that
+\begin{align*}
+  s&=\int e^{-\alpha t}\exp\left(e^{-\alpha(t-\tau)}\right)\dd t\\
+   &=\exp\left(e^{\alpha\tau}\right)\int e^{-\alpha t}\exp\left(e^{-\alpha t}\right)\dd t=-\dfrac{\exp\left(e^{\alpha\tau}\right)}{\alpha}\int \left(-\alpha e^{-\alpha t}\right)\exp\left(e^{-\alpha t}\right)\dd t\\
+   &=-\dfrac{\exp\left(e^{\alpha\tau}\right)}{\alpha}\exp\left(e^{-\alpha t}\right)=-\dfrac{\exp\left(e^{-\alpha (t-\tau)}\right)}{\alpha}\\
+  \Longrightarrow s&= -\dfrac{\exp\left(e^{-\alpha (t-\tau)}\right)}{\alpha}.  
+\end{align*}
+In order to be able to take the logarithm of the above expression, we must work with the absolute value as taking the logarithm is only allowed on positive expressions. Therefore, the value of $t$ is calculated in the following steps
+\begin{align*}
+  s&= -\dfrac{\exp\left(e^{-\alpha (t-\tau)}\right)}{\alpha}\\
+  \Longrightarrow -\alpha s&=\exp\left(e^{-\alpha (t-\tau)}\right)\\
+  \Longrightarrow |\alpha s|&=\exp\left(e^{-\alpha (t-\tau)}\right)\\
+  \Longrightarrow -\alpha (t-\tau)&=\ln\left(\ln\left(|\alpha s|\right)\right)\\
+  \Longrightarrow t&=\tau-\dfrac{\ln\left(\ln\left(|\alpha s|\right)\right)}{\alpha}. 
+\end{align*}
+Now, using this last equation, the transformed coordinate $\hat{t}$ is given by
+\begin{align*}
+  \hat{t}&=\tau-\dfrac{\ln\left(\ln\left(|\alpha \hat{s}|\right)\right)}{\alpha}\\
+         &=\tau-\dfrac{\ln\left(\ln\left(\left|\alpha (s+\epsilon)\right|\right)\right)}{\alpha}\\
+         &=\tau-\dfrac{\ln\left(\ln\left(\left|\alpha\epsilon-\exp\left(e^{-\alpha (t-\tau)}\right)\right|\right)\right)}{\alpha}.\\  
+\end{align*}
+Consequently, the infinitesimal generator of the Lie group denoted by $X_2$ generates the following symmetry
+$$\Gamma_2(\epsilon):(t,R)\mapsto\left(\tau-\dfrac{\ln\left(\ln\left(\left|\alpha\epsilon-\exp\left(e^{-\alpha (t-\tau)}\right)\right|\right)\right)}{\alpha},R\right).$$
+Note that the value $\epsilon=0$ indeed corresponds to the trivial symmetry as $\Gamma_2(0):(t,R)\mapsto(t,R)$ which is a required property of any symmetry.
