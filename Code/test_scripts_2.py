@@ -76,7 +76,8 @@ model_str = "mixed"
 # Fit the model to the data
 R_hat_mixed, opt_para_mixed, SS_mixed = fit_to_data.PE_risk_profiles(t,R,model_str,para_mixed)
 # Set the parameters for the mixed model instead
-A_opt_mixed_Sam = np.exp(4.877637595004758)
+#A_opt_mixed_Sam = np.exp(4.877637595004758)
+A_opt_mixed_Sam = 4.877637595004758
 #A_opt_mixed_Sam = np.exp(4.878)
 tau_opt_mixed_Sam = 58.40023718059162
 #tau_opt_mixed_Sam = 58.400
@@ -90,6 +91,15 @@ model_str = "power_law"
 #print("Model 2")
 R_hat_pow, opt_para_PLM, SS_PLM = fit_to_data.PE_risk_profiles(t,R,model_str,para_pow)
 
+
+print("PLM")
+print(SS_PLM)
+print(opt_para_PLM)
+print("IM_II")
+print(SS_mixed)
+print(opt_para_mixed)
+print("IM-II Mathematicas parameters")
+print(R_adj_new)
 #---------------------------------------------------------------------------------
 # PLOT MODELS
 # Define the string were the plot will be stored

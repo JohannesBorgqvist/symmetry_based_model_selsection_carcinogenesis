@@ -5,14 +5,16 @@
                      '(("article" "12pt")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("geometry" "margin=1in") ("parskip" "parfill") ("inputenc" "utf8") ("fontenc" "T1") ("helvet" "scaled=1") ("sfmath" "helvet") ("footmisc" "symbol")))
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
-   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
+   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "url")
    (TeX-run-style-hooks
     "latex2e"
     "./Input/derivation_symmetries"
+    "./Input/symmetries"
     "./Input/data_processing"
+    "./Input/ana_val"
     "./Input/num_val"
     "article"
     "art12"
@@ -32,7 +34,8 @@
     "url"
     "graphicx"
     "sansmathfonts"
-    "sansmath")
+    "sansmath"
+    "tabularx")
    (LaTeX-add-labels
     "Oxford"
     "WennerGren"

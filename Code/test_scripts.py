@@ -36,8 +36,8 @@ file_name = "Colon_cancer"
 # Read the data
 xlabel_str, ylabel_str, t, R = read_data.time_series_from_csv(file_name)
 # Remove first 12 data points
-t = t[18:len(t)-1]
-R = R[18:len(R)-1]
+t = t[12:len(t)-1]
+R = R[12:len(R)-1]
 # Logarithm of the output
 for i in range(len(R)):
     R[i] = np.log(R[i])
@@ -45,6 +45,7 @@ for i in range(len(R)):
 # PLOT DATA
 # Define the string were the plot will be stored
 file_str = "../Figures/Fig1/Input/colon_cancer.tex"
+#file_str = "../Figures/FigS4/Input/colon_cancer.tex"
 # Define the string defining the settings for the plot
 #plot_str = "only marks,scatter,mark=halfcircle*,mark size=2.9pt,color=black"
 plot_str = "only marks, mark=halfcircle*,mark size=1.5pt,color=black,"
@@ -52,7 +53,8 @@ plot_str = "only marks, mark=halfcircle*,mark size=1.5pt,color=black,"
 legend_str = "Data colon cancer"
 # Define the plot
 R_plot = [np.exp(R_val) for R_val in R]
-write_output.plot_LaTeX_2D(t,R_plot,file_str,plot_str,legend_str)
+#write_output.plot_LaTeX_2D(t,R_plot,file_str,plot_str,legend_str)
+write_output.plot_LaTeX_2D(t,R,file_str,plot_str,legend_str)
 #---------------------------------------------------------------------------------
 # DEFINE DATA STRING
 data_str = "colon"
@@ -87,8 +89,11 @@ model_str = "power_law"
 # Fit the model to the data
 #print("Model 2")
 R_hat_pow, opt_para_PLM, SS_PLM = fit_to_data.PE_risk_profiles(t,R,model_str,para_pow)
+print("Optimal parameters PLM")
+print(opt_para_PLM)
 print("PLM fit\t=\t%s"%(str(SS_PLM)))
 print("IM-II fit\t=\t%s"%(str(SS_mixed)))
+
 # Save the estimated parameters
 write_output.save_data_PE(data_str,model_str,opt_para_PLM,SS_PLM,alpha)
 
@@ -104,7 +109,8 @@ legend_str = "Exponential model, $R(t)$"
 R_hat_exp_plot = list(R_hat_exp)
 R_hat_exp_plot = [np.exp(R_val) for R_val in R_hat_exp_plot]
 # Define the plot
-write_output.plot_LaTeX_2D(t,R_hat_exp_plot,file_str,plot_str,legend_str)
+#write_output.plot_LaTeX_2D(t,R_hat_exp_plot,file_str,plot_str,legend_str)
+write_output.plot_LaTeX_2D(t,R_hat_exp,file_str,plot_str,legend_str)
 # Define the string were the plot will be stored
 file_str = "../Figures/Fig1/Input/power_law.tex"
 # Define the string defining the settings for the plot
@@ -115,7 +121,8 @@ legend_str = "PLM"
 R_hat_pow_plot = list(R_hat_pow)
 R_hat_pow_plot = [np.exp(R_val) for R_val in R_hat_pow_plot]
 # Define the plot
-write_output.plot_LaTeX_2D(t,R_hat_pow_plot,file_str,plot_str,legend_str)
+#write_output.plot_LaTeX_2D(t,R_hat_pow_plot,file_str,plot_str,legend_str)
+write_output.plot_LaTeX_2D(t,R_hat_pow,file_str,plot_str,legend_str)
 # Define the string were the plot will be stored
 file_str = "../Figures/Fig1/Input/mixed_model.tex"
 # Define the string defining the settings for the plot
@@ -126,7 +133,8 @@ legend_str = "IM-II"
 R_hat_mixed_plot = list(R_hat_mixed)
 R_hat_mixed_plot = [np.exp(R_val) for R_val in R_hat_mixed_plot]
 # Define the plot
-write_output.plot_LaTeX_2D(t,R_hat_mixed_plot,file_str,plot_str,legend_str)
+#write_output.plot_LaTeX_2D(t,R_hat_mixed_plot,file_str,plot_str,legend_str)
+write_output.plot_LaTeX_2D(t,R_hat_mixed,file_str,plot_str,legend_str)
 # Pyplot
 # Overall properties
 #fig, axes = plt.subplots(1,3,figsize=(15,5))
@@ -165,7 +173,7 @@ t_new = np.linspace(12,t[len(t)-1],100)
 #-----------------------------------------------------------------
 # IM-I SYMMETRY 1
 #-----------------------------------------------------------------
-# Decide the indicator meaning we look at the second symmetry
+# Decide the indicator, meaning we look at the second symmetry
 indicator = 1
 # Allocate memory for the output vector
 R_hat_exp = np.zeros(t_new.shape)
@@ -324,6 +332,7 @@ gamma_opt_PLM = opt_para_PLM[1]
 # Now we calculate the original time series
 for index in range(len(R_hat_pow)):
     R_hat_pow[index] = np.exp(fit_to_data.objective_power_law(t_new[index],A_opt_PLM,gamma_opt_PLM))
+    #R_hat_pow[index] = fit_to_data.objective_power_law(t_new[index],A_opt_PLM,gamma_opt_PLM)
 # Plot the original time series
 # Define the string were the plot will be stored
 file_str = "../Figures/FigS2/Input/PLM_R.tex"
@@ -339,6 +348,10 @@ epsilon = 0.00000025
 legend_str = "Action of symmetry $\\Gamma_{1,2}\\left(\\epsilon=" + str(epsilon).replace("e-0","\\cdot 10^{-") + "}\\right)$"
 # Transform the time series 
 t_trans,R_trans = symmetry_based_model_selection.PLM_transformation(t_new[50],R_hat_pow[50],epsilon,gamma_opt_PLM,indicator)
+#t_trans,R_trans = symmetry_based_model_selection.PLM_transformation(t_new[50],np.exp(R_hat_pow[50]),epsilon,gamma_opt_PLM,indicator)
+# Logarithm of transformation
+for index in range(len(R_trans)):
+    R_trans[index] = np.log(R_trans[index])
 # Define the plot string, defining the colour
 plot_str = "color=black,->,>=latex,densely dashed"
 # Save the transformed stuff
@@ -347,6 +360,10 @@ write_output.plot_LaTeX_2D(t_trans,R_trans,file_str,plot_str,legend_str)
 for index in range(52,len(t_new),2):
     # Transform the time series 
     t_trans,R_trans = symmetry_based_model_selection.PLM_transformation(t_new[index],R_hat_pow[index],epsilon,gamma_opt_PLM,indicator)
+    #t_trans,R_trans = symmetry_based_model_selection.PLM_transformation(t_new[index],np.exp(R_hat_pow[index]),epsilon,gamma_opt_PLM,indicator)
+    # Logarithm of transformation
+    #for index in range(len(R_trans)):
+    #    R_trans[index] = np.log(R_trans[index])
     # Save the transformed stuff
     write_output.plot_LaTeX_2D(t_trans,R_trans,file_str,plot_str,legend_str_empty)
 # Calculate the transformed solution
@@ -356,9 +373,11 @@ R_pow_hat_1 = []
 for index in range(len(t_new)):
     # Calculate the transformed values
     t_hat, R_hat = symmetry_based_model_selection.PLM_1_symmetry(t_new[index],R_hat_pow[index],epsilon,gamma_opt_PLM)
+    #t_hat, R_hat = symmetry_based_model_selection.PLM_1_symmetry(t_new[index],np.exp(R_hat_pow[index]),epsilon,gamma_opt_PLM)
     # Append the transformed values
     t_hat_1.append(t_hat)
     R_pow_hat_1.append(R_hat)
+    #R_pow_hat_1.append(np.log(R_hat))
 # Define the string defining the settings for the plot
 plot_str = "color=pow_2,line width=2pt,"
 # Define the string with the legend
@@ -371,6 +390,10 @@ plot_str = "color=black,->,>=latex,densely dashed"
 for index in range(50,len(t_new),2):
     # Transform the time series 
     t_trans,R_trans = symmetry_based_model_selection.PLM_transformation(t_hat_1[index],R_pow_hat_1[index],epsilon,gamma_opt_PLM,indicator)
+    #t_trans,R_trans = symmetry_based_model_selection.PLM_transformation(t_hat_1[index],np.exp(R_pow_hat_1[index]),epsilon,gamma_opt_PLM,indicator)
+    # Logarithm of transformation
+    #for index in range(len(R_trans)):
+    #    R_trans[index] = np.log(R_trans[index])
     # Save the transformed stuff
     write_output.plot_LaTeX_2D(t_trans,R_trans,file_str,plot_str,legend_str_empty)
 # Calculate the second transformed solution
@@ -380,9 +403,11 @@ R_pow_hat_2 = []
 for index in range(len(t_new)):
     # Calculate the transformed values
     t_hat, R_hat = symmetry_based_model_selection.PLM_1_symmetry(t_hat_1[index],R_pow_hat_1[index],epsilon,gamma_opt_PLM)
+    #t_hat, R_hat = symmetry_based_model_selection.PLM_1_symmetry(t_hat_1[index],np.exp(R_pow_hat_1[index]),epsilon,gamma_opt_PLM)
     # Append the transformed values
     t_hat_2.append(t_hat)
     R_pow_hat_2.append(R_hat)
+    #R_pow_hat_2.append(np.log(R_hat))
 # Define the string defining the settings for the plot
 plot_str = "color=pow_3,line width=2pt,"
 # Define the string with the legend
@@ -414,6 +439,10 @@ epsilon_delta = 0.001
 legend_str = "Action of symmetry $\\Gamma_{1,1}\\left(\\epsilon=" + str(epsilon).replace("e-0","\\cdot 10^{-") + "\\right)$"
 # Transform the time series 
 t_trans,R_trans = symmetry_based_model_selection.PLM_transformation(t_new[50],R_hat_pow[50],epsilon-epsilon_delta,gamma_opt_PLM,indicator)
+#t_trans,R_trans = symmetry_based_model_selection.PLM_transformation(t_new[50],np.exp(R_hat_pow[50]),epsilon-epsilon_delta,gamma_opt_PLM,indicator)
+# Logarithm of transformation
+for index in range(len(R_trans)):
+    R_trans[index] = np.log(R_trans[index])
 # Define the plot string, defining the colour
 plot_str = "color=black,->,>=latex,densely dashed"
 # Save the transformed stuff
@@ -422,6 +451,10 @@ write_output.plot_LaTeX_2D(t_trans,R_trans,file_str,plot_str,legend_str)
 for index in range(52,len(t_new),2):
     # Transform the time series 
     t_trans,R_trans = symmetry_based_model_selection.PLM_transformation(t_new[index],R_hat_pow[index],epsilon-epsilon_delta,gamma_opt_PLM,indicator)
+    #t_trans,R_trans = symmetry_based_model_selection.PLM_transformation(t_new[index],np.exp(R_hat_pow[index]),epsilon-epsilon_delta,gamma_opt_PLM,indicator)
+    # Logarithm of transformation
+    #for index in range(len(R_trans)):
+    #    R_trans[index] = np.log(R_trans[index])    
     # Save the transformed stuff
     write_output.plot_LaTeX_2D(t_trans,R_trans,file_str,plot_str,legend_str_empty)
 # Calculate the transformed solution
@@ -434,6 +467,7 @@ for index in range(len(t_new)):
     # Append the transformed values
     t_hat_1.append(t_hat)
     R_pow_hat_1.append(R_hat)
+    #R_pow_hat_1.append(np.log(R_hat))
 # Define the string defining the settings for the plot
 plot_str = "color=pow_2,line width=2pt,"
 # Define the string with the legend
@@ -446,6 +480,10 @@ plot_str = "color=black,->,>=latex,densely dashed"
 for index in range(50,len(t_new),2):
     # Transform the time series 
     t_trans,R_trans = symmetry_based_model_selection.PLM_transformation(t_hat_1[index],R_pow_hat_1[index],epsilon-epsilon_delta,gamma_opt_PLM,indicator)
+    #t_trans,R_trans = symmetry_based_model_selection.PLM_transformation(t_hat_1[index],np.exp(R_pow_hat_1[index]),epsilon-epsilon_delta,gamma_opt_PLM,indicator)
+    # Logarithm of transformation
+    #for index in range(len(R_trans)):
+        #R_trans[index] = np.log(R_trans[index])    
     # Save the transformed stuff
     write_output.plot_LaTeX_2D(t_trans,R_trans,file_str,plot_str,legend_str_empty)
 # Calculate the second transformed solution
@@ -458,6 +496,7 @@ for index in range(len(t_new)):
     # Append the transformed values
     t_hat_2.append(t_hat)
     R_pow_hat_2.append(R_hat)
+    #R_pow_hat_2.append(np.log(R_hat))
 # Define the string defining the settings for the plot
 plot_str = "color=pow_3,line width=2pt,"
 # Define the string with the legend
@@ -885,9 +924,9 @@ Delta_fit_pow = symmetry_based_model_selection.sym_model_sel(t,R,epsilon_vector,
 # IM_II: Calculate the relative fit
 Delta_fit_mixed = symmetry_based_model_selection.sym_model_sel(t,R,epsilon_vector,para_mixed,"mixed")
 # Save the power law
-write_output.plot_LaTeX_2D(epsilon_vector,Delta_fit_pow,"../Figures/Fig3/Input/PLM.tex","color=pow_1,line width=2pt,","PLM")
+write_output.plot_LaTeX_2D(epsilon_vector,Delta_fit_pow,"../Figures/Fig3/Input/PLM.tex","color=pow_2,line width=2pt,","PLM")
 # Save the mixed
-write_output.plot_LaTeX_2D(epsilon_vector,Delta_fit_mixed,"../Figures/Fig3/Input/IM_II.tex","color=mixed_1,line width=2pt,","IM-II")
+write_output.plot_LaTeX_2D(epsilon_vector,Delta_fit_mixed,"../Figures/Fig3/Input/IM_II.tex","color=mixed_2,line width=2pt,","IM-II")
 
 
 

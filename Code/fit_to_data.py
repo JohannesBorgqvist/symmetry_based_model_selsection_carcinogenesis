@@ -70,12 +70,15 @@ def objective_mixed(t, A, tau, alpha):
 def calculate_R_adj(R, R_hat, model_str):
     # Lastly, we calculate the sum of squares as well.
     # Define the residuals:
-    residuals = [np.exp(R[i])-np.exp(R_hat[i]) for i in range(len(R))]
+    #residuals = [np.exp(R[i])-np.exp(R_hat[i]) for i in range(len(R))]
+    residuals = [R[i]-R_hat[i] for i in range(len(R))]
     # Calculate the mean value of the data
     R_exp = np.array([np.exp(R[i]) for i in range(len(R))])
-    mean_R = np.mean(R_exp)
+    #mean_R = np.mean(R_exp)
+    mean_R = np.mean(R)
     # Calculate the total variation
-    total_variation = [np.exp(R[i])-mean_R for i in range(len(R))]
+    #total_variation = [np.exp(R[i])-mean_R for i in range(len(R))]
+    total_variation = [R[i]-mean_R for i in range(len(R))]
     # Allocate memory for the sum of squares
     res_sum = 0
     tot_sum = 0
@@ -101,6 +104,7 @@ def calculate_R_adj(R, R_hat, model_str):
     R_adj = 1-((num)/(denom))
     # Return the output
     return R_adj
+    #return R_squared
 # Function 5: "PE_risk_profiles"
 # The function takes in five inputs:
 # 1."t" being the years in the time series (the variable),
@@ -156,9 +160,10 @@ def PE_risk_profiles(t, R, model_str, parameters):
             R_hat[index] = objective_power_law(t[index], A_opt, gamma_opt)
     elif model_str == "mixed":  # Mixed model
         if len(parameters) == 1:
+            guess = np.array([4.877637595004758, 58.40023718059162])
             # Fit the IM-II to the data at hand
             opt_para, _ = curve_fit(
-                lambda t, A, tau: objective_mixed(t, A, tau, alpha), t, R)
+                lambda t, A, tau: objective_mixed(t, A, tau, alpha), t, R, guess)
             # Extract the optimal parameter
             A_opt, tau_opt = opt_para
             # Note that in the case above we estimate both A and tau

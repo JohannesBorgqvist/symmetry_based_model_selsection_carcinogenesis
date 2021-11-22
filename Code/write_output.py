@@ -73,13 +73,13 @@ def save_data_PE(data_str,model_str,opt_para,R_adj,alpha):
     # Define the headers and the data for the different models
     if model_str == "exponential":
         header = ["Data", "Model", "Adjusted R^2, R_{adj}^2", "Parameter, log(A)", "Parameter alpha"]
-        data = [data_str, model_str, R_adj, np.log(opt_para[0]), alpha]
+        data = [data_str, model_str, R_adj, opt_para[0], alpha]
     elif model_str == "power_law":
         header = ["Data", "Model", "Adjusted R^2, R_{adj}^2", "Parameter, log(A)", "Parameter, gamma"]
-        data = [data_str, model_str, R_adj, np.log(opt_para[0]), opt_para[1]]
+        data = [data_str, model_str, R_adj, opt_para[0], opt_para[1]]
     elif model_str == "mixed":
         header = ["Data", "Model", "Adjusted R^2, R_{adj}^2", "Parameter, log(A)", "Parameter, tau", "Parameter, alpha"]
-        data = [data_str, model_str, R_adj, np.log(opt_para[0]), opt_para[1], alpha]        
+        data = [data_str, model_str, R_adj, opt_para[0], opt_para[1], alpha]        
     # Write the data to the defined file    
     with open(file_name, "w", encoding="UTF8") as f:
         writer = csv.writer(f)

@@ -5,8 +5,12 @@
 \usetikzlibrary{arrows.meta}
 \usepackage{physics}
 \usepackage{xcolor}
-\definecolor{mixed_1}{RGB}{8,48,107}
+\definecolor{mixed_1}{RGB}{2,56,88}
+\definecolor{mixed_2}{RGB}{54,144,192}
+\definecolor{mixed_3}{RGB}{208,209,230}
 \definecolor{pow_1}{RGB}{103,0,31}
+\definecolor{pow_2}{RGB}{206,18,86}
+\definecolor{pow_3}{RGB}{223,101,176}
 \pgfplotsset{compat=newest,
     %width=6cm,
     %height=3cm,
@@ -34,18 +38,19 @@
     %title={Model: $\dv{y}{t}=\frac{2y}{t}$ with solution $y(t)=C_1t^2$\\Symmetry: $\Gamma_{\epsilon}=(t,y)\mapsto\left(\exp\left(\epsilon\right)t,\exp\left(-\epsilon\right)y\right)$},
     title style = {align=left},
     xlabel={Transformation parameter, $\epsilon$},
-    ylabel={Relative adjusted $R^2$, $\Delta_{R^2}(\epsilon)$},
+    ylabel={Adjusted $R^2$, $R^2_{\textrm{adj}}(\epsilon)$},
     %ylabel={Logarithm of Incidence, $\ln\left(R(t)\right)$},    
     % ylabel={Incidence, $R(t)$},
     x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
     y label style={at={(axis description cs:-0.1,0.55)},rotate=90,anchor=south},    
     % xmin=-27, xmax=5,
-    %xmin=0, xmax=10,
+    % xmin=0, xmax=10,
+    ymin = 0.915, ymax = 1.001,
     %xtick={0,12,20,...,60,70,82},    
-    ymin=-14.5, ymax=1.5,
+    %ymin=-14.5, ymax=1.5,
     %xtick={-30,-27,...,9},
-    ytick={1,0,-2,-4,-6,-8,-10,-12,-14},
-    legend style={at={(axis description cs:0.05,0.9)},anchor=west},    
+    %ytick={1,0,-2,-4,-6,-8,-10,-12,-14},
+    legend style={at={(axis description cs:0.05,0.7)},anchor=west},    
     %legend pos=north west,
     %ymajorgrids=true,
     grid style=dashed,

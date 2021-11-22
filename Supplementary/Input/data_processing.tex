@@ -18,7 +18,20 @@ In order to conduct the curve fitting, the data is processed in two steps (Fig \
   $$\ln\left(R(t)\right)=\ln(A)-\ln\left(\exp\left(e^{-\alpha(t-\tau)}\right)-1\right).$$
   Again, it is the logarithmic versions of the models that are fitted to the processed data (Fig \ref{fig:data_processing}C).
 
-  To evaluate the fit of the models to the data, the classical \textit{Root Mean Square} (\textit{RMS}) is used as a measure of the fit. Here, the RMS is denoted by $\rho_0$ as in \cite{ohlsson2020symmetry} and it is defined as the square root of a fraction. This fraction defined by a numerator given by the sum of the residuals between the data and the fitted model and a denominator being the number of data points in the time series. The smaller the value of the RMS $\rho_0$ the better the fit of the model to the data. 
+
+  The fit of each model is evaluated based on the \textit{adjusted $R^2$ value} denoted by $R^2_{\mathrm{adj}}$. If $n$ corresponds to the number of data points in the time series and $k$ corresponds to the number of parameters in each model then this value is defined as follows
+
+    $$R^2_{\mathrm{adj}}=1-\left[\dfrac{\left(1-R^2\right)\left(n-1\right)}{n-k-1}\right]$$
+    where\vspace{-0.3cm}
+    $$R^2=1-\dfrac{\sum\limits_{i=1}^{n}\left(\ln\left(R_i\right)-\ln\left(\tilde{R}(t_i)\right)\right)^2}{\sum\limits_{i=1}^{n}\left(\ln\left(R_i\right)-\overline{R}\right)^2}=1-\dfrac{\textrm{Variation between model and data}}{\textrm{Internal variation in data}}.$$
+In the above expression, $R_i$ corresponds to the data points, $\tilde{R}(t_i)$ corresponds to the output of the model and $\overline{R}$ is the mean value of the \textit{logarithmised data} (not the original data). The $R^2_{\mathrm{adj}}$ penalises the number of parameters, but as $\alpha$ is kept fixed in the fitting procedure the number of parameters is $k=2$ for both the PLM and the IM-II. Otherwise, the $R^2_{\mathrm{adj}}$ shares the following two properties with the $R^2$:
+
+
+    \begin{enumerate}
+    \item A perfect fit correponds to $R^2_{\mathrm{adj}}=1$,
+      \item A really bad fit corresponds to $R^2_{\mathrm{adj}}<0$ which says that the model fits the data worse than a straight line.      
+      \end{enumerate}
+    
   
 
   

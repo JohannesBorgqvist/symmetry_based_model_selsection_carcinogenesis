@@ -245,7 +245,8 @@ def sym_model_sel(t,R,epsilon_vector,opt_para,model_str):
         # Calculate the fit
         R_hat_trans, opt_para_temp, R_squared_adj_after = fit_to_data.PE_risk_profiles(t_trans_data,R_trans_data_log,model_str,opt_para)
         # Append the relative fit
-        Delta_fit.append(((R_squared_adj_after)/(R_squared_adj_original)))
+        #Delta_fit.append(((R_squared_adj_after)/(R_squared_adj_original)))
+        Delta_fit.append(R_squared_adj_after)
     #====================================================================================        
     # Return the relative R^2_adj value as a function of epsilon    
     return Delta_fit
