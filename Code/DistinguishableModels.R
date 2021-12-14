@@ -67,3 +67,6 @@ ggplot(data, aes(x = t, y = R)) +
   geom_line(data = mmdf2, 
             aes(x = t, y = R), 
             colour = "orange")
+
+
+pdf("../Output/Colon.pdf")

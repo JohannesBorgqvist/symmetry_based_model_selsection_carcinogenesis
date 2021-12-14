@@ -32,7 +32,7 @@ from matplotlib import pyplot as plt
 #---------------------------------------------------------------------------------
 # READ DATA
 # Define the name of the file from which we will read the data
-#file_name = "Colon_cancer"
+file_name = "Colon_cancer"
 # Read the data
 #xlabel_str, ylabel_str, t, R = read_data.time_series_from_csv(file_name)
 # Remove first 12 data points
