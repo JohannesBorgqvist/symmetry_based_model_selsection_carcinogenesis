@@ -30,7 +30,7 @@ Add the R essentials bundle:<br>
 
 *conda install -n symmetry_based_model_selection -c r r-essentials*<br>
 
-To activate you environment, use the command<br>
+To activate your new environment, use the command<br>
 
 *conda activate symmetry_based_model_selection*<br>
 or if this does not work use<br>
