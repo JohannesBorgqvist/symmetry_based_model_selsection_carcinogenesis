@@ -3,7 +3,7 @@ library(nonnest2)
 
 setwd("./")
 
-datacsv=read.csv("./Data/Myeloma.csv")
+datacsv=read.csv("../Data/Myeloma.csv")
 rates=datacsv[,"AgeAdjusted_Rate"][1:86]
 
 

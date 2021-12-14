@@ -26,6 +26,10 @@ Create an anaconda environment with python, numpy, scipy, matplotlib and pandas:
 *conda create -n symmetry_based_model_selection python numpy matplotlib pandas scipy*<br>
 Add the R essentials bundle:<br>
 *conda install -n symmetry_based_model_selection -c r r-essentials*<br>
+Add nonnest-2 in R<br>
+*conda install -n symmetry_based_model_selection -c r r-nonnest2*<br>
+Add drc in R<br>
+*conda install -n symmetry_based_model_selection -c conda-forge r-drc*<br>
 To activate your new environment, use the command<br>
 *conda activate symmetry_based_model_selection*<br>
 or if this does not work use<br>
