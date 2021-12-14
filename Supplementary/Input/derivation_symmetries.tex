@@ -403,24 +403,26 @@ e^{\alpha t}\exp\left(-e^{-\alpha(t-\tau)}\right)\pdv{s}{t}&=1.\\
 Since the generator $X_2$ is unidirectional in the sense that it only moves points in the $t$-direction and as $\partial r/\partial t=0$ we can set $r=R$. From the second equation, it follows that
 \begin{align*}
   s&=\int e^{-\alpha t}\exp\left(e^{-\alpha(t-\tau)}\right)\dd t\\
-   &=\exp\left(e^{\alpha\tau}\right)\int e^{-\alpha t}\exp\left(e^{-\alpha t}\right)\dd t=-\dfrac{\exp\left(e^{\alpha\tau}\right)}{\alpha}\int \left(-\alpha e^{-\alpha t}\right)\exp\left(e^{-\alpha t}\right)\dd t\\
-   &=-\dfrac{\exp\left(e^{\alpha\tau}\right)}{\alpha}\exp\left(e^{-\alpha t}\right)=-\dfrac{\exp\left(e^{-\alpha (t-\tau)}\right)}{\alpha}\\
-  \Longrightarrow s&= -\dfrac{\exp\left(e^{-\alpha (t-\tau)}\right)}{\alpha}.  
+  \Longrightarrow&=-\dfrac{1}{\alpha e^{\alpha\tau}}\int \left(-\alpha e^{\alpha\tau}e^{-\alpha t}\right)\exp\left(e^{\alpha\tau}e^{-\alpha t}\right)\dd t\\
+  \Longrightarrow &= -\dfrac{1}{\alpha e^{\alpha\tau}}\int \dv{}{t}\left(\exp\left(e^{\alpha\tau}e^{-\alpha t}\right)\right)\dd t\\
+  \Longrightarrow s&=-\dfrac{e^{-\alpha\tau}\exp\left(e^{-\alpha(t-\tau)}\right)}{\alpha}.
 \end{align*}
 In order to be able to take the logarithm of the above expression, we must work with the absolute value as taking the logarithm is only allowed on positive expressions. Therefore, the value of $t$ is calculated in the following steps
+
+
 \begin{align*}
-  s&= -\dfrac{\exp\left(e^{-\alpha (t-\tau)}\right)}{\alpha}\\
-  \Longrightarrow -\alpha s&=\exp\left(e^{-\alpha (t-\tau)}\right)\\
-  \Longrightarrow |\alpha s|&=\exp\left(e^{-\alpha (t-\tau)}\right)\\
-  \Longrightarrow -\alpha (t-\tau)&=\ln\left(\ln\left(|\alpha s|\right)\right)\\
-  \Longrightarrow t&=\tau-\dfrac{\ln\left(\ln\left(|\alpha s|\right)\right)}{\alpha}. 
+  s&= -\dfrac{e^{-\alpha\tau}\exp\left(e^{-\alpha (t-\tau)}\right)}{\alpha}\\
+  \Longrightarrow -\alpha e^{\alpha\tau} s&=\exp\left(e^{-\alpha (t-\tau)}\right)\\
+  \Longrightarrow |\alpha e^{\alpha\tau} s|&=\exp\left(e^{-\alpha (t-\tau)}\right)\\
+  \Longrightarrow -\alpha (t-\tau)&=\ln\left(\ln\left(|\alpha e^{\alpha\tau} s|\right)\right)\\
+  \Longrightarrow t&=\tau-\dfrac{\ln\left(\ln\left(|\alpha e^{\alpha\tau} s|\right)\right)}{\alpha}. 
 \end{align*}
 Now, using this last equation, the transformed coordinate $\hat{t}$ is given by
 \begin{align*}
-  \hat{t}&=\tau-\dfrac{\ln\left(\ln\left(|\alpha \hat{s}|\right)\right)}{\alpha}\\
-         &=\tau-\dfrac{\ln\left(\ln\left(\left|\alpha (s+\epsilon)\right|\right)\right)}{\alpha}\\
-         &=\tau-\dfrac{\ln\left(\ln\left(\left|\alpha\epsilon-\exp\left(e^{-\alpha (t-\tau)}\right)\right|\right)\right)}{\alpha}.\\  
+  \hat{t}&=\tau-\dfrac{\ln\left(\ln\left(|\alpha e^{\alpha\tau} \hat{s}|\right)\right)}{\alpha}\\
+         &=\tau-\dfrac{\ln\left(\ln\left(\left|\alpha e^{\alpha\tau} (s+\epsilon)\right|\right)\right)}{\alpha}\\
+         &=\tau-\dfrac{\ln\left(\ln\left(\left|\alpha e^{\alpha\tau} \epsilon-\exp\left(e^{-\alpha (t-\tau)}\right)\right|\right)\right)}{\alpha}.\\  
 \end{align*}
 Consequently, the infinitesimal generator of the Lie group denoted by $X_2$ generates the following symmetry
-$$\Gamma_2(\epsilon):(t,R)\mapsto\left(\tau-\dfrac{\ln\left(\ln\left(\left|\alpha\epsilon-\exp\left(e^{-\alpha (t-\tau)}\right)\right|\right)\right)}{\alpha},R\right).$$
+$$\Gamma_2(\epsilon):(t,R)\mapsto\left(\tau-\dfrac{\ln\left(\ln\left(\left|\alpha e^{\alpha\tau} \epsilon-\exp\left(e^{-\alpha (t-\tau)}\right)\right|\right)\right)}{\alpha},R\right).$$
 Note that the value $\epsilon=0$ indeed corresponds to the trivial symmetry as $\Gamma_2(0):(t,R)\mapsto(t,R)$ which is a required property of any symmetry.
