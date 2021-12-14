@@ -13,7 +13,8 @@
 # =================================================================================
 # =================================================================================
 from pandas import read_csv # Pandas to read the data
-from matplotlib import pyplot
+#from matplotlib import pyplot
+import re # To remove text from the data
 # =================================================================================
 # =================================================================================
 # Functions
@@ -35,19 +36,19 @@ def time_series_from_csv(file_name):
     # Extract the actual data
     data = dataframe.values
     # Extract the input and output variables
-    x, y = data[:, 0], data[:, 1]
+    x, y = data[:, 2], data[:, 9]
     # Define the labels of the axes
     xlabel_str = str(x[0]) # x axis
     ylabel_str = str(y[0]) # y axis
     # Calculate the number of values
     num_val = len(x) - 1
     # Define the input and the output (only the data)
-    t = x[1:num_val]
-    R = y[1:num_val]
+    t = x[1:num_val-1]
+    R = y[1:num_val-1]
     # Loop through these values and convert them
     # to floats
     for index in range(len(t)):
-        t[index] = float(t[index])
+        t[index] = float(re.sub(r"\D", "", t[index]))
         R[index] = float(R[index])            
     # Return the output
     return xlabel_str, ylabel_str, t, R

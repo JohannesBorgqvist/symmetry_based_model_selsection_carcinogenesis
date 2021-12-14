@@ -32,29 +32,41 @@ from matplotlib import pyplot as plt
 #---------------------------------------------------------------------------------
 # READ DATA
 # Define the name of the file from which we will read the data
-file_name = "Colon_cancer"
+#file_name = "Colon_cancer"
+file_name = "Myeloma"
 # Read the data
-#xlabel_str, ylabel_str, t, R = read_data.time_series_from_csv(file_name)
+xlabel_str, ylabel_str, t, R = read_data.time_series_from_csv(file_name)
 # Remove first 12 data points
+
 #t = t[12:len(t)-1]
 #R = R[12:len(R)-1]
+t = t[24:len(t)-1]
+R = R[24:len(R)-1]
 # Logarithm of the output
-#for i in range(len(R)):
-    #R[i] = np.log(R[i])
+for i in range(len(R)):
+    R[i] = np.log(R[i])
+print("The ages")
+print(t)
+print("The incidences")
+print(R)
 #---------------------------------------------------------------------------------
 # PLOT DATA
 # Define the string were the plot will be stored
 #file_str = "../Figures/Fig1/Input/colon_cancer.tex"
 #file_str = "../Figures/FigS4/Input/colon_cancer.tex"
+file_str_data = "../Figures/Fig1/Input/myeloma.tex"
+file_str = "../Figures/FigS4/Input/myeloma_2.tex"
 # Define the string defining the settings for the plot
 #plot_str = "only marks,scatter,mark=halfcircle*,mark size=2.9pt,color=black"
-#plot_str = "only marks, mark=halfcircle*,mark size=1.5pt,color=black,"
+plot_str = "only marks, mark=halfcircle*,mark size=1.5pt,color=black,"
 # Define the string with the legend
 #legend_str = "Data colon cancer"
+legend_str = "Data Myeloma"
 # Define the plot
 #R_plot = [np.exp(R_val) for R_val in R]
 #write_output.plot_LaTeX_2D(t,R_plot,file_str,plot_str,legend_str)
-#write_output.plot_LaTeX_2D(t,R,file_str,plot_str,legend_str)
+write_output.plot_LaTeX_2D(t,R,file_str,plot_str,legend_str)
+write_output.plot_LaTeX_2D(t,R,file_str_data,plot_str,legend_str)
 #---------------------------------------------------------------------------------
 # DEFINE DATA STRING
 #data_str = "colon"
