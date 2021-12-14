@@ -403,8 +403,8 @@ e^{\alpha t}\exp\left(-e^{-\alpha(t-\tau)}\right)\pdv{s}{t}&=1.\\
 Since the generator $X_2$ is unidirectional in the sense that it only moves points in the $t$-direction and as $\partial r/\partial t=0$ we can set $r=R$. From the second equation, it follows that
 \begin{align*}
   s&=\int e^{-\alpha t}\exp\left(e^{-\alpha(t-\tau)}\right)\dd t\\
-  \Longrightarrow&=-\dfrac{1}{\alpha e^{\alpha\tau}}\int \left(-\alpha e^{\alpha\tau}e^{-\alpha t}\right)\exp\left(e^{\alpha\tau}e^{-\alpha t}\right)\dd t\\
-  \Longrightarrow &= -\dfrac{1}{\alpha e^{\alpha\tau}}\int \dv{}{t}\left(\exp\left(e^{\alpha\tau}e^{-\alpha t}\right)\right)\dd t\\
+&=-\dfrac{1}{\alpha e^{\alpha\tau}}\int \underset{\dv{e^{-\alpha t}}{t}}{\underbrace{\left(-\alpha e^{-\alpha t}\right)}}\underset{\textrm{Outer derivative}}{\underbrace{\left(e^{\alpha\tau}\exp\left(e^{\alpha\tau}e^{-\alpha t}\right)\right)}}\dd t\\
+\{\textrm{Chain rule}\}\Longrightarrow&= -\dfrac{1}{\alpha e^{\alpha\tau}}\int \dv{}{t}\left(\exp\left(e^{\alpha\tau}e^{-\alpha t}\right)\right)\dd t\\
   \Longrightarrow s&=-\dfrac{e^{-\alpha\tau}\exp\left(e^{-\alpha(t-\tau)}\right)}{\alpha}.
 \end{align*}
 In order to be able to take the logarithm of the above expression, we must work with the absolute value as taking the logarithm is only allowed on positive expressions. Therefore, the value of $t$ is calculated in the following steps

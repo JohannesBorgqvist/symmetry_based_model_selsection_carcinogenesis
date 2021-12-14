@@ -85,7 +85,7 @@ def PLM_transformation(t_from,R_from,epsilon,gamma,indicator):
 # The symmetry of the immunological model IM-II
 def IM_II_symmetry(t,R,epsilon,tau,alpha):
     # Define t_hat recursively
-    t_hat =  np.log(np.log(np.abs((alpha*epsilon) - np.exp(np.exp(-alpha*(t-tau))))))
+    t_hat =  np.log(np.log(np.abs((alpha*np.exp(alpha*tau)*epsilon) - np.exp(np.exp(-alpha*(t-tau))))))
     t_hat = tau - ((t_hat)/(alpha))
     R_hat = R
     return t_hat,R_hat

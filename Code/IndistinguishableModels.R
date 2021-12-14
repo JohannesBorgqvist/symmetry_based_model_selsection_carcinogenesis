@@ -1,9 +1,9 @@
 
 library(nonnest2)
 
-setwd("~/Projects/SymmetryFitting/")
+setwd("./")
 
-datacsv=read.csv("Myeloma.csv")
+datacsv=read.csv("./Data/Myeloma.csv")
 rates=datacsv[,"AgeAdjusted_Rate"][1:86]
 
 
