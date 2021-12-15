@@ -21,3 +21,5 @@
 # We also remove the gitignore itself
 #.gitignore
 .gitignore~
+.Rhistory
+__pycache__
