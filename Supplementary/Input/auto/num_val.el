@@ -2,6 +2,7 @@
  "num_val"
  (lambda ()
    (LaTeX-add-labels
-    "fig:data_processing"))
+    "eq:scaling"
+    "fig:numerical_validation"))
  :latex)
 

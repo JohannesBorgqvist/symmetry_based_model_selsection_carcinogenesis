@@ -211,9 +211,9 @@ def sym_model_sel(t,R,epsilon_vector,opt_para,model_str):
     # Extract the value of alpha
     alpha = opt_para[0]
     # Extract the other parameters
-    if model_str == "power_law":
+    if model_str == "PLM":
         gamma = opt_para[1]
-    elif model_str == "mixed":
+    elif model_str == "IM-II":
         tau = opt_para[1]
     #====================================================================================
     # Loop over our epsilon values and conduct the model selection procedure
@@ -227,9 +227,9 @@ def sym_model_sel(t,R,epsilon_vector,opt_para,model_str):
         # Loop over the original time series and calculate the transformed time series
         for index in range(len(R_ori_data)):
             # Calculate each transformed coordinate
-            if model_str == "power_law":
+            if model_str == "PLM":
                 t_hat_temp, R_hat_temp = PLM_2_symmetry(t[index],R_ori_data[index],epsilon)
-            elif model_str == "mixed":
+            elif model_str == "IM-II":
                 t_hat_temp, R_hat_temp = IM_II_symmetry(t[index],R_ori_data[index],epsilon,tau,alpha)
             # Save the transformed coordinates
             t_trans_data.append(t_hat_temp)

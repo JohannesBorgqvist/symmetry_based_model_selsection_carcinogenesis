@@ -36,7 +36,7 @@ def time_series_from_csv(file_name):
     # Extract the actual data
     data = dataframe.values
     # Extract the input and output variables
-    x, y = data[:, 2], data[:, 9]
+    x, y = data[:, 2], data[:, 5]
     # Define the labels of the axes
     xlabel_str = str(x[0]) # x axis
     ylabel_str = str(y[0]) # y axis

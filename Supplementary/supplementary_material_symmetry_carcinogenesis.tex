@@ -5,14 +5,14 @@
     \usepackage[utf8]{inputenc}
     \usepackage[T1]{fontenc}    
     % Set the font for the document
-    \usepackage[scaled=1]{helvet}
-    \renewcommand{\familydefault}{\sfdefault}    
+    %\usepackage[scaled=1]{helvet}
+    %\renewcommand{\familydefault}{\sfdefault}    
     % Related to math
     \usepackage{amsmath,amssymb,amsfonts,amsthm}
     \usepackage{mathtools}
     % To set the mathematical font to helvetica as well
-    \usepackage[helvet]{sfmath}
-    \everymath={\sf}
+    %\usepackage[helvet]{sfmath}
+    %\everymath={\sf}
     % To write differential equations in an easy way
     \usepackage{physics}
     % For referencing footnotes
@@ -24,9 +24,9 @@
     % Set the graphics-path, i.e. where we store the figures
     \graphicspath{{./images/}}
     % To allow for greek letters in equation mode
-    \usepackage{sansmathfonts}
-    \usepackage{sansmath}
-    \sansmath
+    %\usepackage{sansmathfonts}
+    %\usepackage{sansmath}
+    %\sansmath
     % To allow for alignment in tables
     \usepackage{tabularx}
 
@@ -34,7 +34,7 @@
 \begin{document}
 
 \begin{titlepage}
-  \Large \textbf{Supplementary material for the article}\\[1cm]
+  \Large \textbf{Supplementary material to the article}\\[1cm]
   \Huge \textbf{Occam's razor gets a new edge: the role of symmetries in model selection}\\[1cm]\normalsize
 
  \vspace{3.0cm}
@@ -75,6 +75,10 @@
 \section{Numerical validation of the $t$-directional  symmetries of the PLM and the IM-II}
 
 \input{./Input/num_val}
+
+\section{Although two models have very good fits to the same time series data it is essential to perform statistical tests}
+
+\input{./Input/stat_test}
 
 %\section{Illustration of the symmetry based model selection for the PLM and the IM-II}
 

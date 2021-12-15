@@ -92,7 +92,7 @@ def calculate_R_adj(R, R_hat, model_str):
     #correlation_xy = correlation_matrix[0,1]
     #r_squared = correlation_xy**2
     # Calculate the adjusted R^2
-    if model_str == "mixed":
+    if model_str == "IM-II":
         k = 2  # Number of parameters
     else:
         k = 2  # Number of parameters
@@ -136,7 +136,7 @@ def PE_risk_profiles(t, R, model_str, parameters):
         # Loop through this array and fill its value
         for index in range(len(R_hat)):
             R_hat[index] = objective_exponential(t[index], A_opt, alpha)
-    elif model_str == "power_law":  # Power law
+    elif model_str == "PLM":  # Power law
         # Fit the power law model to the data at hand
         if len(parameters) == 1:
             # Here, we estimate both A and gamma
@@ -158,7 +158,7 @@ def PE_risk_profiles(t, R, model_str, parameters):
         # Loop through this array and fill its value
         for index in range(len(R_hat)):
             R_hat[index] = objective_power_law(t[index], A_opt, gamma_opt)
-    elif model_str == "mixed":  # Mixed model
+    elif model_str == "IM-II":  # IM-II
         if len(parameters) == 1:
             guess = np.array([4.877637595004758, 58.40023718059162])
             # Fit the IM-II to the data at hand

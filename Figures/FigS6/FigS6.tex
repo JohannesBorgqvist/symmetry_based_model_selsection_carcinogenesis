@@ -1,51 +1,51 @@
-%\documentclass[tikz,crop,convert={density=200,outext=.png},border=0.4cm,width=6cm,height=3cm]{standalone}
-\documentclass[tikz,border=0.3cm]{standalone}
-\usepackage[left=2.2cm,right=2.2cm,top=2.5cm,bottom=2.0cm,a4paper]{geometry}
+n%\documentclass[tikz, crop, convert = {density = 200, outext = .png}, border = 0.4cm, width = 6cm, height = 3cm]{standalone}
+\documentclass[tikz, border= 0.3cm]{standalone}
+\usepackage[left = 2.2cm, right = 2.2cm, top = 2.5cm, bottom = 2.0cm, a4paper]{geometry}
 \usepackage{pgfplots}
 \usepackage{amsmath}
 \usetikzlibrary{arrows.meta}
 \usepackage{physics}
-\pgfplotsset{compat=newest,
-    %width=6cm,
-    %height=3cm,
-    scale only axis=true,
-    max space between ticks=25pt,
-    try min ticks=5,
-    every axis/.style={
-        axis y line=middle,
-        axis x line=middle,
-        axis line style={thick,->,>=latex, shorten >=-.3cm}
-    },
-    every axis plot/.append style={thick},
-    tick style={black, thick},
-}
+\pgfplotsset{compat = newest,
+             % width = 6cm,
+             % height = 3cm,
+             scale only axis = true,
+             max space between ticks = 25pt,
+             try min ticks = 5,
+             every axis/.style = {
+                 axis y line = middle,
+                 axis x line = middle,
+                 axis line style = {thick, -> , >= latex, shorten >= -.3cm}
+             },
+             every axis plot/.append style = {thick},
+             tick style = {black, thick},
+             }
 \tikzset{
-    semithick/.style={line width=0.8pt},
+    semithick/.style = {line width = 0.8pt},
 }
 \usepgfplotslibrary{groupplots}
 \usepgfplotslibrary{dateplot}
 \usetikzlibrary{positioning}
-%\pgfplotsset{compat=1.17}
+%\pgfplotsset{compat = 1.17}
 
 \begin{document}
 \begin{tikzpicture}
-%\node[inner sep=0pt] (exponential) at (5,0)
-%    {\includegraphics[width=0.3\textwidth]{exp.pdf}};
-\node[inner sep=0pt] (power_law) at (2.2,2)
-    {\includegraphics[width=0.25\textwidth]{step_2.pdf}};
-\node[inner sep=0pt] (mixed) at (-2.2,2)
-{\includegraphics[width=0.25\textwidth]{step_1.pdf}};
-\node[inner sep=0pt] (power_law) at (2.2,-2)
-    {\includegraphics[width=0.25\textwidth]{step_4.pdf}};
-\node[inner sep=0pt] (mixed) at (-2.2,-2)
-{\includegraphics[width=0.25\textwidth]{step_3.pdf}};
-\node (a) at (-3.85,4) {\small(\textbf{A})};
-%\node[left=4.2cm of b] (a) {(\textbf{A})};
-\node[right=3.57cm of a] (b) {\small(\textbf{B})};
-\node[below=3.4cm of a] (c) {\small(\textbf{C})};
-\node[right=3.57cm of c] (d) {\small(\textbf{D})};
-%\draw (0.3,-5) -- (0.3,5);
-%\draw (-4.1,-5) -- (-4.1,5);
+%\node[inner sep= 0pt] (exponential) at (5, 0)
+%    {\includegraphics[width= 0.3\textwidth]{exp.pdf}}
+\node[inner sep= 0pt] (power_law) at (2.2, 2)
+{\includegraphics[width= 0.25\textwidth]{step_2.pdf}}
+\node[inner sep= 0pt] (mixed) at (-2.2, 2)
+{\includegraphics[width= 0.25\textwidth]{step_1.pdf}}
+\node[inner sep= 0pt] (power_law) at (2.2, -2)
+{\includegraphics[width= 0.25\textwidth]{step_4.pdf}}
+\node[inner sep= 0pt] (mixed) at (-2.2, -2)
+{\includegraphics[width= 0.25\textwidth]{step_3.pdf}}
+\node(a) at(-3.85, 4) {\small(\textbf{A})}
+%\node[left= 4.2cm of b] (a) {(\textbf{A})}
+\node[right= 3.57cm of a] (b) {\small(\textbf{B})}
+\node[below= 3.4cm of a] (c) {\small(\textbf{C})}
+\node[right= 3.57cm of c] (d) {\small(\textbf{D})}
+%\draw(0.3, -5) - - (0.3, 5)
+%\draw(-4.1, -5) - - (-4.1, 5)
 \end{tikzpicture}
 
 \end{document}
