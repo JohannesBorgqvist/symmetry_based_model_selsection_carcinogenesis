@@ -1,10 +1,10 @@
 # =================================================================================
 # =================================================================================
-# Script:"test_scripts"
-# Date: 2021-10-01
+# Script:"symmetry_based_model_selection.py"
+# Date: 2021-12-15
 # Implemented by: Johannes Borgqvist
 # Description:
-# The script is made to just test the various scripts and functionalities
+# The script re-generates all the results presented in the article.
 # =================================================================================
 # =================================================================================
 # Import Libraries
