@@ -1,5 +1,6 @@
 # Symmetry based model selection in the context of carcinogenesis
-
+*Written by:* Johannes Borgqvist<br>
+*Date:* 2021-12-15<br>
 
 
 
@@ -36,6 +37,13 @@ or if this does not work use<br>
 *source activate symmetry_based_model_selection*<br>
 and to deactivate the environment type
 *conda deactivate*<br>
+I had some issues with installing R using anaconda on my personal laptop, but it worked on my work computer. A piece of advice that I saw somewhere was that if there are any issues with conflicting 
+versions of various packages, then it is always good to update anaconda. This is done in the following way:<br>
+*conda update --all*<br>
+
+To see the versions of all packages used in this project, please see the file called "*symmetry\_based\_model\_selection.yaml*".
+
+
 ## Running the scripts
 In an ubuntu terminal, the python scripts are executed as follows:<br>
 *python [scriptname].py*<br>
