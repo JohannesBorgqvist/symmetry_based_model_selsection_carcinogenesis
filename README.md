@@ -41,7 +41,9 @@ I had some issues with installing R using anaconda on my personal laptop, but it
 versions of various packages, then it is always good to update anaconda. This is done in the following way:<br>
 *conda update --all*<br>
 
-To see the versions of all packages used in this project, please see the file called "*symmetry\_based\_model\_selection.txt*".
+To see the versions of all packages used in this project, please see the file called "*symmetry\_based\_model\_selection.txt*". To create an environment based on this file you can use the following command:<br>
+*conda create -n symmetry\_based\_model\_selection --file symmetry\_based\_model\_selection.txt*<br>
+
 
 
 ## Running the scripts
