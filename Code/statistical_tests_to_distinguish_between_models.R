@@ -21,6 +21,8 @@ library(ggplot2) # For plotting
 # =================================================================================
 setwd("./")
 
+# Okay, here we go...
+
 datacsv=read.csv("../Data/Myeloma.csv")
 rates=datacsv[,"AgeAdjusted_Rate"][1:86]
 
