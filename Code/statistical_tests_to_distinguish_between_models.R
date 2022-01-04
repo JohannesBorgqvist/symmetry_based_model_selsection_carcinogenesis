@@ -23,8 +23,8 @@ setwd("./")
 myeloma_datacsv = read.csv("../Data/Myeloma_cancer.csv")
 myeloma_rates = myeloma_datacsv[,"AgeAdjusted_Rate"][1:86] 
 # Myeloma time series: Define the actual time series as a structure. We only consider cancer incidences from the age of 25 years and above
-myeloma_data <- structure(list(R = myeloma_rates[40:86], 
-                       t = 40:86), 
+myeloma_data <- structure(list(R = myeloma_rates[25:86], 
+                       t = 25:86), 
                   .Names = c("R", "t"), 
                   class = "data.frame", 
                   row.names = c(NA, -86L))
@@ -32,8 +32,8 @@ myeloma_data <- structure(list(R = myeloma_rates[40:86],
 colon_datacsv = read.csv("../Data/Colon_cancer.csv")
 colon_rates = colon_datacsv[,"AgeAdjusted_Rate"][1:86] 
 # Colon time series: Define the actual time series as a structure. We only consider cancer incidences from the age of 12 years and above.
-colon_data <- structure(list(R = colon_rates[18:86], 
-                       t = 18:86), 
+colon_data <- structure(list(R = colon_rates[12:86], 
+                       t = 12:86), 
                   .Names = c("R", "t"), 
                   class = "data.frame", 
                   row.names = c(NA, -86L))
