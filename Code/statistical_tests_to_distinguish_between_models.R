@@ -4,7 +4,7 @@
 # Date: 2022-01-04
 # Implemented by: Sam Palmer and Johannes Borgqvist
 # Description:
-# The purpose of this script is to test on which data set that the two candidate models are distinguishable or indistinguishable. The two data sets are corresponds to the increase of incidences of cancer as a function of age in the case of myeloma cancer and colon cancer respectively. The two candidate models are the power law model (PLM) and the immunological model (IM-II). To distinguish between these two candidate models the the variance test and Vuong's non-nested likelihood ratio test are conducted. 
+# The purpose of this script is to test on which data set that the two candidate models are distinguishable or indistinguishable. The two data sets are corresponds to the increase of incidences of cancer as a function of age in the case of myeloma cancer, colon cancer and Chronic Myeloid Leukemia (CML) respectively. The two candidate models are the power law model (PLM) and the immunological model (IM-II). To distinguish between these two candidate models the the variance test and Vuong's non-nested likelihood ratio test are conducted. 
 # =================================================================================
 # =================================================================================
 # Import Libraries
@@ -37,6 +37,15 @@ colon_data <- structure(list(R = colon_rates[12:86],
                   .Names = c("R", "t"), 
                   class = "data.frame", 
                   row.names = c(NA, -86L))
+# Read the CML data
+CML_datacsv = read.csv("../Data/CML_cancer.csv")
+CML_rates = CML_datacsv[,"AgeAdjusted_Rate"][1:86] 
+# CML time series: Define the actual time series as a structure. We only consider cancer incidences from the age of 10 years and above.
+CML_data <- structure(list(R = CML_rates[10:86], 
+                       t = 10:86), 
+                  .Names = c("R", "t"), 
+                  class = "data.frame", 
+                  row.names = c(NA, -86L))
 # =================================================================================
 # =================================================================================
 # Define the candidate models
@@ -48,6 +57,9 @@ myeloma.model.PLM <- nls(R~A*t^B, data=myeloma_data, start = list(A=max(myeloma_
 # COLON CANCER DATA
 colon.model.IMII <- nls(R~A/(exp(exp(-0.044*(t-tau)))-1), data=colon_data, start = list(A=2,tau=60.5)) # IM-II
 colon.model.PLM <- nls(R~A*t^B, data=colon_data, start = list(A=max(colon_data$R)/2, B=4)) # PLM
+# CML CANCER DATA
+CML.model.IMII <- nls(R~A/(exp(exp(-0.044*(t-tau)))-1), data=CML_data, start = list(A=2,tau=60.5)) # IM-II
+CML.model.PLM <- nls(R~A*t^B, data=CML_data, start = list(A=max(CML_data$R)/2, B=4)) # PLM
 # =================================================================================
 # =================================================================================
 # Calculate the summary statistics of all models
@@ -59,6 +71,9 @@ summary(myeloma.model.PLM) # PLM
 # COLON CANCER DATA
 summary(colon.model.IMII) # IMII
 summary(colon.model.PLM) # PLM
+# CML CANCER DATA
+summary(CML.model.IMII) # IMII
+summary(CML.model.PLM) # PLM
 # =================================================================================
 # =================================================================================
 # Conducts Vuong's nested likelihood ratio test on the candidate models
@@ -68,4 +83,5 @@ summary(colon.model.PLM) # PLM
 vuongtest(myeloma.model.IMII,myeloma.model.PLM)
 # COLON CANCER DATA
 vuongtest(colon.model.IMII,colon.model.PLM)
-
+# CML CANCER DATA
+vuongtest(CML.model.IMII,CML.model.PLM)

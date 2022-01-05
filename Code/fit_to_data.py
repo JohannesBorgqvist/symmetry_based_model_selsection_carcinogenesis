@@ -24,13 +24,11 @@ import numpy as np  # For the exponential function
 # the following three inputs
 # 1."t" being the ages in the time series (or the independent variable if you will),
 # 2. "A" being the scaling parameter in all models,
-
-
-def objective_exponential(t, A, alpha):
+def objective_IM_I(t, A, alpha):
     # Return the output
-    # return A*np.exp(alpha*t)
+    return A*np.exp(alpha*t)
     # return np.log(A) + (alpha*t)
-    return A + (alpha*t)
+    #return A + (alpha*t)
 # ---------------------------------------------------------------------------------------
 # Function 2: "objective_power_law"
 # The function returns the objective value of the power law model and it takes
@@ -38,11 +36,11 @@ def objective_exponential(t, A, alpha):
 # 1."t" being the ages in the time series (or the independent variable if you will),
 # 2. "A" being the scaling parameter in all models,
 # 3. "gamma" being the power in the power law model.
-def objective_power_law(t, A, gamma):
+def objective_PLM(t, A, gamma):
     # Return the output
-    # return A*(t**gamma)
+    return A*(t**gamma)
     # return np.log(A)+gamma*np.log(t)
-    return A+gamma*np.log(t)
+    #return A+gamma*np.log(t)
 # ---------------------------------------------------------------------------------------
 # Function 3: "objective_mixed"
 # The function returns the objective value of the exponential model and it takes
@@ -50,13 +48,11 @@ def objective_power_law(t, A, gamma):
 # 1."t" being the ages in the time series (or the independent variable if you will),
 # 2. "A" being the scaling parameter in all models,
 # 3. "tau" being the delay parameter.
-
-
-def objective_mixed(t, A, tau, alpha):
+def objective_IM_II(t, A, tau, alpha):
     # Return the logarithm of the output
-    # return ((A)/(np.exp(np.exp(-alpha*(t-tau)))-1))
+    return ((A)/(np.exp(np.exp(-alpha*(t-tau)))-1))
     # return np.log(A) - np.log(np.exp(np.exp(-alpha*(t-tau)))-1)
-    return A - np.log(np.exp(np.exp(-alpha*(t-tau)))-1)
+    #return A - np.log(np.exp(np.exp(-alpha*(t-tau)))-1)
 # ---------------------------------------------------------------------------------------
 # Function 4: "calculate_R_adj"
 # The function calculates the adjusted R square value.
@@ -65,15 +61,13 @@ def objective_mixed(t, A, tau, alpha):
 # 2. R_hat corresponding to the model,
 # 3. model_str defining how many parameters that is involved.
 # It returns the adjusted R square value
-
-
 def calculate_R_adj(R, R_hat, model_str):
     # Lastly, we calculate the sum of squares as well.
     # Define the residuals:
     #residuals = [np.exp(R[i])-np.exp(R_hat[i]) for i in range(len(R))]
     residuals = [R[i]-R_hat[i] for i in range(len(R))]
     # Calculate the mean value of the data
-    R_exp = np.array([np.exp(R[i]) for i in range(len(R))])
+    #R_exp = np.array([np.exp(R[i]) for i in range(len(R))])
     #mean_R = np.mean(R_exp)
     mean_R = np.mean(R)
     # Calculate the total variation
@@ -117,17 +111,15 @@ def calculate_R_adj(R, R_hat, model_str):
 # "R_hat" being the output of the model at hand,
 # "opt_para" being the estimated parameters,
 # "SS" being the sum of squares.
-
-
 def PE_risk_profiles(t, R, model_str, parameters):
     # Define the model parameter for transmission
     alpha = parameters[0]
     # Find the optimal parameters to the model at hand
-    if model_str == "exponential":  # Exponential model
+    if model_str == "IM-I":  # IM-I
         # Fit the exponential model to the data at hand
         if len(parameters) == 1:
             opt_para, _ = curve_fit(
-                lambda t, A: objective_exponential(t, A, alpha), t, R)
+                lambda t, A: objective_IM_I(t, A, alpha), t, R)
             # Extract the optimal parameter
             A_opt = opt_para[0]
         # Allocate an numpy array for the simulated output
@@ -135,13 +127,13 @@ def PE_risk_profiles(t, R, model_str, parameters):
         R_hat = np.zeros(t.shape)
         # Loop through this array and fill its value
         for index in range(len(R_hat)):
-            R_hat[index] = objective_exponential(t[index], A_opt, alpha)
+            R_hat[index] = objective_IM_I(t[index], A_opt, alpha)
     elif model_str == "PLM":  # Power law
         # Fit the power law model to the data at hand
         if len(parameters) == 1:
             # Here, we estimate both A and gamma
             opt_para, _ = curve_fit(
-                lambda t, A, gamma: objective_power_law(t, A, gamma), t, R)
+                lambda t, A, gamma: objective_PLM(t, A, gamma), t, R)
             # Extract the optimal parameter
             A_opt, gamma_opt = opt_para
         else:
@@ -149,7 +141,7 @@ def PE_risk_profiles(t, R, model_str, parameters):
             gamma_opt = parameters[1]
             # Fit to the data
             opt_para, _ = curve_fit(
-                lambda t, A: objective_power_law(t, A, gamma_opt), t, R)
+                lambda t, A: objective_PLM(t, A, gamma_opt), t, R)
             # Calculate the output of the model
             A_opt = opt_para
         # Allocate an numpy array for the simulated output
@@ -157,13 +149,13 @@ def PE_risk_profiles(t, R, model_str, parameters):
         R_hat = np.zeros(t.shape)
         # Loop through this array and fill its value
         for index in range(len(R_hat)):
-            R_hat[index] = objective_power_law(t[index], A_opt, gamma_opt)
+            R_hat[index] = objective_PLM(t[index], A_opt, gamma_opt)
     elif model_str == "IM-II":  # IM-II
         if len(parameters) == 1:
             guess = np.array([4.877637595004758, 58.40023718059162])
             # Fit the IM-II to the data at hand
             opt_para, _ = curve_fit(
-                lambda t, A, tau: objective_mixed(t, A, tau, alpha), t, R, guess)
+                lambda t, A, tau: objective_IM_II(t, A, tau, alpha), t, R, guess)
             # Extract the optimal parameter
             A_opt, tau_opt = opt_para
             # Note that in the case above we estimate both A and tau
@@ -172,7 +164,7 @@ def PE_risk_profiles(t, R, model_str, parameters):
             tau_opt = parameters[1]
             # Fit the IM-II to the data at hand
             opt_para, _ = curve_fit(
-                lambda t, A: objective_mixed(t, A, tau_opt, alpha), t, R)
+                lambda t, A: objective_IM_II(t, A, tau_opt, alpha), t, R)
             # Extract the optimal parameter
             A_opt = opt_para
         # Allocate an numpy array for the simulated output
@@ -180,7 +172,7 @@ def PE_risk_profiles(t, R, model_str, parameters):
         R_hat = np.zeros(t.shape)
         # Loop through this array and fill its value
         for index in range(len(R_hat)):
-            R_hat[index] = objective_mixed(t[index], A_opt, tau_opt, alpha)
+            R_hat[index] = objective_IM_II(t[index], A_opt, tau_opt, alpha)
     else:  # We have no other candidates
         return [], (0, 0), 0
     # Calculate the adjusted R square value

@@ -72,13 +72,13 @@ def save_data_PE(data_str,model_str,opt_para,R_adj,alpha):
     file_name = "../Output/data_" + data_str + "_model_" + model_str + ".csv" 
     # Define the headers and the data for the different models
     if model_str == "exponential":
-        header = ["Data", "Model", "Adjusted R^2, R_{adj}^2", "Parameter, log(A)", "Parameter alpha"]
+        header = ["Data", "Model", "Adjusted R^2, R_{adj}^2", "Parameter, A", "Parameter alpha"]
         data = [data_str, model_str, R_adj, opt_para[0], alpha]
     elif model_str == "PLM":
-        header = ["Data", "Model", "Adjusted R^2, R_{adj}^2", "Parameter, log(A)", "Parameter, gamma"]
+        header = ["Data", "Model", "Adjusted R^2, R_{adj}^2", "Parameter, A", "Parameter, gamma"]
         data = [data_str, model_str, R_adj, opt_para[0], opt_para[1]]
     elif model_str == "IM-II":
-        header = ["Data", "Model", "Adjusted R^2, R_{adj}^2", "Parameter, log(A)", "Parameter, tau", "Parameter, alpha"]
+        header = ["Data", "Model", "Adjusted R^2, R_{adj}^2", "Parameter, A", "Parameter, tau", "Parameter, alpha"]
         data = [data_str, model_str, R_adj, opt_para[0], opt_para[1], alpha]        
     # Write the data to the defined file    
     with open(file_name, "w", encoding="UTF8") as f:
