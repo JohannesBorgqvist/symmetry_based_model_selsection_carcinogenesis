@@ -65,21 +65,19 @@ def plot_LaTeX_2D(t,y,file_str,plot_str,legend_str):
 # or curve fitting procedure. It takes in the following input:
 # 1. "data_str": Defining the data set,
 # 2. "model_str": Defining the model that was fitted to the data,
-# 3. "opt_para": Defining the optimal parameters,
-# 4. "SS": Defining the sum_of_squares
-def save_data_PE(data_str,model_str,opt_para,R_adj,alpha):
+# 3. "optimal_fits": Defines the structure with all parameters, uncertainties, least squares etc.,
+# 4. "R_squared": Defines the R_squared value of the fit,
+# 5. "fit_str": Defines the methodology by which the models were fitted to the data. 
+def save_data_PE(data_str,model_str,optimal_fits,R_squared,fit_str):
     # Define the file name
-    file_name = "../Output/data_" + data_str + "_model_" + model_str + ".csv" 
+    file_name = "../Output/data_" + data_str + "_model_" + model_str + "_fit_type_" + fit_str + ".csv" 
     # Define the headers and the data for the different models
-    if model_str == "exponential":
-        header = ["Data", "Model", "Adjusted R^2, R_{adj}^2", "Parameter, A", "Parameter alpha"]
-        data = [data_str, model_str, R_adj, opt_para[0], alpha]
-    elif model_str == "PLM":
-        header = ["Data", "Model", "Adjusted R^2, R_{adj}^2", "Parameter, A", "Parameter, gamma"]
-        data = [data_str, model_str, R_adj, opt_para[0], opt_para[1]]
+    if model_str == "PLM":
+        header = ["Data", "Model", "Fitting method","R^2", "Parameter, A", "Std error, A", "Parameter, gamma", "Std error, gamma", "Sum of squares", "Sum of squares variable", "Sum of squares response variable"]
+        data = [data_str, model_str, fit_str, R_squared, optimal_fits.beta[0], optimal_fits.sd_beta[0], optimal_fits.beta[1], optimal_fits.sd_beta[1], optimal_fits.sum_square, optimal_fits.sum_square_delta, optimal_fits.sum_square_eps]
     elif model_str == "IM-II":
-        header = ["Data", "Model", "Adjusted R^2, R_{adj}^2", "Parameter, A", "Parameter, tau", "Parameter, alpha"]
-        data = [data_str, model_str, R_adj, opt_para[0], opt_para[1], alpha]        
+        header = ["Data", "Model", "Fitting method","R^2", "Parameter, alpha (Constant)", "Parameter, A", "Std error, A", "Parameter, tau", "Std error, tau", "Sum of squares", "Sum of squares variable", "Sum of squares response variable"]
+        data = [data_str, model_str, fit_str, R_squared, 0.044, optimal_fits.beta[0], optimal_fits.sd_beta[0], optimal_fits.beta[1], optimal_fits.sd_beta[1], optimal_fits.sum_square, optimal_fits.sum_square_delta, optimal_fits.sum_square_eps]        
     # Write the data to the defined file    
     with open(file_name, "w", encoding="UTF8") as f:
         writer = csv.writer(f)

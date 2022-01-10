@@ -1,0 +1,2 @@
+Data,Model,Fitting method,R^2,"Parameter, alpha (Constant)","Parameter, A","Std error, A","Parameter, tau","Std error, tau",Sum of squares,Sum of squares variable,Sum of squares response variable
+colon,IM-II,ODR,0.7468280361573139,0.044,199.4577984651517,5.642057216801289,63.239400788410784,0.3828666574401245,40.15815232252248,34.45101885255173,5.707133469970756

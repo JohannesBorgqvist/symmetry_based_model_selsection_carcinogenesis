@@ -48,9 +48,9 @@ alpha = 0.044
 # Fit IM-II
 # ---------------------------------------------------------------------------------
 # Myeloma data
-R_hat_IM_II_Myeloma, opt_para_IM_II_Myeloma, SS_IM_II_Myeloma = fit_to_data.PE_risk_profiles(t_myeloma,R_myeloma,"IM-II",[alpha])
+R_hat_IM_II_myeloma, opt_para_IM_II_myeloma, SS_IM_II_myeloma = fit_to_data.PE_risk_profiles(t_myeloma,R_myeloma,"IM-II",[alpha])
 # Save the estimated parameters: Myeloma
-write_output.save_data_PE("Myeloma","IM-II",opt_para_IM_II_Myeloma,SS_IM_II_Myeloma,alpha)
+write_output.save_data_PE("Myeloma","IM-II",opt_para_IM_II_myeloma,SS_IM_II_myeloma,alpha)
 # Colon data
 R_hat_IM_II_colon, opt_para_IM_II_colon, SS_IM_II_colon = fit_to_data.PE_risk_profiles(t_colon,R_colon,"IM-II",[alpha])
 # Save the estimated parameters: Myeloma
@@ -63,9 +63,9 @@ write_output.save_data_PE("CML","IM-II",opt_para_IM_II_CML,SS_IM_II_CML,alpha)
 # Fit PLM
 # ---------------------------------------------------------------------------------
 # Myeloma data
-R_hat_PLM_Myeloma, opt_para_PLM_Myeloma, SS_PLM_Myeloma = fit_to_data.PE_risk_profiles(t_myeloma,R_myeloma,"PLM",[alpha])
+R_hat_PLM_myeloma, opt_para_PLM_myeloma, SS_PLM_myeloma = fit_to_data.PE_risk_profiles(t_myeloma,R_myeloma,"PLM",[alpha])
 # Save the estimated parameters: Myeloma
-write_output.save_data_PE("Myeloma","PLM",opt_para_IM_II_Myeloma,SS_IM_II_Myeloma,alpha)
+write_output.save_data_PE("Myeloma","PLM",opt_para_IM_II_myeloma,SS_IM_II_myeloma,alpha)
 # Colon data
 R_hat_PLM_colon, opt_para_PLM_colon, SS_PLM_colon = fit_to_data.PE_risk_profiles(t_colon,R_colon,"PLM",[alpha])
 # Save the estimated parameters: Myeloma
@@ -76,7 +76,7 @@ R_hat_PLM_CML, opt_para_PLM_CML, SS_PLM_CML = fit_to_data.PE_risk_profiles(t_CML
 write_output.save_data_PE("CML","PLM",opt_para_PLM_CML,SS_PLM_CML,alpha)
 # =================================================================================
 # =================================================================================
-# Plot the data and the fit
+# Plot the data and the fit in Python
 # =================================================================================
 # =================================================================================
 # Pyplot
@@ -88,8 +88,8 @@ plt.rc('xtick', labelsize=10)    # fontsize of the tick labels
 plt.rc('ytick', labelsize=10)    # fontsize of the tick labels
 # Subplot 1
 axes[0].plot(t_myeloma, R_myeloma, '*', color='black', label='Data Myeloma cancer')
-axes[0].plot(t_myeloma, R_hat_IM_II_Myeloma, '-', color='magenta',label='IM-II')
-axes[0].plot(t_myeloma, R_hat_PLM_Myeloma, '-', color='blue',label='PLM')
+axes[0].plot(t_myeloma, R_hat_IM_II_myeloma, '-', color='magenta',label='IM-II')
+axes[0].plot(t_myeloma, R_hat_PLM_myeloma, '-', color='blue',label='PLM')
 axes[0].legend()
 # Subplot 2
 axes[1].plot(t_colon, R_colon, '*', color='black', label='Data colon cancer')
@@ -111,11 +111,38 @@ plt.ylabel("Incidence, $R(t)$")
 plt.title("Fit of candidate models to three data sets",fontsize=20, fontweight='bold')
 #plt.show()
 plt.savefig("../Figures/Fit_of_models_to_cancer_data.png")
-
-
-
-
-
+# =================================================================================
+# =================================================================================
+# Plot the data and the fit in latex
+# =================================================================================
+# =================================================================================
+# PLOT DATA
+# Define the string defining the settings for the plot
+plot_str = "only marks, mark=halfcircle*,mark size=1.5pt,color=black,"
+# Myeloma
+write_output.plot_LaTeX_2D(t_myeloma,R_myeloma,"../Figures/latex_figures/FigS6/myeloma/Input/data.tex",plot_str,"Data Myeloma cancer")
+# Colon cancer
+write_output.plot_LaTeX_2D(t_colon,R_colon,"../Figures/latex_figures/FigS6/colon/Input/data.tex",plot_str,"Data Colon cancer")
+# CML
+write_output.plot_LaTeX_2D(t_CML,R_CML,"../Figures/latex_figures/FigS6/CML/Input/data.tex",plot_str,"Data CML")
+# PLOT PLM
+# Define the string defining the settings for the plot
+plot_str = "color=pow_1,line width=2pt,"
+# Myeloma
+write_output.plot_LaTeX_2D(t_myeloma,R_hat_PLM_myeloma,"../Figures/latex_figures/FigS6/myeloma/Input/PLM.tex",plot_str,"PLM")
+# Colon cancer
+write_output.plot_LaTeX_2D(t_colon,R_hat_PLM_colon,"../Figures/latex_figures/FigS6/colon/Input/PLM.tex",plot_str,"PLM")
+# CML
+write_output.plot_LaTeX_2D(t_CML,R_hat_PLM_CML,"../Figures/latex_figures/FigS6/CML/Input/PLM.tex",plot_str,"PLM")
+# PLOT IM-II
+# Define the string defining the settings for the plot
+plot_str = "color=mixed_1,line width=2pt,"
+# Myeloma
+write_output.plot_LaTeX_2D(t_myeloma,R_hat_IM_II_myeloma,"../Figures/latex_figures/FigS6/myeloma/Input/IM-II.tex",plot_str,"IM-II")
+# Colon cancer
+write_output.plot_LaTeX_2D(t_colon,R_hat_IM_II_colon,"../Figures/latex_figures/FigS6/colon/Input/IM-II.tex",plot_str,"IM-II")
+# CML
+write_output.plot_LaTeX_2D(t_CML,R_hat_IM_II_CML,"../Figures/latex_figures/FigS6/CML/Input/IM-II.tex",plot_str,"IM-II")
 
 
 

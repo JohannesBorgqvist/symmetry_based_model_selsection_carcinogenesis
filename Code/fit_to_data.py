@@ -12,6 +12,7 @@
 # =================================================================================
 # =================================================================================
 from scipy.optimize import curve_fit  # For the curve fitting
+from scipy.optimize import minimize  # For the total sum of squares
 import numpy as np  # For the exponential function
 # =================================================================================
 # =================================================================================
@@ -19,7 +20,7 @@ import numpy as np  # For the exponential function
 # =================================================================================
 # =================================================================================
 # ---------------------------------------------------------------------------------------
-# Function 1: "objective_exponential"
+# Function 1: "objective_IM_II"
 # The function returns the objective value of the exponential model and it takes
 # the following three inputs
 # 1."t" being the ages in the time series (or the independent variable if you will),
@@ -30,7 +31,7 @@ def objective_IM_I(t, A, alpha):
     # return np.log(A) + (alpha*t)
     #return A + (alpha*t)
 # ---------------------------------------------------------------------------------------
-# Function 2: "objective_power_law"
+# Function 2: "objective_PLM"
 # The function returns the objective value of the power law model and it takes
 # the following three inputs
 # 1."t" being the ages in the time series (or the independent variable if you will),
@@ -42,7 +43,7 @@ def objective_PLM(t, A, gamma):
     # return np.log(A)+gamma*np.log(t)
     #return A+gamma*np.log(t)
 # ---------------------------------------------------------------------------------------
-# Function 3: "objective_mixed"
+# Function 3: "objective_IM_II"
 # The function returns the objective value of the exponential model and it takes
 # the following three inputs
 # 1."t" being the ages in the time series (or the independent variable if you will),
@@ -53,6 +54,7 @@ def objective_IM_II(t, A, tau, alpha):
     return ((A)/(np.exp(np.exp(-alpha*(t-tau)))-1))
     # return np.log(A) - np.log(np.exp(np.exp(-alpha*(t-tau)))-1)
     #return A - np.log(np.exp(np.exp(-alpha*(t-tau)))-1)
+    
 # ---------------------------------------------------------------------------------------
 # Function 4: "calculate_R_adj"
 # The function calculates the adjusted R square value.

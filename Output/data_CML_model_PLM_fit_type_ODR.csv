@@ -1,0 +1,2 @@
+Data,Model,Fitting method,R^2,"Parameter, A","Std error, A","Parameter, gamma","Std error, gamma",Sum of squares,Sum of squares variable,Sum of squares response variable
+CML,PLM,ODR,0.3608972129399472,3.4411503341969225e-07,1.449021744055235e-07,3.9082787145122486,0.09777610296868522,9.638263074778799,0.4951464267679693,9.14311664801083
