@@ -23,5 +23,5 @@
 #.gitignore
 .gitignore~
 .Rhistory
-./Code/__pycache__
-./Figures/latex_figures
+Code/__pycache__/
+Figures/latex_figures/
