@@ -75,9 +75,9 @@ def save_data_PE(data_str,model_str,optimal_fits,RMS,fit_str):
     if model_str == "PLM":
         header = ["Data", "Model", "Fitting method","RMS", "Parameter, A", "Std error, A", "Parameter, gamma", "Std error, gamma", "Sum of squares", "Sum of squares variable", "Sum of squares response variable"]
         data = [data_str, model_str, fit_str, RMS, optimal_fits.beta[0], optimal_fits.sd_beta[0], optimal_fits.beta[1], optimal_fits.sd_beta[1], optimal_fits.sum_square, optimal_fits.sum_square_delta, optimal_fits.sum_square_eps]
-    elif model_str == "IM-II":
-        header = ["Data", "Model", "Fitting method","RMS", "Parameter, alpha (Constant)", "Parameter, A", "Std error, A", "Parameter, tau", "Std error, tau", "Sum of squares", "Sum of squares variable", "Sum of squares response variable"]
-        data = [data_str, model_str, fit_str, RMS, 0.044, optimal_fits.beta[0], optimal_fits.sd_beta[0], optimal_fits.beta[1], optimal_fits.sd_beta[1], optimal_fits.sum_square, optimal_fits.sum_square_delta, optimal_fits.sum_square_eps]        
+    elif model_str == "IM-III":
+        header = ["Data", "Model", "Fitting method","RMS", "Parameter, alpha", "Std error, alpha", "Parameter, A", "Std error, A", "Parameter, tau", "Std error, tau","Parameter, C", "Std error, C", "Sum of squares", "Sum of squares variable", "Sum of squares response variable"]
+        data = [data_str, model_str, fit_str, RMS, optimal_fits.beta[3], optimal_fits.sd_beta[3], optimal_fits.beta[0], optimal_fits.sd_beta[0], optimal_fits.beta[1], optimal_fits.sd_beta[1],optimal_fits.beta[2], optimal_fits.sd_beta[2], optimal_fits.sum_square, optimal_fits.sum_square_delta, optimal_fits.sum_square_eps]        
     # Write the data to the defined file    
     with open(file_name, "w", encoding="UTF8") as f:
         writer = csv.writer(f)

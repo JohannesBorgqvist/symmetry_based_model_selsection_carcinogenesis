@@ -957,3 +957,6 @@ write_output.plot_LaTeX_2D(epsilon_vector,Delta_fit_mixed,"../Figures/Fig3_panel
 #Delta_fit_test_2 = symmetry_based_model_selection.sym_model_sel(t,R,epsilon_test,para_IM,"IM-II")
 #print("Pow:\t(%0.3f,%0.3f)"%(epsilon_test[0],Delta_fit_test[0]))
 #print("Pow:\t(%0.3f,%0.3f)"%(epsilon_test[0],Delta_fit_test_2[0]))
+
+
+

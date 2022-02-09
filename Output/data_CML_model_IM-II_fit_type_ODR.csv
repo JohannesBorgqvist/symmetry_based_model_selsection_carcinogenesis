@@ -1,2 +1,0 @@
-Data,Model,Fitting method,RMS,"Parameter, alpha (Constant)","Parameter, A","Std error, A","Parameter, tau","Std error, tau",Sum of squares,Sum of squares variable,Sum of squares response variable
-CML,IM-II,ODR,0.3518039541210483,0.044,2.9118200258537925,0.3303383201197424,50.32409408899737,2.1305980910005746,9.158685638005146,0.5638866411355102,8.594798996869635

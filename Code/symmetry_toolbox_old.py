@@ -12,7 +12,7 @@
 # =================================================================================
 import read_data  # Home-made
 import write_output  # Home-made
-import fit_to_data_ODR # Home-made
+import fit_to_data # Home-made
 import numpy as np 
 from matplotlib import pyplot as plt
 # =================================================================================
@@ -206,7 +206,7 @@ def sym_model_sel(t,R,epsilon_vector,opt_para,model_str):
     # Allocate memory for the output
     Delta_fit = []
     # Calculate the original fit
-    R_hat, opt_para_original, R_squared_adj_original = fit_to_data_ODR.PE_risk_profiles(t,R,model_str,opt_para)
+    R_hat, opt_para_original, R_squared_adj_original = fit_to_data.PE_risk_profiles(t,R,model_str,opt_para)
     # Re-define data by taking the exponential of it
     R_ori_data = [np.exp(R[i]) for i in range(len(R))]
     # Extract the value of alpha
@@ -244,7 +244,7 @@ def sym_model_sel(t,R,epsilon_vector,opt_para,model_str):
         t_trans_data = np.array(t_trans_data)
         R_trans_data_log = np.array(R_trans_data_log)
         # Calculate the fit
-        R_hat_trans, opt_para_temp, R_squared_adj_after = fit_to_data_ODR.PE_risk_profiles(t_trans_data,R_trans_data_log,model_str,opt_para)
+        R_hat_trans, opt_para_temp, R_squared_adj_after = fit_to_data.PE_risk_profiles(t_trans_data,R_trans_data_log,model_str,opt_para)
         # Append the relative fit
         #Delta_fit.append(((R_squared_adj_after)/(R_squared_adj_original)))
         Delta_fit.append(R_squared_adj_after)

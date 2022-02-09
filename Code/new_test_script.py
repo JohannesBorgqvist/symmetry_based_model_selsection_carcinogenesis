@@ -12,7 +12,7 @@
 # =================================================================================
 import read_data  # Home-made
 import write_output  # Home-made
-import fit_to_data # Home-made
+import fit_to_data_ODR # Home-made
 import symmetry_toolbox # Home-made
 #import symmetry_based_model_selection # Home-made
 import numpy as np
@@ -50,28 +50,28 @@ R_CML = np.array(list(R_CML[9:len(R_CML)-1]))
 #----------------------------------------------------------------------------------
 # MYELOMA DATA
 # PLM 
-PLM_fitted_to_myeloma_LS, R_hat_PLM_myeloma_LS, RMS_PLM_myeloma_LS  = fit_to_data.PE_risk_profiles(t_myeloma,R_myeloma,"PLM","LS")
+PLM_fitted_to_myeloma_LS, R_hat_PLM_myeloma_LS, RMS_PLM_myeloma_LS  = fit_to_data_ODR.PE_risk_profiles(t_myeloma,R_myeloma,"PLM","LS")
 write_output.save_data_PE("myeloma", "PLM", PLM_fitted_to_myeloma_LS, RMS_PLM_myeloma_LS, "LS")
 # IM-II
-IM_II_fitted_to_myeloma_LS, R_hat_IM_II_myeloma_LS, RMS_IM_II_myeloma_LS = fit_to_data.PE_risk_profiles(t_myeloma,R_myeloma,"IM-II","LS")
+IM_II_fitted_to_myeloma_LS, R_hat_IM_II_myeloma_LS, RMS_IM_II_myeloma_LS = fit_to_data_ODR.PE_risk_profiles(t_myeloma,R_myeloma,"IM-II","LS")
 write_output.save_data_PE("myeloma", "IM-II", IM_II_fitted_to_myeloma_LS, RMS_IM_II_myeloma_LS, "LS")
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # COLON CANCER DATA
 # PLM 
-PLM_fitted_to_colon_LS, R_hat_PLM_colon_LS, RMS_PLM_colon_LS  = fit_to_data.PE_risk_profiles(t_colon,R_colon,"PLM","LS")
+PLM_fitted_to_colon_LS, R_hat_PLM_colon_LS, RMS_PLM_colon_LS  = fit_to_data_ODR.PE_risk_profiles(t_colon,R_colon,"PLM","LS")
 write_output.save_data_PE("colon", "PLM", PLM_fitted_to_colon_LS, RMS_PLM_colon_LS, "LS")
 # IM-II
-IM_II_fitted_to_colon_LS, R_hat_IM_II_colon_LS, RMS_IM_II_colon_LS = fit_to_data.PE_risk_profiles(t_colon,R_colon,"IM-II","LS")
+IM_II_fitted_to_colon_LS, R_hat_IM_II_colon_LS, RMS_IM_II_colon_LS = fit_to_data_ODR.PE_risk_profiles(t_colon,R_colon,"IM-II","LS")
 write_output.save_data_PE("colon", "IM-II", IM_II_fitted_to_colon_LS, RMS_IM_II_colon_LS, "LS")
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # CML DATA
 # PLM 
-PLM_fitted_to_CML_LS, R_hat_PLM_CML_LS, RMS_PLM_CML_LS  = fit_to_data.PE_risk_profiles(t_CML,R_CML,"PLM","LS")
+PLM_fitted_to_CML_LS, R_hat_PLM_CML_LS, RMS_PLM_CML_LS  = fit_to_data_ODR.PE_risk_profiles(t_CML,R_CML,"PLM","LS")
 write_output.save_data_PE("CML", "PLM", PLM_fitted_to_CML_LS, RMS_PLM_CML_LS, "LS")
 # IM-II
-IM_II_fitted_to_CML_LS, R_hat_IM_II_CML_LS, RMS_IM_II_CML_LS = fit_to_data.PE_risk_profiles(t_CML,R_CML,"IM-II","LS")
+IM_II_fitted_to_CML_LS, R_hat_IM_II_CML_LS, RMS_IM_II_CML_LS = fit_to_data_ODR.PE_risk_profiles(t_CML,R_CML,"IM-II","LS")
 write_output.save_data_PE("CML", "IM-II", IM_II_fitted_to_CML_LS, RMS_IM_II_CML_LS, "LS")
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
@@ -81,28 +81,28 @@ write_output.save_data_PE("CML", "IM-II", IM_II_fitted_to_CML_LS, RMS_IM_II_CML_
 #----------------------------------------------------------------------------------
 # MYELOMA DATA
 # PLM 
-PLM_fitted_to_myeloma_ODR, R_hat_PLM_myeloma_ODR, RMS_PLM_myeloma_ODR  = fit_to_data.PE_risk_profiles(t_myeloma,R_myeloma,"PLM","ODR")
+PLM_fitted_to_myeloma_ODR, R_hat_PLM_myeloma_ODR, RMS_PLM_myeloma_ODR  = fit_to_data_ODR.PE_risk_profiles(t_myeloma,R_myeloma,"PLM","ODR")
 write_output.save_data_PE("myeloma", "PLM", PLM_fitted_to_myeloma_ODR, RMS_PLM_myeloma_ODR, "ODR")
 # IM-II
-IM_II_fitted_to_myeloma_ODR, R_hat_IM_II_myeloma_ODR, RMS_IM_II_myeloma_ODR = fit_to_data.PE_risk_profiles(t_myeloma,R_myeloma,"IM-II","ODR")
+IM_II_fitted_to_myeloma_ODR, R_hat_IM_II_myeloma_ODR, RMS_IM_II_myeloma_ODR = fit_to_data_ODR.PE_risk_profiles(t_myeloma,R_myeloma,"IM-II","ODR")
 write_output.save_data_PE("myeloma", "IM-II", IM_II_fitted_to_myeloma_ODR, RMS_IM_II_myeloma_ODR, "ODR")
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # COLON CANCER DATA
 # PLM 
-PLM_fitted_to_colon_ODR, R_hat_PLM_colon_ODR, RMS_PLM_colon_ODR  = fit_to_data.PE_risk_profiles(t_colon,R_colon,"PLM","ODR")
+PLM_fitted_to_colon_ODR, R_hat_PLM_colon_ODR, RMS_PLM_colon_ODR  = fit_to_data_ODR.PE_risk_profiles(t_colon,R_colon,"PLM","ODR")
 write_output.save_data_PE("colon", "PLM", PLM_fitted_to_colon_ODR, RMS_PLM_colon_ODR, "ODR")
 # IM-II
-IM_II_fitted_to_colon_ODR, R_hat_IM_II_colon_ODR, RMS_IM_II_colon_ODR = fit_to_data.PE_risk_profiles(t_colon,R_colon,"IM-II","ODR")
+IM_II_fitted_to_colon_ODR, R_hat_IM_II_colon_ODR, RMS_IM_II_colon_ODR = fit_to_data_ODR.PE_risk_profiles(t_colon,R_colon,"IM-II","ODR")
 write_output.save_data_PE("colon", "IM-II", IM_II_fitted_to_colon_ODR, RMS_IM_II_colon_ODR, "ODR")
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # CML DATA
 # PLM 
-PLM_fitted_to_CML_ODR, R_hat_PLM_CML_ODR, RMS_PLM_CML_ODR  = fit_to_data.PE_risk_profiles(t_CML,R_CML,"PLM","ODR")
+PLM_fitted_to_CML_ODR, R_hat_PLM_CML_ODR, RMS_PLM_CML_ODR  = fit_to_data_ODR.PE_risk_profiles(t_CML,R_CML,"PLM","ODR")
 write_output.save_data_PE("CML", "PLM", PLM_fitted_to_CML_ODR, RMS_PLM_CML_ODR, "ODR")
 # IM-II
-IM_II_fitted_to_CML_ODR, R_hat_IM_II_CML_ODR, RMS_IM_II_CML_ODR = fit_to_data.PE_risk_profiles(t_CML,R_CML,"IM-II","ODR")
+IM_II_fitted_to_CML_ODR, R_hat_IM_II_CML_ODR, RMS_IM_II_CML_ODR = fit_to_data_ODR.PE_risk_profiles(t_CML,R_CML,"IM-II","ODR")
 write_output.save_data_PE("CML", "IM-II", IM_II_fitted_to_CML_ODR, RMS_IM_II_CML_ODR, "ODR")
 #----------------------------------------------------------------------------------
 # =================================================================================
@@ -157,67 +157,15 @@ plt.ylabel("Incidence, $R(t)$")
 plt.title("Fit of candidate models to three data sets",fontsize=20, fontweight='bold')
 #plt.show()
 plt.savefig("../Figures/Fit_of_models_to_cancer_data.png")
-# =================================================================================
-# =================================================================================
-# Plot the data and the fit in latex
-# =================================================================================
-# =================================================================================
-# PLOT DATA
-# Define the string defining the settings for the plot
-plot_str = "only marks, mark=halfcircle*,mark size=1.5pt,color=black,"
-# Myeloma
-write_output.plot_LaTeX_2D(t_myeloma,R_myeloma,"../Figures/latex_figures/FigS4/myeloma/Input/data.tex",plot_str,"Data Myeloma cancer")
-# Colon cancer
-write_output.plot_LaTeX_2D(t_colon,R_colon,"../Figures/latex_figures/FigS4/colon/Input/data.tex",plot_str,"Data Colon cancer")
-# CML
-write_output.plot_LaTeX_2D(t_CML,R_CML,"../Figures/latex_figures/FigS4/CML/Input/data.tex",plot_str,"Data CML")
-#----------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------
-# STANDARD LEAST SQUARE (LS) FITTING
-#----------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------
-# PLOT PLM
-# Define the string defining the settings for the plot
-plot_str = "color=pow_1,line width=2pt,"
-# Myeloma
-write_output.plot_LaTeX_2D(t_myeloma,R_hat_PLM_myeloma_LS,"../Figures/latex_figures/FigS4/myeloma/Input/PLM_LS.tex",plot_str,"PLM LS fit")
-# Colon cancer
-write_output.plot_LaTeX_2D(t_colon,R_hat_PLM_colon_LS,"../Figures/latex_figures/FigS4/colon/Input/PLM_LS.tex",plot_str,"PLM LS fit")
-# CML
-write_output.plot_LaTeX_2D(t_CML,R_hat_PLM_CML_LS,"../Figures/latex_figures/FigS4/CML/Input/PLM_LS.tex",plot_str,"PLM LS fit")
-# PLOT IM-II
-# Define the string defining the settings for the plot
-plot_str = "color=mixed_1,line width=2pt,"
-# Myeloma
-write_output.plot_LaTeX_2D(t_myeloma,R_hat_IM_II_myeloma_LS,"../Figures/latex_figures/FigS4/myeloma/Input/IM-II_LS.tex",plot_str,"IM-II LS fit")
-# Colon cancer
-write_output.plot_LaTeX_2D(t_colon,R_hat_IM_II_colon_LS,"../Figures/latex_figures/FigS4/colon/Input/IM-II_LS.tex",plot_str,"IM-II LS fit")
-# CML
-write_output.plot_LaTeX_2D(t_CML,R_hat_IM_II_CML_LS,"../Figures/latex_figures/FigS4/CML/Input/IM-II_LS.tex",plot_str,"IM-II LS fit")
-#----------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------
-# ORTHOGONAL DISTANCE REGRESSION (ODR)
-#----------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------
-# PLOT PLM
-# Define the string defining the settings for the plot
-plot_str = "color=pow_1,line width=2pt,"
-# Myeloma
-write_output.plot_LaTeX_2D(t_myeloma,R_hat_PLM_myeloma_ODR,"../Figures/latex_figures/FigS4/myeloma/Input/PLM_ODR.tex",plot_str,"PLM ODR fit")
-# Colon cancer
-write_output.plot_LaTeX_2D(t_colon,R_hat_PLM_colon_ODR,"../Figures/latex_figures/FigS4/colon/Input/PLM_ODR.tex",plot_str,"PLM ODR fit")
-# CML
-write_output.plot_LaTeX_2D(t_CML,R_hat_PLM_CML_ODR,"../Figures/latex_figures/FigS4/CML/Input/PLM_ODR.tex",plot_str,"PLM ODR fit")
-# PLOT IM-II
-# Define the string defining the settings for the plot
-plot_str = "color=mixed_1,line width=2pt,"
-# Myeloma
-write_output.plot_LaTeX_2D(t_myeloma,R_hat_IM_II_myeloma_ODR,"../Figures/latex_figures/FigS4/myeloma/Input/IM-II_ODR.tex",plot_str,"IM-II ODR fit")
-# Colon cancer
-write_output.plot_LaTeX_2D(t_colon,R_hat_IM_II_colon_ODR,"../Figures/latex_figures/FigS4/colon/Input/IM-II_ODR.tex",plot_str,"IM-II ODR fit")
-# CML
-write_output.plot_LaTeX_2D(t_CML,R_hat_IM_II_CML_ODR,"../Figures/latex_figures/FigS4/CML/Input/IM-II_ODR.tex",plot_str,"IM-II ODR fit")
+
+
+
+print(IM_II_fitted_to_myeloma_LS.beta)
+
+
+
+
+
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
@@ -229,7 +177,7 @@ t_sym = np.linspace(0,t_myeloma[len(t_myeloma)-1],200)
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # THE PLM
-R_hat_PLM_original = np.array([fit_to_data.objective_PLM(PLM_fitted_to_myeloma_ODR.beta,t_sym[index]) for index in range(len(t_sym))])
+R_hat_PLM_original = np.array([fit_to_data_ODR.objective_PLM(PLM_fitted_to_myeloma_ODR.beta,t_sym[index]) for index in range(len(t_sym))])
 # Choose an epsilon
 epsilon = 0.35
 # Allocate memory for a list
@@ -263,7 +211,7 @@ R_hat_PLM_2 = np.array([symmetry_toolbox.PLM_2_symmetry(t_hat_PLM_1[index],R_hat
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # THE IM-II
-R_hat_IM_II_original = np.array([fit_to_data.objective_IM_II(IM_II_fitted_to_myeloma_ODR.beta,t_sym[index]) for index in range(len(t_sym))])
+R_hat_IM_II_original = np.array([fit_to_data_ODR.objective_IM_II(IM_II_fitted_to_myeloma_ODR.beta,t_sym[index]) for index in range(len(t_sym))])
 # Allocate memory for a list
 R_IM_II_trans_1 = []
 t_IM_II_trans_1 = []
@@ -334,37 +282,8 @@ plt.ylabel("Incidence, $R(t)$")
 plt.title("The symmetries of the PLM and the IM-II",fontsize=20, fontweight='bold')
 #plt.show()
 plt.savefig("../Figures/action_of_symmetries.png")
-#-------------------------------------------------------------------------------------
-# The LaTeX plot as well
-#-------------------------------------------------------------------------------------
-# PLM
-write_output.plot_LaTeX_2D(t_sym, R_hat_PLM_original,"../Figures/latex_figures/symmetries/Input/PLM.tex","color=pow_1,line width=2pt,","PLM original solution, $R(t)$")
-# The first symmetry
-write_output.plot_LaTeX_2D(np.array(t_PLM_trans_1[0]),np.array(R_PLM_trans_1[0]),"../Figures/latex_figures/symmetries/Input/PLM.tex","color=black,->,>=latex,densely dashed","Action of symmetry, $\\Gamma_{1,1}(\\epsilon)$")
-# The remaining ones
-for index in range(1,len(t_PLM_trans_1)):
-    write_output.plot_LaTeX_2D(np.array(t_PLM_trans_1[index]),np.array(R_PLM_trans_1[index]),"../Figures/latex_figures/symmetries/Input/PLM.tex","color=black,->,>=latex,densely dashed",[])
-# The remaining ones
-for index in range(1,len(t_PLM_trans_2)):
-    write_output.plot_LaTeX_2D(np.array(t_PLM_trans_2[index]),np.array(R_PLM_trans_2[index]),"../Figures/latex_figures/symmetries/Input/PLM.tex","color=black,->,>=latex,densely dashed",[])
-# Transformed solution 1
-write_output.plot_LaTeX_2D(t_hat_PLM_1, R_hat_PLM_1,"../Figures/latex_figures/symmetries/Input/PLM.tex","color=pow_2,line width=2pt,","PLM transformed solution, $\\hat{R}_1\\left(\\hat{t}\\right)$")
-# Transformed solution 2
-write_output.plot_LaTeX_2D(t_hat_PLM_2, R_hat_PLM_2,"../Figures/latex_figures/symmetries/Input/PLM.tex","color=pow_3,line width=2pt,","PLM transformed solution, $\\hat{R}_2\\left(\\hat{t}\\right)$")
-# IM_II
-write_output.plot_LaTeX_2D(t_sym, R_hat_IM_II_original,"../Figures/latex_figures/symmetries/Input/IM_II.tex","color=mixed_1,line width=2pt,","IM-II original solution, $R(t)$")
-# The first symmetry
-write_output.plot_LaTeX_2D(np.array(t_IM_II_trans_1[0]),np.array(R_IM_II_trans_1[0]),"../Figures/latex_figures/symmetries/Input/IM_II.tex","color=black,->,>=latex,densely dashed","Action of symmetry, $\\Gamma_{2,1}(\\epsilon)$")
-# The remaining ones
-for index in range(1,len(t_IM_II_trans_1)):
-    write_output.plot_LaTeX_2D(np.array(t_IM_II_trans_1[index]),np.array(R_IM_II_trans_1[index]),"../Figures/latex_figures/symmetries/Input/IM_II.tex","color=black,->,>=latex,densely dashed",[])
-# The remaining ones
-for index in range(1,len(t_IM_II_trans_2)):
-    write_output.plot_LaTeX_2D(np.array(t_IM_II_trans_2[index]),np.array(R_IM_II_trans_2[index]),"../Figures/latex_figures/symmetries/Input/IM_II.tex","color=black,->,>=latex,densely dashed",[])
-# Transformed solution 1
-write_output.plot_LaTeX_2D(t_hat_IM_II_1, R_hat_IM_II_1,"../Figures/latex_figures/symmetries/Input/IM_II.tex","color=mixed_2,line width=2pt,","IM-II transformed solution, $\\hat{R}_1\\left(\\hat{t}\\right)$")
-# Transformed solution 2
-write_output.plot_LaTeX_2D(t_hat_IM_II_2, R_hat_IM_II_2,"../Figures/latex_figures/symmetries/Input/IM_II.tex","color=mixed_3,line width=2pt,","IM-II transformed solution, $\\hat{R}_2\\left(\\hat{t}\\right)$")
+
+
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
@@ -389,7 +308,7 @@ for index in index_vector:
 t_myeloma_trans = np.array([symmetry_toolbox.PLM_2_symmetry(t_myeloma[index],R_myeloma[index],epsilon)[0] for index in range(len(t_myeloma))])
 R_myeloma_trans = np.array([symmetry_toolbox.PLM_2_symmetry(t_myeloma[index],R_myeloma[index],epsilon)[1] for index in range(len(t_myeloma))])
 # Fit the model to the transformed data
-param_temp, R_hat_PLM_trans, RMS_temp  = fit_to_data.PE_risk_profiles(t_myeloma_trans,R_myeloma_trans,"PLM","ODR")
+param_temp, R_hat_PLM_trans, RMS_temp  = fit_to_data_ODR.PE_risk_profiles(t_myeloma_trans,R_myeloma_trans,"PLM","ODR")
 # =================================================================================
 # =================================================================================
 # Plot the illustration of the model selection framework
@@ -422,27 +341,12 @@ plt.ylabel("Incidence, $R(t)$")
 # displaying the title
 plt.title("The steps of the symmetry based model selection",fontsize=20, fontweight='bold')
 plt.savefig("../Figures/illustrate_framework.png")
-plt.show()
-#-------------------------------------------------------------------------------------
-# The LaTeX plot as well
-#-------------------------------------------------------------------------------------
-# Define the string defining the settings for the plot
-plot_str = "only marks, mark=halfcircle*,mark size=1.5pt,color=black,"
-# Myeloma
-write_output.plot_LaTeX_2D(t_myeloma,R_myeloma,"../Figures/latex_figures/illustrate_framework/Input/data.tex",plot_str,"Data Myeloma cancer")
-# Plot the symmetry
-plot_str = "color=black,->,>=latex,densely dashed"
-# The first symmetry
-write_output.plot_LaTeX_2D(np.array(t_PLM_trans[0]),np.array(R_PLM_trans[0]),"../Figures/latex_figures/illustrate_framework/Input/symmetry.tex",plot_str,"Transform data with symmetry")
-# The remaining ones
-for index in range(1,len(t_PLM_trans)):
-    write_output.plot_LaTeX_2D(np.array(t_PLM_trans[index]),np.array(R_PLM_trans[index]),"../Figures/latex_figures/illustrate_framework/Input/symmetry.tex",plot_str,[])
-# Add the transformed data
-plot_str = "only marks, mark=diamond*,mark size=1.5pt,color=gray,every mark/.append style={solid, fill=gray}"
-write_output.plot_LaTeX_2D(t_myeloma_trans,R_myeloma_trans,"../Figures/latex_figures/illustrate_framework/Input/transformed_data.tex",plot_str,"Transformed data")
-# Add the fitted model to the transformed data
-plot_str = "color=pow_2,line width=2pt,"
-write_output.plot_LaTeX_2D(t_myeloma_trans,R_hat_PLM_trans,"../Figures/latex_figures/illustrate_framework/Input/model.tex",plot_str,"Fitted model")
+#plt.show()
+
+
+
+
+
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
@@ -454,35 +358,25 @@ write_output.plot_LaTeX_2D(t_myeloma_trans,R_hat_PLM_trans,"../Figures/latex_fig
 # Construct a t vector
 t_sym = np.linspace(t_myeloma[0],t_myeloma[len(t_myeloma)-1],200)
 # Create an epsilon vector
-epsilon_vec = np.linspace(0,0.2,50)
+epsilon_vec = np.linspace(0,0.2,100)
 # CREATE TWO RMS VECTORS FOR EACH MODEL
 RMS_PLM = []
 RMS_IM_II = []
 # THE ORIGINAL VECTORS OR ORIGINAL DATA IF YOU WILL
-R_hat_PLM_original = np.array([fit_to_data.objective_PLM(PLM_fitted_to_myeloma_ODR.beta,t_sym[index]) for index in range(len(t_sym))])
-R_hat_IM_II_original = np.array([fit_to_data.objective_IM_II(IM_II_fitted_to_myeloma_ODR.beta,t_sym[index]) for index in range(len(t_sym))])
+#R_hat_PLM_original = np.array([fit_to_data_ODR.objective_PLM(PLM_fitted_to_myeloma_LS.beta,t_sym[index]) for index in range(len(t_sym))])
+#R_hat_IM_II_original = np.array([fit_to_data_ODR.objective_IM_II(PLM_fitted_to_myeloma_LS.beta,t_sym[index]) for index in range(len(t_sym))])
 # LOOP OVER THE EPSILON VECTORS AND FIT THE CANDIDATE MODELS TO THE TRANSFORMED TIME SERIES
-for epsilon_temp in list(epsilon_vec):
+#for epsilon_temp in list(epsilon_vec):
     # TRANSFORM THE TIME ORIGINAL SOLUTION
     # PLM
-    t_hat_PLM = np.array([symmetry_toolbox.PLM_2_symmetry(t_sym[index],R_hat_PLM_original[index],epsilon_temp)[0] for index in range(len(t_sym))])
-    R_hat_PLM = np.array([symmetry_toolbox.PLM_2_symmetry(t_sym[index],R_hat_PLM_original[index],epsilon_temp)[1] for index in range(len(t_sym))])
+#    t_hat_PLM = np.array([symmetry_toolbox.PLM_2_symmetry(t_sym[index],R_hat_PLM_original[index],epsilon_temp)[0] for index in range(len(t_sym))])
+#    R_hat_PLM = np.array([symmetry_toolbox.PLM_2_symmetry(t_sym[index],R_hat_PLM_original[index],epsilon_temp)[1] for index in range(len(t_sym))])
     # IM-II
-    t_hat_IM_II = np.array([symmetry_toolbox.IM_II_symmetry(t_sym[index],R_hat_IM_II_original[index],epsilon_temp,IM_II_fitted_to_myeloma_ODR.beta[1],0.044)[0] for index in range(len(t_sym))])
-    R_hat_IM_II = np.array([symmetry_toolbox.IM_II_symmetry(t_sym[index],R_hat_IM_II_original[index],epsilon_temp,IM_II_fitted_to_myeloma_ODR.beta[1],0.044)[1] for index in range(len(t_sym))])
+#    t_hat_IM_II = np.array([symmetry_toolbox.IM_II_symmetry(t_sym[index],R_hat_IM_II_original[index],epsilon_temp,IM_II_fitted_to_myeloma_ODR.beta[1],0.044)[0] for index in range(len(t_sym))])
+    #R_hat_IM_II = np.array([symmetry_toolbox.IM_II_symmetry(t_sym[index],R_hat_IM_II_original[index],epsilon_temp,IM_II_fitted_to_myeloma_ODR.beta[1],0.044)[1] for index in range(len(t_sym))])
     # FIT MODELS TO TRANSFORMED SOLUTION
-    RMS_PLM.append(fit_to_data.PE_risk_profiles(t_hat_PLM,R_hat_PLM,"PLM","ODR")[2])
-    RMS_IM_II.append(fit_to_data.PE_risk_profiles(t_hat_IM_II,R_hat_IM_II,"IM-II","ODR")[2])
-print("Fit with original time series")
-print(fit_to_data.PE_risk_profiles(t_sym,R_hat_PLM_original,"PLM","ODR")[2])
-t_hat_PLM = np.array([symmetry_toolbox.PLM_2_symmetry(t_sym[index],R_hat_PLM_original[index],0)[0] for index in range(len(t_sym))])
-R_hat_PLM = np.array([symmetry_toolbox.PLM_2_symmetry(t_sym[index],R_hat_PLM_original[index],0)[1] for index in range(len(t_sym))])
-print("Fit with epsilon=%0.3f"%(0.0))
-print(fit_to_data.PE_risk_profiles(t_hat_PLM,R_hat_PLM,"PLM","ODR")[2])
-t_hat_PLM = np.array([symmetry_toolbox.PLM_2_symmetry(t_sym[index],R_hat_PLM_original[index],0.15)[0] for index in range(len(t_sym))])
-R_hat_PLM = np.array([symmetry_toolbox.PLM_2_symmetry(t_sym[index],R_hat_PLM_original[index],0.15)[1] for index in range(len(t_sym))])
-print("Fit with epsilon=%0.3f"%(0.5))
-print(fit_to_data.PE_risk_profiles(t_hat_PLM,R_hat_PLM,"PLM","ODR")[2])
+    #RMS_PLM.append(fit_to_data_ODR.PE_risk_profiles(t_hat_PLM,R_hat_PLM,"PLM","LS")[2])
+    #RMS_IM_II.append(fit_to_data_ODR.PE_risk_profiles(t_hat_IM_II,R_hat_IM_II,"IM-II","LS")[2])
 
 
 
@@ -493,28 +387,24 @@ print(fit_to_data.PE_risk_profiles(t_hat_PLM,R_hat_PLM,"PLM","ODR")[2])
 # =================================================================================
 # Illustration of the framework
 # Overall properties
-fig, axes = plt.subplots(1,2,figsize=(15,5))
-plt.rc('axes', labelsize=15)    # fontsize of the x and y label
-plt.rc('legend', fontsize=10)    # legend fontsize
-plt.rc('xtick', labelsize=10)    # fontsize of the tick labels
-plt.rc('ytick', labelsize=10)    # fontsize of the tick labels
+#fig, axes = plt.subplots(1,2,figsize=(15,5))
+#plt.rc('axes', labelsize=15)    # fontsize of the x and y label
+#plt.rc('legend', fontsize=10)    # legend fontsize
+#plt.rc('xtick', labelsize=10)    # fontsize of the tick labels
+#plt.rc('ytick', labelsize=10)    # fontsize of the tick labels
 # Subplot 1
-axes[0].plot(epsilon_vec,np.array(RMS_PLM),'-',color = (103/256,0/256,31/256),label='PLM')
-axes[0].legend()
+#axes[0].plot(epsilon_vec,np.array(RMS_PLM),'-',color = (103/256,0/256,31/256),label='PLM')
+#axes[0].legend()
 # Subplot 2
-axes[1].plot(epsilon_vec,np.array(RMS_IM_II),'-',color = (2/256,56/256,88/256),label='IM_II')
-axes[1].legend()
+#axes[1].plot(epsilon_vec,np.array(RMS_IM_II),'-',color = (2/256,56/256,88/256),label='IM_II')
+#axes[1].legend()
 # add a big axis, hide frame
-fig.add_subplot(111, frameon=False)
+#fig.add_subplot(111, frameon=False)
 #hide tick and tick label of the big axis
-plt.tick_params(labelcolor='none', which='both', top=False, bottom=False, left=False, right=False)
-plt.xlabel("Transformation parameter, $\epsilon$")
-plt.ylabel("Root mean square, $\mathrm{RMS}(\epsilon)$")
+#plt.tick_params(labelcolor='none', which='both', top=False, bottom=False, left=False, right=False)
+#plt.xlabel("Transformation parameter, $\epsilon$")
+#plt.ylabel("Root mean square, $\mathrm{RMS}(\epsilon)$")
 # displaying the title
 #plt.title("The steps of the symmetry based model selection",fontsize=20, fontweight='bold')
-plt.savefig("../Figures/illustrate_framework.png")
-plt.show()
-
-
-
-
+#plt.savefig("../Figures/illustrate_framework.png")
+#plt.show()

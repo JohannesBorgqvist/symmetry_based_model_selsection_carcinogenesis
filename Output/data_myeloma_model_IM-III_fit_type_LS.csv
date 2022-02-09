@@ -1,0 +1,2 @@
+Data,Model,Fitting method,RMS,"Parameter, alpha","Std error, alpha","Parameter, A","Std error, A","Parameter, tau","Std error, tau","Parameter, C","Std error, C",Sum of squares,Sum of squares variable,Sum of squares response variable
+myeloma,IM-III,LS,0.4987803341149306,0.12541411701779925,0.003586052756493283,0.27503654973145947,0.396659539292095,27.343997028158885,10.693337145941031,3.6144873276121627,5.243478804045255,14.678127480288309,0.0,14.678127480288309
