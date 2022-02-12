@@ -1,2 +1,0 @@
-Data,Model,Fitting method,RMS,"Parameter, A","Std error, A","Parameter, gamma","Std error, gamma",Sum of squares,Sum of squares variable,Sum of squares response variable
-colon,PLM,ODR,0.8942837167967448,5.775289080903424e-07,1.1304488165274664e-07,4.603930702281438,0.04691866168402804,57.581522361201635,51.811772426325135,5.769749934876501

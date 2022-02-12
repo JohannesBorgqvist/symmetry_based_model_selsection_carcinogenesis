@@ -1,2 +1,2 @@
-Data,Model,Fitting method,RMS,"Parameter, alpha","Std error, alpha","Parameter, A","Std error, A","Parameter, tau","Std error, tau","Parameter, C","Std error, C",Sum of squares,Sum of squares variable,Sum of squares response variable
-colon,IM-III,LS,3.165442672512771,0.09437617281908733,0.003182415633672013,9.76464589133753,4.45550938564405,33.47059112079625,3.876164571933322,0.10045357298194604,0.046675356025762484,721.4419665334651,0.0,721.4419665334651
+Data,Model,Fitting method,RMS,"Parameter, A","Std error, A","Parameter, tau","Std error, tau","Parameter, C","Std error, C",Sum of squares,Sum of squares variable,Sum of squares response variable
+colon,IM-III,LS,4.065655181529889,369.36461984001335,28.59005700086477,69.21010882744896,0.8513779676770701,0.667200816833744,0.051724469493853495,1190.1277479672603,0.0,1190.1277479672603
