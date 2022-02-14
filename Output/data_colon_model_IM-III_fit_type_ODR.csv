@@ -1,0 +1,2 @@
+Data,Model,Fitting method,RMS,"Parameter, A","Std error, A","Parameter, tau","Std error, tau","Parameter, C","Std error, C",Sum of squares,Sum of squares variable,Sum of squares response variable
+colon,IM-III,ODR,0.6848215384106688,243.73313176211303,14.185819234181364,64.92792339046323,0.5477175873007819,0.8975725132350729,0.030692169000496154,33.76659884192317,25.31036227227874,8.456236569644428
