@@ -1,7 +1,7 @@
 # =================================================================================
 # =================================================================================
 # Script:"read_data"
-# Date: 2021-09-20
+# Date: 2022-02-15
 # Implemented by: Johannes Borgqvist
 # Description:
 # The script reads the time series of interest stored in a csv file in

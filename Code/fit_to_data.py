@@ -1,7 +1,7 @@
 # =================================================================================
 # =================================================================================
 # Script:"fit_to_data"
-# Date: 2021-09-23
+# Date: 2022-02-15
 # Implemented by: Johannes Borgqvist
 # Description:
 # The program conducts a simple curve fitting to a time series and returns the
@@ -11,6 +11,7 @@
 # Import Libraries
 # =================================================================================
 # =================================================================================
+import symmetry_toolbox # Home-made
 from scipy.odr import * # For calculating the total sum of squares
 import numpy as np  # For the exponential function
 # =================================================================================
@@ -42,7 +43,6 @@ def objective_IM_III(parameters, t):
     alpha = 0.044
     # Extract the parameters to be fitted
     A, tau, C = parameters
-    #A, tau, C = parameters
     # Return the logarithm of the output
     return ((A)/(np.exp(np.exp(-alpha*(t-tau)))-C))
 # ---------------------------------------------------------------------------------------
@@ -68,6 +68,9 @@ def PE_risk_profiles(t, R, model_str,fit_string,fixed_parameters):
     # we use a multiple shooting technique were we test multiple start guesses and then we
     # save the optimal parameters that resulted in the best fit.
     num_of_start_guesses = 10
+    #num_of_start_guesses = 3
+    #num_of_start_guesses = 4
+    #num_of_start_guesses = 9
     # We have two models to consider, namely the PLM and the IM-III. In order to do the ODR
     # based model fitting, we need to construct a model object and a start guess for the
     # parameters.
@@ -123,12 +126,14 @@ def PE_risk_profiles(t, R, model_str,fit_string,fixed_parameters):
         elif model_str == "IM-III": # The IM-III
             R_hat_temp = np.array([objective_IM_III(fitted_model_temp.beta,t_i) for t_i in list(t)])
         # Calculate the RMS
-        RMS_temp = np.sqrt(((fitted_model_temp.sum_square)/(len(R))))
+        RMS_temp = symmetry_toolbox.symmetry_based_model_selection(t,R,np.array([0]),fitted_model_temp.beta,model_str)[0]   
+        #RMS_temp = np.sqrt(((fitted_model_temp.sum_square)/(len(R))))
+        
         # Lastly, if we obtained a better fit than the current minimal fit, we save that fit instead.
         if RMS_temp < RMS:
             RMS = RMS_temp
             R_hat = R_hat_temp
             fitted_model = fitted_model_temp
-    #------------------------------------------------------------------------------------------        
+    #------------------------------------------------------------------------------------------       
     # Return the fitted_model
     return fitted_model, R_hat, RMS

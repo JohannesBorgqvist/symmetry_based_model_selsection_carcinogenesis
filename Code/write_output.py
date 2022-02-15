@@ -1,7 +1,7 @@
 # =================================================================================
 # =================================================================================
 # Script:"write_output"
-# Date: 2021-09-20
+# Date: 2022-02-15
 # Implemented by: Johannes Borgqvist
 # Description:
 # The function write input data to output files which are mostly tex-files that
