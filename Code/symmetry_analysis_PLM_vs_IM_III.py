@@ -1,7 +1,7 @@
 # =================================================================================
 # =================================================================================
-# Script:"symmetry_based_model_selection.py"
-# Date: 2022-01-05
+# Script:"symmetry_analysis_PLM_vs_IM_III.py"
+# Date: 2022-02-15
 # Implemented by: Johannes Borgqvist
 # Description:
 # The script re-generates all the results presented in the article.
