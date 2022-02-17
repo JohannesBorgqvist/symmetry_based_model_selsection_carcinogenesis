@@ -53,7 +53,7 @@ The main Python packages are the following:
 3. *pandas* version: 1.2.4,
 4. *matplotlib* version: 3.3.4,
 5. *regex* version: 2021.4.4.<br>
-These scripts have been developed on a computer using ubuntu, and the version of Python that has been used is 3.8.8. 
+These scripts have been developed on a computer with the OS Ubuntu 20.04. The version of Python that has been used is 3.8.8. 
 
 
 ## Running the scripts and more information
