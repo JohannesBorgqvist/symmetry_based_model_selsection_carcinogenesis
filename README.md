@@ -57,7 +57,7 @@ These scripts have been developed on a computer with the OS Ubuntu 20.04. The ve
 
 
 ## Running the scripts and more information
-To generate all the results, go to the Code folder and run the script called "*symmetry_analysis_PLM_vs_IM_III.py*". For more information on all the scripts, the data and the output go to the README-files in these respective folders. 
+To generate all the results, go to the Code folder and run the script called "*symmetry\_analysis\_PLM\_vs\_IM\_III.py*". For more information on all the scripts, the data and the output go to the README-files in these respective folders. 
 
 
 
