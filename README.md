@@ -43,12 +43,21 @@ Lastly, by transforming the data with multiple transformation parameters, we see
 
 All the scripts required to reproduce these results can be found in the Code-folder. The data is provided in the Data-folder, the parameters obtained from the model-fitting are stored in the Output-folder and all the above figures are found in the Figure-folder. 
 
+Next we will describe the Python packages that are required in order to run these scripts. 
+
 ## The required Python packages
+The main Python packages are the following:
+
+1. *scipy* version:1.6.2,
+2. *numpy* version: 1.20.1,
+3. *pandas* version: 1.2.4,
+4. *matplotlib* version: 3.3.4,
+5. *regex* version: 2021.4.4.
+These scripts have been developed on a computer using ubuntu, and the version of Python that has been used is 3.8.8. 
 
 
-
-## Running the scripts
-
+## Running the scripts and more information
+To generate all the results, go to the Code folder and run the script called "*symmetry_analysis_PLM_vs_IM_III.py*". For more information on all the scripts, the data and the output go to the README-files in these respective folders. 
 
 
 
