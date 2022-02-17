@@ -1,6 +1,6 @@
 # Symmetry based model selection in the context of carcinogenesis
 *Written by:* Johannes Borgqvist<br>
-*Date:* 2021-02-17<br>
+*Date:* 2022-02-17<br>
 
 Welcome to the github-repositry *symmetry\_based_model\_selsection\_carcinogenesis*! This project is entirely written in Python meaning that it is open-source, and our aim is that the results in the article (**Reference to future article**) should be reproducable. Let's describe the project and all the relevant packages! 
 

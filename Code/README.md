@@ -1,6 +1,6 @@
 # The scripts
 *Written by:* Johannes Borgqvist<br>
-*Date:* 2021-02-17<br>
+*Date:* 2022-02-17<br>
 The Code-folder contains the following six scripts: 
 
 1. "*fit\_to\_data.py*",
