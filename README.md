@@ -11,9 +11,9 @@ One of the greatest challenges in mathematical biology is that of model selectio
 
 However, often it is not merely enough to select the model that best fits the data as multiple models might fit the same data equally well. In addition to the above criteria, there are numerous statistically based criteria for model selection which are ultimately based on the philosophical principle Occam's razor. Colloquially, we would formulate this as follows:<br>
 
-*Pick the model that best fits the data.*<br>
+*Pick the simplest model that best fits the data.*<br>
 
-In our article, we propose a new criteria for model selection succintly formulated as follows:<br>
+We argue that that we need a better criteria for model selection in mechanistic modelling which is based on the biological properties of the system at hand. Mathematically, we can encode such properties in so called *symmetries* which have been used with huge success in mathematical physics to encode conservation laws of various systems. Technically, symmetries are transformations that preserve solution curves of a given model. In our article, we propose a new criteria for model selection succintly formulated as follows:<br>
 
 "*Select the model whose fit is invariant under transformations by its symmetries.*"
 
