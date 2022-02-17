@@ -7,14 +7,14 @@
 # Description:
 # The script illustrates the orthogonal distance between a datapoint and a curve.
 # This script is entirely based on the script written by John Kitchin that is
-# licensed under the creative commons license: CC BY-SA 4.0. This script demonstrates
-# how one can calculate the distance between a point and a curve. The original script
-# can be accessed at the following web-page:
+# licensed under the creative commons license: CC BY-SA 4.0. 
+# This script demonstrates how one can calculate the distance between a point
+# and a curve. The original script can be accessed at the following web-page:
 # https://kitchingroup.cheme.cmu.edu/blog/2013/02/14/Find-the-minimum-distance-from-a-point-to-a-curve/.
 # The key for finding the orthogonal point on a curve is the function "fmin\_cobyla"
 # that is part of the scipy package. It is this function we have used to calculate
 # the Root Mean Square in terms of the orthogonal distances between the transformed
-# data points and the transformed solution curves in the symmetry based procudure
+# data points and the transformed solution curves in the symmetry based procedure
 # for model selection.
 # =================================================================================
 # =================================================================================
