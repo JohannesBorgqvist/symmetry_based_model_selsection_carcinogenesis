@@ -25,9 +25,23 @@ and the second candidate model is called the *immunological model* (IM-III) give
 <p align="center">
 <img src="https://render.githubusercontent.com/render/math?math=R(t) = \dfrac{A}{\exp\left(e^{-\alpha(t-\tau)}\right)-C}."><br>
 </p>
+When we fit these models to experimental data for three cancer types (see the figure below), we see that the IM-III has a better fit and would therefore be selected. 
 
-![Hydons_ODEs](./Figures/Fit_of_models_to_cancer_data.png )
+![Fit of candidate models](./Figures/Fit_of_models_to_cancer_data.png )
 
+To test our proposed model selection criteria, we also derive two unique symmetries of each of the two models (see the figure below). 
+
+![Unique symmetries of the candidate models](./Figures/action_of_symmetries.png)
+
+Using these symmetries, we then transform the data with each symmetry and then we see if the transformed solution curve still fits the data (see figure below). 
+
+![Transform data with symmetries and compare fit with transformed solution curve](./Figures/illustrate_framework.png)
+
+Lastly, by transforming the data with multiple transformation parameters, we see that the fit in terms of the *root mean square* (RMS) is decreased the more we transform the data (see the figure below). For a model where the fit is invariant, we would have expected the RMS-value to be constant for all transformation parameters. Thus, we conclude that neither of the two proposed models are in fact correct.
+
+![Neither of the two candidate models are correct](./Figures/symmetry_based_model_selection.png)
+
+All the scripts required to reproduce these results can be found in the Code-folder. The data is provided in the Data-folder, the parameters obtained from the model-fitting are stored in the Output-folder and all the above figures are found in the Figure-folder. 
 
 ## The required Python packages
 
