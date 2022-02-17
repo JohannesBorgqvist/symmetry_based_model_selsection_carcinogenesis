@@ -16,7 +16,7 @@ However, often it is not merely enough to select the model that best fits the da
 We argue that that we need a better criteria for model selection in mechanistic modelling which is based on the biological properties of the system at hand. Mathematically, we can encode such properties in so called *symmetries* which have been used with huge success in mathematical physics to encode conservation laws of various systems. Technically, symmetries are transformations that preserve solution curves of a given model. In our article, we propose a new criteria for model selection succintly formulated as follows:<br>
 
 "*Select the model whose fit is invariant under transformations by its symmetries.*"
-
+In particular we study a concrete examples of two candidate models describing the increase in incidences of cancer due to ageing. If $R(t)$
 
 
 ## The required Python packages
