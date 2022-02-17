@@ -23,8 +23,10 @@ In particular we study a concrete examples of two candidate models describing th
 </p>
 and the second candidate model is called the *immunological model* (IM-III) given by
 <p align="center">
-<img src="https://render.githubusercontent.com/render/math?math=R(t) = \dfrac{A}{\exp\left(e^{-\alpha(t-\tau)}\right)-C}"><br>
+<img src="https://render.githubusercontent.com/render/math?math=R(t) = \dfrac{A}{\exp\left(e^{-\alpha(t-\tau)}\right)-C}."><br>
 </p>
+
+![Hydons_ODEs](./Figures/Fit_of_models_to_cancer_data.png )
 
 
 ## The required Python packages
