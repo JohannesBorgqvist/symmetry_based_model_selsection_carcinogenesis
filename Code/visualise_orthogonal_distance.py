@@ -73,7 +73,7 @@ x = np.linspace(a-2, a+2, 100)
 # A length factor for esthetic reasons: determines how long the tangent is
 length_factor = 0.25
 # Do the actual plotting
-plt.plot(x, f(x,(a,b)), 'r-', label="Solution curve, $f(x)=b*(x-a)^2,\quad a="+str(a)+",\quad b="+str(b)+"$")
+plt.plot(x, f(x,(a,b)), 'r-', label="Solution curve, $R(t)=b*(t-a)^2,\quad a="+str(a)+",\quad b="+str(b)+"$")
 plt.plot(P[0], P[1], 'ko', label="Point, P=("+str(P[0])+","+str(P[1])+")")
 plt.plot([P[0], X[0]], [P[1], X[1]], 'b-', label='Shortest distance')
 plt.plot([X[0]-length_factor, X[0] + length_factor], [X[1] - length_factor*2.0 *b* (X[0]-a), X[1] +length_factor* 2.0 *b* (X[0]-a)], 'k--', label='Tangent')
