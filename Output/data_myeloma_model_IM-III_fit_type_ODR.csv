@@ -1,2 +1,0 @@
-Data,Model,Fitting method,RMS,"Parameter, A","Std error, A","Parameter, tau","Std error, tau","Parameter, C","Std error, C",Sum of squares,Sum of squares variable,Sum of squares response variable
-myeloma,IM-III,ODR,0.3577938704624856,109.4711787939537,11.461947884650915,76.773604512427,0.8893134942493666,-0.4846364082606057,0.22905264830072083,13.959612868907813,6.993792893219146,6.965819975688667
