@@ -274,3 +274,59 @@ plt.ylabel("Root mean square, $\mathrm{RMS}(\epsilon)$")
 plt.title("The symmetry based model selection",fontsize=20, fontweight='bold')
 plt.savefig("../Figures/symmetry_based_model_selection.png")
 plt.show()
+
+
+
+
+
+
+
+
+
+
+# Transform the data
+        if model_str == "PLM":
+            t_trans = np.array([PLM_symmetry(t_data[index],R_data[index],epsilon)[0] for index in range(len(t_data))])
+            R_trans = np.array([PLM_symmetry(t_data[index],R_data[index],epsilon)[1] for index in range(len(t_data))])
+        elif model_str == "IM-III":
+            # Transform the data
+            t_trans = np.array([IM_III_symmetry(t_data[index],R_data[index],epsilon,tau,alpha)[0] for index in range(len(t_data))])
+            R_trans = np.array([IM_III_symmetry(t_data[index],R_data[index],epsilon,tau,alpha)[1] for index in range(len(t_data))])
+        # Fit models to transformed data
+        if model_str == "PLM":
+            # Fit PLM to transformed data
+            model_fitting, R_hat, RMS  = fit_to_data.PE_risk_profiles(t_trans,R_trans,model_str,"ODR",[])
+            # Extract optimal parameters
+            A_transf_fit = model_fitting.beta[0]
+            gamma_transf_fit = model_fitting.beta[1]            
+        elif model_str == "IM-III":
+            # Fit IM-III to transformed data
+            model_fitting, R_hat, RMS  = fit_to_data.PE_risk_profiles(t_trans,R_trans,model_str,"ODR",[])
+            # Extract optimal parameters
+            A_transf_fit = model_fitting.beta[0]
+            tau_transf_fit = model_fitting.beta[1]
+            C_transf_fit = model_fitting.beta[2]                        
+        # Allocate memory for the sum of squares (SS)
+        SS = 0            
+        # Loop over the transformed time series
+        for time_series_index in range(len(t_data)):
+            # Extract a data point
+            Data_point = (t_data[time_series_index],R_data[time_series_index])
+            # Update the curve specific parameters that are transformed corresponding to
+            # the parameter A in the case of the PLM and the parameter C in the case of
+            # the IM-III. Also, we find the orthogonal point on the solution curve using
+            # fmin_cobyla
+            if model_str == "PLM":
+                # Update the parameter A by inversely transforming back
+                A_inv_transf = A_transf_fit*np.exp(gamma_transf_fit*epsilon)
+                # Find the orthogonal point on the solution curve (t,R(t)) of the PLM
+                Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[PLM_constraint], args=(Data_point,),consargs=(A_inv_transf,gamma_transf_fit))          
+            elif model_str == "IM-III":
+                # Update the parameter C of the IM-III by inversely transforming it back
+                C_inv_transf = C_transf_fit + alpha*np.exp(alpha*tau_transf_fit)*epsilon                
+                # Find the orthogonal point on the solution curve (t.R(t)) of the IM-III
+                Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[IM_III_constraint], args=(Data_point,),consargs=(A_transf_fit,tau_transf_fit,C_inv_transf))
+            # Add the squared distances to our growing sum of squares (SS)
+            SS += SS_res_model_data(Model_point,Data_point)
+        # Lastly, append the root mean squared calculated based on the SS-value
+        RMS_transf.append(np.sqrt(SS/len(t_data)))

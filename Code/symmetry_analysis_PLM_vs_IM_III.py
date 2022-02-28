@@ -49,28 +49,28 @@ R_CML = np.array(list(R_CML[9:len(R_CML)-1]))
 #----------------------------------------------------------------------------------
 # MYELOMA DATA
 # PLM 
-PLM_fitted_to_myeloma_ODR, R_hat_PLM_myeloma_ODR, RMS_PLM_myeloma_ODR  = fit_to_data.PE_risk_profiles(t_myeloma,R_myeloma,"PLM","ODR",[])
+PLM_fitted_to_myeloma_ODR, R_hat_PLM_myeloma_ODR, RMS_PLM_myeloma_ODR  = fit_to_data.PE_risk_profiles(t_myeloma,R_myeloma,"PLM","ODR",[],[])
 write_output.save_data_PE("myeloma", "PLM", PLM_fitted_to_myeloma_ODR, RMS_PLM_myeloma_ODR, "ODR")
 # IM-III
-IM_III_fitted_to_myeloma_ODR, R_hat_IM_III_myeloma_ODR, RMS_IM_III_myeloma_ODR = fit_to_data.PE_risk_profiles(t_myeloma,R_myeloma,"IM-III","ODR",[])
+IM_III_fitted_to_myeloma_ODR, R_hat_IM_III_myeloma_ODR, RMS_IM_III_myeloma_ODR = fit_to_data.PE_risk_profiles(t_myeloma,R_myeloma,"IM-III","ODR",[],[])
 write_output.save_data_PE("myeloma", "IM-III", IM_III_fitted_to_myeloma_ODR, RMS_IM_III_myeloma_ODR, "ODR")
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # COLON CANCER DATA
 # PLM 
-PLM_fitted_to_colon_ODR, R_hat_PLM_colon_ODR, RMS_PLM_colon_ODR  = fit_to_data.PE_risk_profiles(t_colon,R_colon,"PLM","ODR",[])
+PLM_fitted_to_colon_ODR, R_hat_PLM_colon_ODR, RMS_PLM_colon_ODR  = fit_to_data.PE_risk_profiles(t_colon,R_colon,"PLM","ODR",[],[])
 write_output.save_data_PE("colon", "PLM", PLM_fitted_to_colon_ODR, RMS_PLM_colon_ODR, "ODR")
 # IM-III
-IM_III_fitted_to_colon_ODR, R_hat_IM_III_colon_ODR, RMS_IM_III_colon_ODR = fit_to_data.PE_risk_profiles(t_colon,R_colon,"IM-III","ODR",[])
+IM_III_fitted_to_colon_ODR, R_hat_IM_III_colon_ODR, RMS_IM_III_colon_ODR = fit_to_data.PE_risk_profiles(t_colon,R_colon,"IM-III","ODR",[],[])
 write_output.save_data_PE("colon", "IM-III", IM_III_fitted_to_colon_ODR, RMS_IM_III_colon_ODR, "ODR")
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # CML DATA
 # PLM 
-PLM_fitted_to_CML_ODR, R_hat_PLM_CML_ODR, RMS_PLM_CML_ODR  = fit_to_data.PE_risk_profiles(t_CML,R_CML,"PLM","ODR",[])
+PLM_fitted_to_CML_ODR, R_hat_PLM_CML_ODR, RMS_PLM_CML_ODR  = fit_to_data.PE_risk_profiles(t_CML,R_CML,"PLM","ODR",[],[])
 #write_output.save_data_PE("CML", "PLM", PLM_fitted_to_CML_ODR, RMS_PLM_CML_ODR, "ODR")
 # IM-III
-IM_III_fitted_to_CML_ODR, R_hat_IM_III_CML_ODR, RMS_IM_III_CML_ODR = fit_to_data.PE_risk_profiles(t_CML,R_CML,"IM-III","ODR",[])
+IM_III_fitted_to_CML_ODR, R_hat_IM_III_CML_ODR, RMS_IM_III_CML_ODR = fit_to_data.PE_risk_profiles(t_CML,R_CML,"IM-III","ODR",[],[])
 write_output.save_data_PE("CML", "IM-III", IM_III_fitted_to_CML_ODR, RMS_IM_III_CML_ODR, "ODR")
 
 #----------------------------------------------------------------------------------
@@ -154,14 +154,14 @@ write_output.plot_LaTeX_2D(t_CML,R_hat_IM_III_CML_ODR,"../Figures/latex_figures/
 epsilon_scale_PLM = symmetry_toolbox.PLM_transformation_scale(2)
 # The IM-III
 # Myeloma data
-epsilon_scale_IM_III_myeloma = symmetry_toolbox.IM_III_transformation_scale(84,2,IM_III_fitted_to_myeloma_ODR.beta[3],IM_III_fitted_to_myeloma_ODR.beta[1])
+epsilon_scale_IM_III_myeloma = symmetry_toolbox.IM_III_transformation_scale(80,2,IM_III_fitted_to_myeloma_ODR.beta[3],IM_III_fitted_to_myeloma_ODR.beta[1])
 # Colon data
-epsilon_scale_IM_III_colon = symmetry_toolbox.IM_III_transformation_scale(84,2,IM_III_fitted_to_colon_ODR.beta[3],IM_III_fitted_to_colon_ODR.beta[1])
+epsilon_scale_IM_III_colon = symmetry_toolbox.IM_III_transformation_scale(80,2,IM_III_fitted_to_colon_ODR.beta[3],IM_III_fitted_to_colon_ODR.beta[1])
 # CML data
-epsilon_scale_IM_III_CML = symmetry_toolbox.IM_III_transformation_scale(84,2,IM_III_fitted_to_CML_ODR.beta[3],IM_III_fitted_to_CML_ODR.beta[1])
+epsilon_scale_IM_III_CML = symmetry_toolbox.IM_III_transformation_scale(80,2,IM_III_fitted_to_CML_ODR.beta[3],IM_III_fitted_to_CML_ODR.beta[1])
 # Prompt to the user
 print("\n\t--------------------------------------------------------------------------------------\n")
-print("\n\t\tThe transformation scales increasing the age from 85 years to 170 years\n")
+print("\n\t\tThe transformation scales increasing the age from 84 years to 168 years\n")
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\t\tThe PLM:\tepsilon_PLM\t=\t%0.12f"%(epsilon_scale_PLM))
 print("\t\tThe IM-III myeloma:\tepsilon_IM_III_myeloma\t=\t%0.12f"%(epsilon_scale_IM_III_myeloma))
@@ -219,11 +219,11 @@ R_hat_IM_III_original = np.array([fit_to_data.objective_IM_III(IM_III_fitted_to_
 R_IM_III_trans_1 = []
 t_IM_III_trans_1 = []
 # Allocate an index vector
-index_vector = list(np.linspace(195,len(t_sym)-1,len(t_sym),dtype=int))
+index_vector = list(np.linspace(193,len(t_sym)-1,len(t_sym),dtype=int))
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym[index],R_hat_IM_III_original[index],epsilon*0.9,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym[index],R_hat_IM_III_original[index],epsilon*0.8,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
     # Save the transformed variables
     R_IM_III_trans_1.append(R_trans)
     t_IM_III_trans_1.append(t_trans)
@@ -232,10 +232,12 @@ t_hat_IM_III_1,R_hat_IM_III_1 = symmetry_toolbox.IM_III_transformed_solution(t_s
 # Allocate memory for a list
 R_IM_III_trans_2 = []
 t_IM_III_trans_2 = []
+# Update the index vector
+index_vector = list(np.linspace(190,len(t_sym)-1,len(t_sym),dtype=int))
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_hat_IM_III_1[index],R_hat_IM_III_1[index],epsilon*0.9,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_hat_IM_III_1[index],R_hat_IM_III_1[index],epsilon*0.8,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
     # Save the transformed variables
     R_IM_III_trans_2.append(R_trans)
     t_IM_III_trans_2.append(t_trans)

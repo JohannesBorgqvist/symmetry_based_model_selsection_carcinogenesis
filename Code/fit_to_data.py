@@ -50,17 +50,17 @@ def objective_IM_III(parameters, t):
 # ---------------------------------------------------------------------------------------
 # Function 3: "PE_risk_profiles"
 # The function fits one of the two candidate models (the PLM or the IM-III) to experimental
-# data. It takes four inputs:
+# data. It takes five inputs:
 # 1. The vector t being the ages of the patients,
 # 2. The vector R being the number of incidences of cancer for a given age,
 # 3. The string model_str defining whether it is the PLM or the IM-III that is fitted to the data,
-# 4. The string fit_type defining whether it is the standard least square or the Orthogonal Distance Regression
-# (ODR) measure that is used.
+# 4. The string fit_type defining whether it is the standard least square or the Orthogonal Distance Regression (ODR) measure that is used,
+# 5. A list with a single start guess for the parameters of the model. If this vector is empty, a multi-shooting technique will be used with multiple start guesses for the parameters.
 # The function returns three outputs:
 # 1. The structure fitted_model containing the fits, the optimal parameters, the parameter variances etc.
 # 2. The vector R_hat containing the simulated incidences with the optimal parameters where each age is given by the data vector t,
-# 3. The float number R_squared which quantifies the R_squared fit of the candidate model to the data at hand. 
-def PE_risk_profiles(t, R, model_str,fit_string,fixed_parameters):
+# 3. The float number R_squared which quantifies the R_squared fit of the candidate model to the data at hand.
+def PE_risk_profiles(t, R, model_str,fit_string,fixed_parameters,start_guess):
     # Take the logarithm of the data
     #R_log = np.array([np.log(R_temp) for R_temp in list(R)])
     # Define the data at hand as a structure on which
@@ -82,34 +82,37 @@ def PE_risk_profiles(t, R, model_str,fit_string,fixed_parameters):
     if model_str == "PLM":# The PLM
         # Define the model
         model = Model(objective_PLM)
-        # Define a set of parameter values for the multishooting technique
-        # where we do many local optimisations starting from these startguesses.
-        # In the end, we pick the parameters resulting in the lowest minima. This
-        # is because we have a non-convex optimisation problem with many local minima.
-        A_vec = np.linspace(0.00001,1,num_of_start_guesses,endpoint=True)
-        gamma_vec = np.linspace(1,10,num_of_start_guesses,endpoint=True)        
-        #A_vec = np.linspace(0.0001,0.1,num_of_start_guesses,endpoint=True)
-        #gamma_vec = np.linspace(3,5,num_of_start_guesses,endpoint=True)        
-        # Extract the first start guess
-        parameter_guesses = [[A, gamma] for A in A_vec for gamma in gamma_vec]
+        # If we do not have any start guesses, we do a multi-shooting technique.
+        if len(start_guess) == 0:
+            # Define a set of parameter values for the multishooting technique
+            # where we do many local optimisations starting from these startguesses.
+            # In the end, we pick the parameters resulting in the lowest minima. This
+            # is because we have a non-convex optimisation problem with many local minima.
+            A_vec = np.linspace(0.00001,1,num_of_start_guesses,endpoint=True)
+            gamma_vec = np.linspace(1,10,num_of_start_guesses,endpoint=True)        
+            # Save all start guesses in a big list which we loop over in the end
+            parameter_guesses = [[A, gamma] for A in A_vec for gamma in gamma_vec]
+        else: # We run with the provided start guess for the parameters
+            parameter_guesses = [start_guess]
+            
     elif model_str == "IM-III": # The IM-III
         # Define the model
         model = Model(objective_IM_III)
-        # Define the start guess [A, tau, C, ]
-        # Define a set of parameter values for the multishooting technique
-        # where we do many local optimisations starting from these startguesses.
-        # In the end, we pick the parameters resulting in the lowest minima. This
-        # is because we have a non-convex optimisation problem with many local minima.
-        #A_vec = np.linspace(1,10,num_of_start_guesses,endpoint=True)
-        #C_vec = np.linspace(-2,2,num_of_start_guesses,endpoint=True)
-        #tau_vec = np.linspace(1,50,num_of_start_guesses,endpoint=True)
-        A_vec = np.linspace(0.01,50,num_of_start_guesses,endpoint=True)
-        C_vec = np.linspace(0.01,10,num_of_start_guesses,endpoint=True)
-        tau_vec = np.linspace(1,200,num_of_start_guesses,endpoint=True)        
-        #alpha_vec = np.linspace(0.0001, 0.01,num_of_start_guesses,endpoint=True)
-        alpha_vec = np.array([0.040, 0.045])
-        # Extract the first start guess
-        parameter_guesses = [[A, tau, C, alpha] for A in A_vec for tau in tau_vec for C in C_vec for alpha in alpha_vec]        
+        # If we do not have any start guesses, we do a multi-shooting technique
+        if len(start_guess)==0:
+            # Define the start guess [A, tau, C, ]
+            # Define a set of parameter values for the multishooting technique
+            # where we do many local optimisations starting from these startguesses.
+            # In the end, we pick the parameters resulting in the lowest minima. This
+            # is because we have a non-convex optimisation problem with many local minima.
+            A_vec = np.linspace(0.01,50,num_of_start_guesses,endpoint=True)
+            C_vec = np.linspace(0.01,10,num_of_start_guesses,endpoint=True)
+            tau_vec = np.linspace(1,200,num_of_start_guesses,endpoint=True)        
+            alpha_vec = np.array([0.040, 0.045])
+            # Save all start guesses in a big list which we loop over in the end
+            parameter_guesses = [[A, tau, C, alpha] for A in A_vec for tau in tau_vec for C in C_vec for alpha in alpha_vec]
+        else: # We run with the provided start guess for the parameters
+            parameter_guesses = [start_guess]
     # Set an initial value of the RMS so that it will be updated    
     RMS = 50000
     # Also, initiate the other two outputs that we return
