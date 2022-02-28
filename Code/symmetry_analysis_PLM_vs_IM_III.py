@@ -154,14 +154,14 @@ write_output.plot_LaTeX_2D(t_CML,R_hat_IM_III_CML_ODR,"../Figures/latex_figures/
 epsilon_scale_PLM = symmetry_toolbox.PLM_transformation_scale(2)
 # The IM-III
 # Myeloma data
-epsilon_scale_IM_III_myeloma = symmetry_toolbox.IM_III_transformation_scale(85,2,IM_III_fitted_to_myeloma_ODR.beta[3],IM_III_fitted_to_myeloma_ODR.beta[1])
+epsilon_scale_IM_III_myeloma = symmetry_toolbox.IM_III_transformation_scale(84,2,IM_III_fitted_to_myeloma_ODR.beta[3],IM_III_fitted_to_myeloma_ODR.beta[1])
 # Colon data
-epsilon_scale_IM_III_colon = symmetry_toolbox.IM_III_transformation_scale(85,2,IM_III_fitted_to_colon_ODR.beta[3],IM_III_fitted_to_colon_ODR.beta[1])
+epsilon_scale_IM_III_colon = symmetry_toolbox.IM_III_transformation_scale(84,2,IM_III_fitted_to_colon_ODR.beta[3],IM_III_fitted_to_colon_ODR.beta[1])
 # CML data
-epsilon_scale_IM_III_CML = symmetry_toolbox.IM_III_transformation_scale(85,2,IM_III_fitted_to_CML_ODR.beta[3],IM_III_fitted_to_CML_ODR.beta[1])
+epsilon_scale_IM_III_CML = symmetry_toolbox.IM_III_transformation_scale(84,2,IM_III_fitted_to_CML_ODR.beta[3],IM_III_fitted_to_CML_ODR.beta[1])
 # Prompt to the user
 print("\n\t--------------------------------------------------------------------------------------\n")
-print("\n\t\tThe transformation scales increasing the age from 85 years to 160 years\n")
+print("\n\t\tThe transformation scales increasing the age from 85 years to 170 years\n")
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\t\tThe PLM:\tepsilon_PLM\t=\t%0.12f"%(epsilon_scale_PLM))
 print("\t\tThe IM-III myeloma:\tepsilon_IM_III_myeloma\t=\t%0.12f"%(epsilon_scale_IM_III_myeloma))
@@ -219,11 +219,11 @@ R_hat_IM_III_original = np.array([fit_to_data.objective_IM_III(IM_III_fitted_to_
 R_IM_III_trans_1 = []
 t_IM_III_trans_1 = []
 # Allocate an index vector
-index_vector = list(np.linspace(60,len(t_sym)-1,len(t_sym),dtype=int))
+index_vector = list(np.linspace(195,len(t_sym)-1,len(t_sym),dtype=int))
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym[index],R_hat_IM_III_original[index],epsilon-0.01,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym[index],R_hat_IM_III_original[index],epsilon*0.9,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
     # Save the transformed variables
     R_IM_III_trans_1.append(R_trans)
     t_IM_III_trans_1.append(t_trans)
@@ -235,7 +235,7 @@ t_IM_III_trans_2 = []
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_hat_IM_III_1[index],R_hat_IM_III_1[index],epsilon-0.01,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_hat_IM_III_1[index],R_hat_IM_III_1[index],epsilon*0.9,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
     # Save the transformed variables
     R_IM_III_trans_2.append(R_trans)
     t_IM_III_trans_2.append(t_trans)
