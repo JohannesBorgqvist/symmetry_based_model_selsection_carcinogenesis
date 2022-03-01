@@ -396,9 +396,9 @@ plt.rc('ytick', labelsize=10)    # fontsize of the tick labels
 # Subplot 1: Myeloma
 axes[0].plot(epsilon_vector_IM_III_myeloma,RMS_transf_IM_III_myeloma,'-', color = (2/256,56/256,88/256),label='IM-III Myeloma cancer')
 # Subplot 2: Colon cancer
-axes[1].plot(epsilon_vector_IM_III_colon,RMS_transf_IM_III_colon,'-', color = (2/256,56/256,88/256),label='IM-III Colon cancer')
+axes[1].plot(epsilon_vector_IM_III_colon,RMS_transf_IM_III_colon,'-', color = (54/256,144/256,192/256),label='IM-III Colon cancer')
 # Subplot 3: CML
-axes[2].plot(epsilon_vector_IM_III_myeloma,RMS_transf_IM_III_CML,'-', color = (2/256,56/256,88/256),label='IM-III CML')
+axes[2].plot(epsilon_vector_IM_III_myeloma,RMS_transf_IM_III_CML,'-', color = (208/256,209/256,230/256),label='IM-III CML')
 # add a big axis, hide frame
 fig.add_subplot(111, frameon=False)
 #hide tick and tick label of the big axis
