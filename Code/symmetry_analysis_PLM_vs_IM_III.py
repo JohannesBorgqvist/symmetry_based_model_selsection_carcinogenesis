@@ -166,6 +166,8 @@ print("\t\tThe PLM:\tepsilon_PLM\t=\t%0.12f"%(epsilon_scale_PLM))
 print("\t\tThe IM-III myeloma:\tepsilon_IM_III_myeloma\t=\t%0.12f"%(epsilon_scale_IM_III_myeloma))
 print("\t\tThe IM-III colon:\tepsilon_IM_III_colon\t=\t%0.12f"%(epsilon_scale_IM_III_colon))
 print("\t\tThe IM-III CML:\tepsilon_IM_III_CML\t=\t%0.12f"%(epsilon_scale_IM_III_CML))
+epsilon_scale_IM_III_myeloma = symmetry_toolbox.IM_III_transformation_scale(85,2,IM_III_fitted_to_myeloma_ODR.beta[3],IM_III_fitted_to_myeloma_ODR.beta[1])
+print("\t\tThe new IM-III myeloma scale for the plot:\tepsilon_IM_III_myeloma\t=\t%0.12f"%(epsilon_scale_IM_III_myeloma))
 # =================================================================================
 # =================================================================================
 # =================================================================================
@@ -222,7 +224,7 @@ index_vector = list(np.arange(193,len(t_sym)-1,2))
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym[index],R_hat_IM_III_original[index],epsilon*0.8,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym[index],R_hat_IM_III_original[index],epsilon*0.85,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
     # Save the transformed variables
     R_IM_III_trans_1.append(R_trans)
     t_IM_III_trans_1.append(t_trans)
@@ -236,7 +238,7 @@ index_vector = list(np.arange(190,len(t_sym)-1,2))
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_hat_IM_III_1[index],R_hat_IM_III_1[index],epsilon*0.8,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_hat_IM_III_1[index],R_hat_IM_III_1[index],epsilon*0.85,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
     # Save the transformed variables
     R_IM_III_trans_2.append(R_trans)
     t_IM_III_trans_2.append(t_trans)
@@ -311,22 +313,23 @@ for index in range(1,len(t_IM_III_trans_1)):
     write_output.plot_LaTeX_2D(np.array(t_IM_III_trans_1[index]),np.array(R_IM_III_trans_1[index]),"../Figures/latex_figures/action_of_symmetries/Input/IM_III.tex","color=black,->,>=latex,densely dashed",[])  
 for index in range(len(t_IM_III_trans_2)):
     write_output.plot_LaTeX_2D(np.array(t_IM_III_trans_2[index]),np.array(R_IM_III_trans_2[index]),"../Figures/latex_figures/action_of_symmetries/Input/IM_III.tex","color=black,->,>=latex,densely dashed",[])
-
-
 # =================================================================================
 # =================================================================================
 # CONDUCT THE SYMMETRY BASED MODEL SELECTION
 # =================================================================================
 # =================================================================================
+# Reset the epsilon scale for the PLM
+# Myeloma data
+epsilon_scale_IM_III_myeloma = symmetry_toolbox.IM_III_transformation_scale(80,2,IM_III_fitted_to_myeloma_ODR.beta[3],IM_III_fitted_to_myeloma_ODR.beta[1])
 # Prompt to the user
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\n\t\tThe symmetry based framework for model selection\n")
 print("\n\t--------------------------------------------------------------------------------------\n")
 # Allocate four epsilon vectors with transformation parameters
-epsilon_vector_PLM = np.linspace(0.0,epsilon_scale_PLM,num=10,endpoint=True)
-epsilon_vector_IM_III_myeloma = np.linspace(0.0,epsilon_scale_IM_III_myeloma,num=10,endpoint=True)
-epsilon_vector_IM_III_colon = np.linspace(0.0,epsilon_scale_IM_III_colon,num=10,endpoint=True)
-epsilon_vector_IM_III_CML = np.linspace(0.0,epsilon_scale_IM_III_CML,num=10,endpoint=True)
+epsilon_vector_PLM = np.linspace(0.0,2*epsilon_scale_PLM,num=100,endpoint=True)
+epsilon_vector_IM_III_myeloma = np.linspace(0.0,epsilon_scale_IM_III_myeloma,num=100,endpoint=True)
+epsilon_vector_IM_III_colon = np.linspace(0.0,0.89*epsilon_scale_IM_III_colon,num=100,endpoint=True)
+epsilon_vector_IM_III_CML = np.linspace(0.0,0.8286*epsilon_scale_IM_III_CML,num=100,endpoint=True)
 # MYELOMA CANCER
 print("\t\tModel\t=\t PLM,\tDataset\t=\t Myeloma")
 RMS_transf_PLM_myeloma = symmetry_toolbox.symmetry_based_model_selection(t_myeloma,R_myeloma,epsilon_vector_PLM,PLM_fitted_to_myeloma_ODR.beta,"PLM")
@@ -346,7 +349,7 @@ print("\t\tModel\t=\t PLM,\tDataset\t=\t CML")
 RMS_transf_PLM_CML = symmetry_toolbox.symmetry_based_model_selection(t_CML,R_CML,epsilon_vector_PLM,PLM_fitted_to_CML_ODR.beta,"PLM")
 print("\t\t\tDone!\n")
 print("\t\tModel\t=\t IM-III,\tDataset\t=\t CML")
-RMS_transf_IM_III_CML = symmetry_toolbox.symmetry_based_model_selection(t_CML,R_CML,epsilon_vector_IM_III_colon,IM_III_fitted_to_CML_ODR.beta,"IM-III")
+RMS_transf_IM_III_CML = symmetry_toolbox.symmetry_based_model_selection(t_CML,R_CML,epsilon_vector_IM_III_CML,IM_III_fitted_to_CML_ODR.beta,"IM-III")
 print("\t\t\tDone!\n")
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
@@ -376,7 +379,7 @@ plt.rc('xtick', labelsize=10)    # fontsize of the tick labels
 plt.rc('ytick', labelsize=10)    # fontsize of the tick labels
 axes.plot(epsilon_vector_PLM,RMS_transf_PLM_myeloma,'-', color = (103/256,0/256,31/256),label='PLM Myeloma cancer')
 axes.plot(epsilon_vector_PLM,RMS_transf_PLM_colon,'-', color = (206/256,18/256,86/256),label='PLM Colon cancer')
-axes[2].plot(epsilon_vector_PLM,RMS_transf_PLM_CML,'-', color = (223/256,101/256,176/256),label='PLM CML')
+axes.plot(epsilon_vector_PLM,RMS_transf_PLM_CML,'-', color = (223/256,101/256,176/256),label='PLM CML')
 # add a big axis, hide frame
 fig.add_subplot(111, frameon=False)
 #hide tick and tick label of the big axis
@@ -398,7 +401,7 @@ axes[0].plot(epsilon_vector_IM_III_myeloma,RMS_transf_IM_III_myeloma,'-', color 
 # Subplot 2: Colon cancer
 axes[1].plot(epsilon_vector_IM_III_colon,RMS_transf_IM_III_colon,'-', color = (54/256,144/256,192/256),label='IM-III Colon cancer')
 # Subplot 3: CML
-axes[2].plot(epsilon_vector_IM_III_myeloma,RMS_transf_IM_III_CML,'-', color = (208/256,209/256,230/256),label='IM-III CML')
+axes[2].plot(epsilon_vector_IM_III_CML,RMS_transf_IM_III_CML,'-', color = (208/256,209/256,230/256),label='IM-III CML')
 # add a big axis, hide frame
 fig.add_subplot(111, frameon=False)
 #hide tick and tick label of the big axis
