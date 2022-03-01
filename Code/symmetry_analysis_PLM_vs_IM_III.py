@@ -166,7 +166,7 @@ print("\t\tThe PLM:\tepsilon_PLM\t=\t%0.12f"%(epsilon_scale_PLM))
 print("\t\tThe IM-III myeloma:\tepsilon_IM_III_myeloma\t=\t%0.12f"%(epsilon_scale_IM_III_myeloma))
 print("\t\tThe IM-III colon:\tepsilon_IM_III_colon\t=\t%0.12f"%(epsilon_scale_IM_III_colon))
 print("\t\tThe IM-III CML:\tepsilon_IM_III_CML\t=\t%0.12f"%(epsilon_scale_IM_III_CML))
-epsilon_scale_IM_III_myeloma = symmetry_toolbox.IM_III_transformation_scale(85,2,IM_III_fitted_to_myeloma_ODR.beta[3],IM_III_fitted_to_myeloma_ODR.beta[1])
+epsilon_scale_IM_III_myeloma = symmetry_toolbox.IM_III_transformation_scale(86,2,IM_III_fitted_to_myeloma_ODR.beta[3],IM_III_fitted_to_myeloma_ODR.beta[1])
 print("\t\tThe new IM-III myeloma scale for the plot:\tepsilon_IM_III_myeloma\t=\t%0.12f"%(epsilon_scale_IM_III_myeloma))
 # =================================================================================
 # =================================================================================
@@ -325,9 +325,14 @@ epsilon_scale_IM_III_myeloma = symmetry_toolbox.IM_III_transformation_scale(80,2
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\n\t\tThe symmetry based framework for model selection\n")
 print("\n\t--------------------------------------------------------------------------------------\n")
+print("\t\tThe scales for the framework are the following:")
+print("\t\t\tPLM\tAll datasets:\t epsilon_scale\t=\t%0.3f"%(3*epsilon_scale_PLM))
+print("\t\t\tIM-III\t myeloma:\t epsilon_scale\t=\t%0.3f"%(0.6795*epsilon_scale_IM_III_myeloma))
+print("\t\t\tIM-III\t colon:\t epsilon_scale\t=\t%0.3f"%(0.89*epsilon_scale_IM_III_colon))
+print("\t\t\tIM-III\t CML:\t epsilon_scale\t=\t%0.3f\n\n"%(0.8286*epsilon_scale_IM_III_CML))
 # Allocate four epsilon vectors with transformation parameters
-epsilon_vector_PLM = np.linspace(0.0,2*epsilon_scale_PLM,num=100,endpoint=True)
-epsilon_vector_IM_III_myeloma = np.linspace(0.0,epsilon_scale_IM_III_myeloma,num=100,endpoint=True)
+epsilon_vector_PLM = np.linspace(0.0,3*epsilon_scale_PLM,num=100,endpoint=True)
+epsilon_vector_IM_III_myeloma = np.linspace(0.0,0.6795*epsilon_scale_IM_III_myeloma,num=100,endpoint=True)
 epsilon_vector_IM_III_colon = np.linspace(0.0,0.89*epsilon_scale_IM_III_colon,num=100,endpoint=True)
 epsilon_vector_IM_III_CML = np.linspace(0.0,0.8286*epsilon_scale_IM_III_CML,num=100,endpoint=True)
 # MYELOMA CANCER
@@ -364,7 +369,7 @@ write_output.plot_LaTeX_2D(epsilon_vector_PLM,RMS_transf_PLM_colon,"../Figures/l
 write_output.plot_LaTeX_2D(epsilon_vector_IM_III_colon,RMS_transf_IM_III_colon,"../Figures/latex_figures/symmetry_based_model_selection/Input/IM_III_colon.tex","color=mixed_2,line width=2pt,","IM-III Colon cancer")
 # CML
 write_output.plot_LaTeX_2D(epsilon_vector_PLM,RMS_transf_PLM_CML,"../Figures/latex_figures/symmetry_based_model_selection/Input/PLM.tex","color=pow_3,line width=2pt,","PLM CML")
-write_output.plot_LaTeX_2D(epsilon_vector_IM_III_CML,RMS_transf_IM_III_CML,"../Figures/latex_figures/symmetry_based_model_selection/Input/IM_III_colon.tex","color=mixed_3,line width=2pt,","IM-III CML")
+write_output.plot_LaTeX_2D(epsilon_vector_IM_III_CML,RMS_transf_IM_III_CML,"../Figures/latex_figures/symmetry_based_model_selection/Input/IM_III_CML.tex","color=mixed_3,line width=2pt,","IM-III CML")
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # Plot the symmetry based model selection
