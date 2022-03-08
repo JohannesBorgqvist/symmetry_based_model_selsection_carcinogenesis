@@ -1,2 +1,0 @@
-Data,Model,Fitting method,RMS,"Parameter, A","Std error, A","Parameter, gamma","Std error, gamma",Sum of squares,Sum of squares variable,Sum of squares response variable
-myeloma,PLM,ODR,0.6294782582944095,1.5316391776294348e-07,7.64923178425178e-08,4.431844984772758,0.11710758714877641,66.0111631861285,40.728390750795796,25.282772435332696
