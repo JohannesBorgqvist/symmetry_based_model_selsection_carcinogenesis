@@ -1,7 +1,7 @@
 # =================================================================================
 # =================================================================================
 # Script:"symmetry_analysis_PLM_vs_IM_III.py"
-# Date: 2022-02-25
+# Date: 2022-03-08
 # Implemented by: Johannes Borgqvist
 # Description:
 # The script re-generates all the results presented in the article.
@@ -510,7 +510,7 @@ index_vector = list(np.arange(60,len(t_colon),1))
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_colon[index],R_colon[index],epsilon*0.95,fitted_parameters_IM_III_colon[0][1],fitted_parameters_IM_III_colon[0][3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_colon[index],R_colon[index],epsilon*0.8,fitted_parameters_IM_III_colon[0][1],fitted_parameters_IM_III_colon[0][3])
     # Save the transformed variables
     R_IM_III_trans.append(R_trans)
     t_IM_III_trans.append(t_trans)
@@ -528,11 +528,13 @@ R_hat_IM_III_trans = np.array([fit_to_data.objective_IM_III(fitted_parameters_IM
 R_IM_III_trans_inv = []
 t_IM_III_trans_inv = []
 # Allocate an index vector
-index_vector = list(np.arange(len(t_sym_IM_III_trans)-50,len(t_sym_IM_III_trans),4))
+index_vector_1 = list(np.arange(len(t_sym_IM_III_trans)-50,len(t_sym_IM_III_trans)-20,4))
+index_vector_2 = list(np.arange(len(t_sym_IM_III_trans)-70,len(t_sym_IM_III_trans)-1,8))
+index_vector = index_vector_1 + index_vector_2
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym_IM_III_trans[index],R_hat_IM_III_trans[index],-epsilon*0.95,inverse_parameters_IM_III_colon[len(epsilon_transf_IM_III_colon)-1][1],inverse_parameters_IM_III_colon[len(epsilon_transf_IM_III_colon)-1][3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym_IM_III_trans[index],R_hat_IM_III_trans[index],-epsilon*0.8,inverse_parameters_IM_III_colon[len(epsilon_transf_IM_III_colon)-1][1],inverse_parameters_IM_III_colon[len(epsilon_transf_IM_III_colon)-1][3])
     # Save the transformed variables
     R_IM_III_trans_inv.append(R_trans)
     t_IM_III_trans_inv.append(t_trans)
