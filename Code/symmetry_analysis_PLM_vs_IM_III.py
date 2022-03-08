@@ -14,9 +14,10 @@ import read_data  # Home-made
 import write_output  # Home-made
 import fit_to_data # Home-made
 import symmetry_toolbox # Home-made
-import numpy as np
-import math
-from matplotlib import pyplot as plt
+import numpy as np # For the numerical calculations
+import math # For mathematics
+from matplotlib import pyplot as plt # For plotting
+import multiprocessing as mp # For parallelisation
 # =================================================================================
 # =================================================================================
 # Read the data
@@ -68,7 +69,7 @@ write_output.save_data_PE("colon", "IM-III", IM_III_fitted_to_colon_ODR, RMS_IM_
 # CML DATA
 # PLM 
 PLM_fitted_to_CML_ODR, R_hat_PLM_CML_ODR, RMS_PLM_CML_ODR  = fit_to_data.PE_risk_profiles(t_CML,R_CML,"PLM","ODR",[],[])
-#write_output.save_data_PE("CML", "PLM", PLM_fitted_to_CML_ODR, RMS_PLM_CML_ODR, "ODR")
+write_output.save_data_PE("CML", "PLM", PLM_fitted_to_CML_ODR, RMS_PLM_CML_ODR, "ODR")
 # IM-III
 IM_III_fitted_to_CML_ODR, R_hat_IM_III_CML_ODR, RMS_IM_III_CML_ODR = fit_to_data.PE_risk_profiles(t_CML,R_CML,"IM-III","ODR",[],[])
 write_output.save_data_PE("CML", "IM-III", IM_III_fitted_to_CML_ODR, RMS_IM_III_CML_ODR, "ODR")
@@ -331,10 +332,14 @@ print("\t\t\tIM-III\t myeloma:\t epsilon_scale\t=\t%0.12f"%(0.6795*epsilon_scale
 print("\t\t\tIM-III\t colon:\t epsilon_scale\t=\t%0.12f"%(0.89*epsilon_scale_IM_III_colon))
 print("\t\t\tIM-III\t CML:\t epsilon_scale\t=\t%0.12f\n\n"%(0.8286*epsilon_scale_IM_III_CML))
 # Allocate four epsilon vectors with transformation parameters
-epsilon_vector_PLM = np.linspace(0.0,30*epsilon_scale_PLM,num=100,endpoint=True)
-epsilon_vector_IM_III_myeloma = np.linspace(0.0,0.6795*epsilon_scale_IM_III_myeloma,num=100,endpoint=True)
-epsilon_vector_IM_III_colon = np.linspace(0.0,0.89*epsilon_scale_IM_III_colon,num=100,endpoint=True)
-epsilon_vector_IM_III_CML = np.linspace(0.0,0.8286*epsilon_scale_IM_III_CML,num=100,endpoint=True)
+#epsilon_vector_PLM = np.linspace(0.0,30*epsilon_scale_PLM,num=100,endpoint=True)
+#epsilon_vector_IM_III_myeloma = np.linspace(0.0,0.6795*epsilon_scale_IM_III_myeloma,num=100,endpoint=True)
+#epsilon_vector_IM_III_colon = np.linspace(0.0,0.89*epsilon_scale_IM_III_colon,num=100,endpoint=True)
+#epsilon_vector_IM_III_CML = np.linspace(0.0,0.8286*epsilon_scale_IM_III_CML,num=100,endpoint=True)
+epsilon_vector_PLM = np.array([0.0,30*epsilon_scale_PLM])
+epsilon_vector_IM_III_myeloma = np.array([0,0.6795*epsilon_scale_IM_III_myeloma])
+epsilon_vector_IM_III_colon = np.array([0,0.89*epsilon_scale_IM_III_colon])
+epsilon_vector_IM_III_CML = np.array([0,0.8286*epsilon_scale_IM_III_CML])
 # MYELOMA CANCER
 print("\t\tModel\t=\t PLM,\tDataset\t=\t Myeloma")
 RMS_transf_PLM_myeloma = symmetry_toolbox.symmetry_based_model_selection(t_myeloma,R_myeloma,epsilon_vector_PLM,PLM_fitted_to_myeloma_ODR.beta,"PLM")

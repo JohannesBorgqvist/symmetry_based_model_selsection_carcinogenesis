@@ -114,6 +114,7 @@ def PLM_transformation_scale(n):
 def IM_III_symmetry(t,R,epsilon,tau,alpha):
     # Define t_hat recursively
     t_hat =  np.log(np.log(np.exp(np.exp(-alpha*(t-tau))) - (alpha*np.exp(alpha*tau)*epsilon) ))
+    #t_hat =  np.log(np.log(abs(np.exp(np.exp(-alpha*(t-tau))) - (alpha*np.exp(alpha*tau)*epsilon) )))
     t_hat = tau - ((t_hat)/(alpha))
     R_hat = R
     return t_hat,R_hat
@@ -224,15 +225,28 @@ def SS_res_model_data(Model_Point,Data_Point):
 # 1. DATA: t_data, the ages of the patients,
 # 2. DATA: R_data, the number of incidences of cancer,
 # 3. epsilon_vector, the transformation parameters we transform the data with,
-# 4. parameters, a vector with the optimal parameters for the model that is fitted to the original data,
+# 4. model_fitting_structure, a structure with parameters, error bounds etc. that is returned from the ODR function,
 # 5. model_str, a string indicating which model we consider (i.e. the PLM or the IM-III).
 # The function has one output and it is the RMS profile as a function of the epsilon vector.
-def symmetry_based_model_selection(t_data,R_data,epsilon_vector,parameters,model_str):
+def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_structure,model_str):
     # SETTING UP THE MODEL SELECTION
     # Allocate memory for the output which is the RMS(epsilon)
     # indicating how the fit to transformed data changes as a
     # function of the transformation parameter epsilon
     RMS_transf = []
+    # We allocate a vector with transformation parameters in case we abort to early
+    epsilon_transf =  []
+    # We allocate a list for all the transformed data
+    transformed_data = []
+    # We allocate a list with all fitted parameters
+    fitted_parameters = []
+    # We allocate a list with all inverse parameters
+    inverse_parameters = []
+    # We also define the previous parameters as well as their error bounds
+    prev_para = model_fitting_structure.beta
+    prev_para_bounds = model_fitting_structure.sd_beta
+    # We have a logical variable saying whether the fitting was successful or not
+    fitting_successful = True
     # Loop over the epsilon vectors and for each epsilon we do the following four steps:
     # 1. Transform the data,
     # 2. Fit the model to the transform data,
@@ -253,12 +267,29 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,parameters,model
                 # in scipy.
                 if model_str == "PLM":
                     # Find the orthogonal point on the solution curve (t,R(t)) of the PLM
-                    Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[PLM_constraint], args=(Data_point,),consargs=(parameters[0],parameters[1]))          
+                    Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[PLM_constraint], args=(Data_point,),consargs=(model_fitting_structure.beta[0],model_fitting_structure.beta[1]))          
                 elif model_str == "IM-III":    
                     # Find the orthogonal point on the solution curve (t,R(t)) of the IM-III
-                    Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[IM_III_constraint], args=(Data_point,),consargs=(parameters[0],parameters[1],parameters[2],parameters[3]))    
+                    Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[IM_III_constraint], args=(Data_point,),consargs=(model_fitting_structure.beta[0],model_fitting_structure.beta[1],model_fitting_structure.beta[2],model_fitting_structure.beta[3]))    
                 # Add the squared distances to our growing sum of squares (SS)
-                SS += SS_res_model_data(Model_point,Data_point)            
+                SS += SS_res_model_data(Model_point,Data_point)
+            # Append the root mean squared calculated based on the SS-value
+            RMS_transf.append(np.sqrt(SS/len(t_data)))
+            # Also, we save the current epsilon value
+            epsilon_transf.append(epsilon)
+            # Append the original data
+            transformed_data.append([t_data, R_data])
+            # Append the fitted parameters and the inverse parameters
+            if model_str == "PLM":
+                # Fitted parameters 
+                fitted_parameters.append((model_fitting_structure.beta[0],model_fitting_structure.beta[1]))
+                # Append the parameters of the inversely transformed curve
+                inverse_parameters.append((model_fitting_structure.beta[0],model_fitting_structure.beta[1]))                            
+            elif model_str == "IM-III":
+                # Fitted parameters 
+                fitted_parameters.append((model_fitting_structure.beta[0],model_fitting_structure.beta[1],model_fitting_structure.beta[2],model_fitting_structure.beta[3]))
+                # Inverse parameters
+                inverse_parameters.append((model_fitting_structure.beta[0],model_fitting_structure.beta[1],model_fitting_structure.beta[2],model_fitting_structure.beta[3]))
         else: # Now, we actually transform the data with a transformation parameter epsilon>0
             # CONDUCT THE SYMMETRY BASED METHODOLOGY FOR MODEL SELECTION
             #------------------------------------------------------
@@ -267,48 +298,110 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,parameters,model
                 t_trans = np.array([PLM_symmetry(t_data[index],R_data[index],epsilon)[0] for index in range(len(t_data))])
                 R_trans = np.array([PLM_symmetry(t_data[index],R_data[index],epsilon)[1] for index in range(len(t_data))])
             elif model_str == "IM-III":
-                t_trans = np.array([IM_III_symmetry(t_data[index],R_data[index],epsilon,parameters[1],parameters[3])[0] for index in range(len(t_data))])
-                R_trans = np.array([IM_III_symmetry(t_data[index],R_data[index],epsilon,parameters[1],parameters[3])[1] for index in range(len(t_data))])
+                t_trans = np.array([IM_III_symmetry(t_data[index],R_data[index],epsilon,model_fitting_structure.beta[1],model_fitting_structure.beta[3])[0] for index in range(len(t_data))])
+                R_trans = np.array([IM_III_symmetry(t_data[index],R_data[index],epsilon,model_fitting_structure.beta[1],model_fitting_structure.beta[3])[1] for index in range(len(t_data))])
             #------------------------------------------------------
             # STEP 2 OUT OF 4: FIT THE CANDIDATE MODEL TO THE TRANSFORMED DATA
+            # We start by fitting the models to the data without any special start guesses
             if model_str == "PLM":
-                # Update the parameter guess to the optimal parameters where A is transformed (parameters=[A, gamma])
-                parameter_guess = [parameters[0]*np.exp(-parameters[1]*epsilon),parameters[1]]
-                # Fit the PLM to the transformed data with a single start guess for the parameters
-                fitting_structure, R_hat, RMS  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"PLM","ODR",[],parameter_guess)
+                # Fit the PLM to the data without any start guesses
+                fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"PLM","ODR",[],[])
             elif model_str == "IM-III":
-                # Update the parameter guess to the optimal parameters where C is transformed (parameters=[A, tau, C, alpha])
-                parameter_guess = [parameters[0],parameters[1],parameters[2] - parameters[3]*np.exp(parameters[3]*parameters[1])*epsilon,parameters[3]]
-                # Fit the IM-III to the transformed data with a single start guess for the parameters
-                fitting_structure, R_hat, RMS  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM-III","ODR",[],parameter_guess)
-            #------------------------------------------------------
-            # STEP 3 OUT OF 4: INVERSELY TRANSFORM THE MODEL BACK
-            if model_str == "PLM":
-                # Define the parameters of the inversely transformed curve of the PLM (parameters=[A, gamma])
-                parameters_inverse = [fitting_structure.beta[0]*np.exp(fitting_structure.beta[1]*epsilon),fitting_structure.beta[1]]
-            elif model_str == "IM-III":
-                # Define the parameters of the inversely transformed curve of the IM-III (parameters=[A, tau, C, alpha])
-                parameters_inverse = [fitting_structure.beta[0],fitting_structure.beta[1],fitting_structure.beta[2] + fitting_structure.beta[3]*np.exp(fitting_structure.beta[3]*fitting_structure.beta[1])*epsilon,fitting_structure.beta[3]]                
-            #------------------------------------------------------
-            # STEP 4 OUT OF 4: CALCULATE THE FIT OF THE INVERSELY TRANSFORMED CURVE TO THE ORIGINAL DATA
-            # Loop over the transformed time series
-            for time_series_index in range(len(t_data)):
-                # Extract a data point
-                Data_point = (t_data[time_series_index],R_data[time_series_index])
-                # Update the curve specific parameters that are transformed corresponding to
-                # the parameter A in the case of the PLM and the parameter C in the case of
-                # the IM-III. Also, we find the orthogonal point on the solution curve using
-                # fmin_cobyla
+                # Fit the IM-III to the data but without any start guesses
+                fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM-III","ODR",[],[])
+            if fitting_successful:
+                # Update previous parameters 
+                prev_para = fitting_structure.beta
+                # Update the previous bounds
+                prev_para_bounds = fitting_structure.sd_beta
+            else:
                 if model_str == "PLM":
-                    # Find the orthogonal point on the solution curve (t,R(t)) of the PLM
-                    Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[PLM_constraint], args=(Data_point,),consargs=(parameters_inverse[0],parameters_inverse[1]))          
-                elif model_str == "IM-III":    
-                    # Find the orthogonal point on the solution curve (t,R(t)) of the IM-III
-                    Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[IM_III_constraint], args=(Data_point,),consargs=(parameters_inverse[0],parameters_inverse[1],parameters_inverse[2],parameters_inverse[3]))    
-                # Add the squared distances to our growing sum of squares (SS)
-                SS += SS_res_model_data(Model_point,Data_point)
-            #------------------------------------------------------                
-        # Lastly, append the root mean squared calculated based on the SS-value
-        RMS_transf.append(np.sqrt(SS/len(t_data)))
+                    # Start guesses of the parameter A
+                    A_vec = np.array([prev_para[0]-prev_para_bounds[0],prev_para[0]-0.5*prev_para_bounds[0],prev_para[0],prev_para[0]+0.5*prev_para_bounds[0],prev_para[0]+prev_para_bounds[0]])
+                    # Start guesses of the parameter gamma
+                    gamma_vec = np.array([prev_para[1]-prev_para_bounds[1],prev_para[1]-0.5*prev_para_bounds[1],prev_para[1],prev_para[1]+0.5*prev_para_bounds[1],prev_para[1]+prev_para_bounds[1]])
+                    # Create the start guesses for the next attempt of model fitting
+                    start_guesses = [[A, gamma] for A in A_vec for gamma in gamma_vec]
+                    # Fit the PLM to the data again but with these start guesses
+                    fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"PLM","ODR",[],start_guesses)
+                elif model_str == "IM-III":
+                    # Start guesses of the parameter A
+                    A_vec = np.array([prev_para[0]-prev_para_bounds[0],prev_para[0]-0.5*prev_para_bounds[0],prev_para[0],prev_para[0]+0.5*prev_para_bounds[0],prev_para[0]+prev_para_bounds[0]])
+                    # Start guesses of the parameter gamma
+                    tau_vec = np.array([prev_para[1]-prev_para_bounds[1],prev_para[1]-0.5*prev_para_bounds[1],prev_para[1],prev_para[1]+0.5*prev_para_bounds[1],prev_para[1]+prev_para_bounds[1]])
+                    # Start guesses of the parameter A
+                    C_vec = np.array([prev_para[2]-prev_para_bounds[2],prev_para[2]-0.5*prev_para_bounds[2],prev_para[2],prev_para[2]+0.5*prev_para_bounds[2],prev_para[2]+prev_para_bounds[2]])
+                    # Start guesses of the parameter gamma
+                    alpha_vec = np.array([prev_para[3]-prev_para_bounds[3],prev_para[3]-0.5*prev_para_bounds[3],prev_para[3],prev_para[3]+0.5*prev_para_bounds[3],prev_para[3]+prev_para_bounds[3]])
+                    # Create the vector of start guesses for the parameters in the model fitting
+                    start_guesses = [[A, tau, C, alpha] for A in A_vec for tau in tau_vec for C in C_vec for alpha in alpha_vec]
+                    # Fit the IM-III to the data again but with these start guesses
+                    fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM-III","ODR",[],start_guesses)                
+            # If fitting was successful, we do the remaining two steps of the algorithm. Otherwise, we break and return our results
+            if fitting_successful:                
+                #------------------------------------------------------
+                # STEP 3 OUT OF 4: INVERSELY TRANSFORM THE MODEL BACK 
+                if model_str == "PLM":
+                    # Define the parameters of the inversely transformed curve of the PLM (parameters=[A, gamma])
+                    parameters_inverse = [fitting_structure.beta[0]*np.exp(fitting_structure.beta[1]*epsilon),fitting_structure.beta[1]]
+                elif model_str == "IM-III":
+                    # Define the parameters of the inversely transformed curve of the IM-III (parameters=[A, tau, C, alpha])
+                    parameters_inverse = [fitting_structure.beta[0],fitting_structure.beta[1],fitting_structure.beta[2] + fitting_structure.beta[3]*np.exp(fitting_structure.beta[3]*fitting_structure.beta[1])*epsilon,fitting_structure.beta[3]]                
+                #------------------------------------------------------
+                # STEP 4 OUT OF 4: CALCULATE THE FIT OF THE INVERSELY TRANSFORMED CURVE TO THE ORIGINAL DATA
+                # Loop over the transformed time series
+                for time_series_index in range(len(t_data)):
+                    # Extract a data point
+                    Data_point = (t_data[time_series_index],R_data[time_series_index])
+                    # Update the curve specific parameters that are transformed corresponding to
+                    # the parameter A in the case of the PLM and the parameter C in the case of
+                    # the IM-III. Also, we find the orthogonal point on the solution curve using
+                    # fmin_cobyla
+                    if model_str == "PLM":
+                        # Find the orthogonal point on the solution curve (t,R(t)) of the PLM
+                        Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[PLM_constraint], args=(Data_point,),consargs=(parameters_inverse[0],parameters_inverse[1]))          
+                    elif model_str == "IM-III":    
+                        # Find the orthogonal point on the solution curve (t,R(t)) of the IM-III
+                        Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[IM_III_constraint], args=(Data_point,),consargs=(parameters_inverse[0],parameters_inverse[1],parameters_inverse[2],parameters_inverse[3]))    
+                    # Add the squared distances to our growing sum of squares (SS)
+                    SS += SS_res_model_data(Model_point,Data_point)
+                #------------------------------------------------------                
+                # Lastly, append the root mean square calculated based on the SS-value
+                RMS_transf.append(np.sqrt(SS/len(t_data)))
+                # Also add the current epsilon value to our variable
+                epsilon_transf.append(epsilon)
+                # Append the transformed data
+                transformed_data.append([t_trans, R_trans])
+                # Append the fitted parameters
+                if model_str == "PLM":
+                    fitted_parameters.append((fitting_structure.beta[0],fitting_structure.beta[1]))
+                    inverse_parameters.append((parameters_inverse[0],parameters_inverse[1]))      
+                elif model_str == "IM-III":
+                    fitted_parameters.append((fitting_structure.beta[0],fitting_structure.beta[1],fitting_structure.beta[2],fitting_structure.beta[3]))
+                    inverse_parameters.append((parameters_inverse[0],parameters_inverse[1],parameters_inverse[2],parameters_inverse[3]))      
+            else: # The fitting was unsuccessful, so we abort!
+                break
     # Lastly, cast the RMS-values as an array before we return
-    return np.array(RMS_transf)    
+    return np.array(epsilon_transf),np.array(RMS_transf), transformed_data, fitted_parameters, inverse_parameters    
+#----------------------------------------------------------------------------------
+# FUNCTION 15: PLM_II_objective
+# This function returns the objective value of the PLM-II which is used to calculate
+# the orthogonal distance between the data point (t_data,R_data) and the solution
+# the solution curve (t,R(t)) of the power law model.
+def PLM_II_objective(t,args):
+    # Extract the parameters
+    A = args[0]
+    gamma = args[1]
+    K = args[2]    
+    # Return the objective value of the PLM
+    return K*np.tanh(gamma*np.log(t)+A)
+#----------------------------------------------------------------------------------
+# FUNCTION 16: PLM_II_constraint
+# This function is a help function that is necessary for finding the orthogonal distance
+# between a data point and a point on a solution curve of the PLM-II.
+def PLM_II_constraint(Model_Point,*args):
+    # Extract the data point
+    t,R = Model_Point
+    # Pass the constraint to the optimisation
+    return PLM_II_objective(t,args) - R
+#----------------------------------------------------------------------------------    
