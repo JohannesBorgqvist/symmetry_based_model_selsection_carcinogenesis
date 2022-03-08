@@ -529,7 +529,7 @@ R_IM_III_trans_inv = []
 t_IM_III_trans_inv = []
 # Allocate an index vector
 index_vector_1 = list(np.arange(len(t_sym_IM_III_trans)-50,len(t_sym_IM_III_trans)-20,4))
-index_vector_2 = list(np.arange(len(t_sym_IM_III_trans)-70,len(t_sym_IM_III_trans)-1,8))
+index_vector_2 = list(np.arange(len(t_sym_IM_III_trans)-20,len(t_sym_IM_III_trans)-1,8))
 index_vector = index_vector_1 + index_vector_2
 # Save all the transformed stuff
 for index in index_vector:
