@@ -25,4 +25,4 @@
 .Rhistory
 Code/__pycache__/
 Figures/latex_figures/
-Output/.csv
+Output/*.csv
