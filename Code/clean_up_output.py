@@ -33,16 +33,30 @@ def reduce_density(x_dense,y_dense,x_sparse):
     for x in list(x_sparse):
         # Find the closest index in our dense vector
         index = np.where(x_dense==x_dense[np.abs(x_dense-x).argmin()])[0][0]
+        # Print to find errors
+        print("\tCurrent x-value:\tx\t=\t%0.4f"%(x))
+        print("\tClosest dense:\t\tx[%d]\t=\t%0.4f"%(index,x_dense[index]))
         # Find the response variable through interpolation
         if x == x_dense[index]:
             y_sparse.append(y_dense[index])
         else: # We interpolate between the two adjacent values
             if x < x_dense[index] and x > x_dense[index-1]:
+                print("\t\t\tFirst case!")
+            elif x > x_dense[index] and x < x_dense[index+1]:
+                print("\t\t\tSecond case!")
+            else:
+                print("\t\t\tNeither case:\n")
+                print("\t\t\t\tx\t=\t%0.6f"%(x))
+                print("\t\t\t\tx[%d]\t=\t%0.6f"%(index-1,x_dense[index-1]))
+                print("\t\t\t\tx[%d]\t=\t%0.6f"%(index,x_dense[index]))
+                print("\t\t\t\tx[%d]\t=\t%0.6f"%(index+1,x_dense[index+1]))          
+            if x < x_dense[index] and x > x_dense[index-1]:
                 x_range = [x_dense[index-1], x_dense[index]]
                 y_range = [y_dense[index-1], y_dense[index]]
             elif x > x_dense[index] and x < x_dense[index+1]:
                 x_range = [x_dense[index], x_dense[index+1]]
-                y_range = [y_dense[index], y_dense[index+1]]                
+                y_range = [y_dense[index], y_dense[index+1]]
+            print("\t\tx_range\t=\t%s\n\t\ty_range\t=\t%s\n"%(str(x_range),str(y_range)))
             y_sparse.append(np.interp(x, x_range, y_range))
     # Lastly, we return the sparse output as an array
     return np.array(y_sparse)
@@ -75,6 +89,19 @@ def remove_outliers(epsilon,RMS,fitted_parameters,inverse_parameters,transformed
     for outlier_index in outlier_indices:
         del new_fitted_parameters[outlier_index]
         del new_inverse_parameters[outlier_index]
-        del new_transformed_data[outlier_index]        
+        del new_transformed_data[outlier_index]
+    # Now, it turns out that some of the indices can be switched when we remove elements.
+    # So, we add a sorting step to the epsilon vector as well.
+    sorting_matrix = np.array([list(np.arange(new_epsilon)), list(new_epsilon)]).T
+    # Sort this matrix based on the second column
+    sorting_matrix = sorting_matrix[sorting_matrix[:, 1].argsort()]
+    # Extract the first column with the indices from this matrix
+    sorted_indices = list(sorting_matrix[:,0])
+    # Now, we can sort the output before we return it
+    new_sorted_epsilon = np.array([new_epsilon[i] for i in sorted_indices])
+    new_sorted_RMS = np.array([new_RMS[i] for i in sorted_indices])
+    new_sorted_fitted_parameters = [new_fitted_parameters[i] for i in sorted_indices]
+    new_sorted_inverse_parameters = [new_inverse_parameters[i] for i in sorted_indices]
+    new_sorted_transformed_data = [new_transformed_data[i] for i in sorted_indices]
     # Return the output
-    return new_epsilon, new_RMS, new_fitted_parameters, new_inverse_parameters, new_transformed_data
+    return new_sorted_epsilon, new_sorted_RMS, new_sorted_fitted_parameters, new_sorted_inverse_parameters, new_sorted_transformed_data
