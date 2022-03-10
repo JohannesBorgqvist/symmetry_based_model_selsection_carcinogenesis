@@ -92,7 +92,7 @@ def remove_outliers(epsilon,RMS,fitted_parameters,inverse_parameters,transformed
         del new_transformed_data[outlier_index]
     # Now, it turns out that some of the indices can be switched when we remove elements.
     # So, we add a sorting step to the epsilon vector as well.
-    sorting_matrix = np.array([list(np.arange(new_epsilon)), list(new_epsilon)]).T
+    sorting_matrix = np.array([list(np.arange(len(new_epsilon))), list(new_epsilon)]).T
     # Sort this matrix based on the second column
     sorting_matrix = sorting_matrix[sorting_matrix[:, 1].argsort()]
     # Extract the first column with the indices from this matrix
