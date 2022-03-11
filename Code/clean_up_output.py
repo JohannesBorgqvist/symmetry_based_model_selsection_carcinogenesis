@@ -96,7 +96,8 @@ def remove_outliers(epsilon,RMS,fitted_parameters,inverse_parameters,transformed
     # Sort this matrix based on the second column
     sorting_matrix = sorting_matrix[sorting_matrix[:, 1].argsort()]
     # Extract the first column with the indices from this matrix
-    sorted_indices = list(sorting_matrix[:,0])
+    #sorted_indices = list(sorting_matrix[:,0])
+    sorted_indices = [int(sorting_matrix[i,0]) for i in range(len(new_epsilon))]
     # Now, we can sort the output before we return it
     new_sorted_epsilon = np.array([new_epsilon[i] for i in sorted_indices])
     new_sorted_RMS = np.array([new_RMS[i] for i in sorted_indices])
