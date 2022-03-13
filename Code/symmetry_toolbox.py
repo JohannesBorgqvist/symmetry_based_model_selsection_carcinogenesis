@@ -383,25 +383,4 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
                 break
     # Lastly, cast the RMS-values as an array before we return
     return np.array(epsilon_transf),np.array(RMS_transf), transformed_data, fitted_parameters, inverse_parameters    
-#----------------------------------------------------------------------------------
-# FUNCTION 15: PLM_II_objective
-# This function returns the objective value of the PLM-II which is used to calculate
-# the orthogonal distance between the data point (t_data,R_data) and the solution
-# the solution curve (t,R(t)) of the power law model.
-def PLM_II_objective(t,args):
-    # Extract the parameters
-    A = args[0]
-    gamma = args[1]
-    K = args[2]    
-    # Return the objective value of the PLM
-    return K*np.tanh(gamma*np.log(t)+A)
-#----------------------------------------------------------------------------------
-# FUNCTION 16: PLM_II_constraint
-# This function is a help function that is necessary for finding the orthogonal distance
-# between a data point and a point on a solution curve of the PLM-II.
-def PLM_II_constraint(Model_Point,*args):
-    # Extract the data point
-    t,R = Model_Point
-    # Pass the constraint to the optimisation
-    return PLM_II_objective(t,args) - R
-#----------------------------------------------------------------------------------    
+
