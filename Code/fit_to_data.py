@@ -48,29 +48,8 @@ def objective_IM_III(parameters, t):
     # Return the logarithm of the output
     return ((A)/(np.exp(np.exp(-alpha*(t-tau)))-C))
 # ---------------------------------------------------------------------------------------
-# Function 3: "objective_PLM_II"
-# The function returns the objective value of the exponential model and it takes
-# the following three inputs
-# 1."t" being the ages in the time series (or the independent variable if you will),
-# 2. "A" being the scaling parameter in all models,
-# 2. "parameters" containing the parameters (A,gamma,K) of the PLM-II.
-
-
-def objective_PLM_II(parameters, t):
-    # Extract the parameters to be fitted
-    A, gamma, K = parameters
-    # Return the logarithm of the output
-    # return K*np.tanh(gamma*np.log(t)+A)
-    # return K*np.arctan(gamma*np.log(t)+A)
-    # return K*np.arctan(gamma*np.log(t)+A)+gamma*abs(A)
-    # return K*np.tanh(gamma*np.log(t)+A)+gamma*abs(A)
-    # return np.sqrt(((A)/(K-2*gamma*np.log(t))))
-    # return np.sqrt(gamma*np.log(t)+K)
-    # return np.tanh(gamma*np.log(t)-10)
-    return np.arccosh(A*(t**gamma))
 # ---------------------------------------------------------------------------------------
-# ---------------------------------------------------------------------------------------
-# Function 4: "PE_risk_profiles"
+# Function 3: "PE_risk_profiles"
 # The function fits one of the two candidate models (the PLM or the IM-III) to experimental
 # data. It takes five inputs:
 # 1. The vector t being the ages of the patients,
