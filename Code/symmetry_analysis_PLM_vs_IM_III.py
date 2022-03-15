@@ -197,14 +197,14 @@ print("\n\t---------------------------------------------------------------------
 print("\n\t\tThe symmetry based framework for model selection\n")
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\t\tThe scales for the framework are the following:")
-print("\t\t\tPLM\tAll datasets:\t epsilon_scale\t=\t%0.12f"%(5*epsilon_scale_PLM))
-print("\t\t\tIM-III\t myeloma:\t epsilon_scale\t=\t%0.12f"%(5*epsilon_scale_IM_III_myeloma))
-print("\t\t\tIM-III\t colon:\t epsilon_scale\t=\t%0.12f"%(5*epsilon_scale_IM_III_colon))
-print("\t\t\tIM-III\t CML:\t epsilon_scale\t=\t%0.12f\n\n"%(5*epsilon_scale_IM_III_CML))
+print("\t\t\tPLM\tAll datasets:\t epsilon_scale\t=\t%0.12f"%(2*epsilon_scale_PLM))
+print("\t\t\tIM-III\t myeloma:\t epsilon_scale\t=\t%0.12f"%(2*epsilon_scale_IM_III_myeloma))
+print("\t\t\tIM-III\t colon:\t epsilon_scale\t=\t%0.12f"%(2*epsilon_scale_IM_III_colon))
+print("\t\t\tIM-III\t CML:\t epsilon_scale\t=\t%0.12f\n\n"%(2*epsilon_scale_IM_III_CML))
 # Allocate four epsilon vectors with transformation parameters
 #epsilon_vector_PLM = np.array([0.0,30*epsilon_scale_PLM])
 #epsilon_vector_PLM = np.array([0.0,epsilon_scale_PLM])
-epsilon_vector_PLM = np.linspace(0,5*epsilon_scale_PLM,3000,endpoint=True)
+epsilon_vector_PLM = np.linspace(0,2*epsilon_scale_PLM,4000,endpoint=True)
 #--------------------------------------------------------------------------------------------------------
 #epsilon_vector_PLM = np.array([0.0,0.2*epsilon_scale_PLM])
 #epsilon_vector_IM_III_myeloma = np.array([0,0.6795*epsilon_scale_IM_III_myeloma])
@@ -217,9 +217,9 @@ epsilon_vector_PLM = np.linspace(0,5*epsilon_scale_PLM,3000,endpoint=True)
 #epsilon_vector_IM_III_colon = np.array([0,0.5*epsilon_scale_IM_III_colon,0.55*epsilon_scale_IM_III_colon,0.60*epsilon_scale_IM_III_colon,0.65*epsilon_scale_IM_III_colon,0.70*epsilon_scale_IM_III_colon,0.75*epsilon_scale_IM_III_colon,0.80*epsilon_scale_IM_III_colon])
 #epsilon_vector_IM_III_CML = np.array([0,0.745*epsilon_scale_IM_III_CML,0.75*epsilon_scale_IM_III_CML,0.80*epsilon_scale_IM_III_CML,0.85*epsilon_scale_IM_III_CML,0.90*epsilon_scale_IM_III_CML,0.95*epsilon_scale_IM_III_CML,epsilon_scale_IM_III_CML])
 #--------------------------------------------------------------------------------------------------------
-epsilon_vector_IM_III_myeloma = np.linspace(0,5*epsilon_scale_IM_III_myeloma,3000,endpoint=True)
-epsilon_vector_IM_III_colon = np.linspace(0,5*epsilon_scale_IM_III_colon,3000,endpoint=True)
-epsilon_vector_IM_III_CML = np.linspace(0,5*epsilon_scale_IM_III_CML,3000,endpoint=True)
+epsilon_vector_IM_III_myeloma = np.linspace(0,2*epsilon_scale_IM_III_myeloma,4000,endpoint=True)
+epsilon_vector_IM_III_colon = np.linspace(0,2*epsilon_scale_IM_III_colon,4000,endpoint=True)
+epsilon_vector_IM_III_CML = np.linspace(0,2*epsilon_scale_IM_III_CML,4000,endpoint=True)
 #--------------------------------------------------------------------------------------------------------
 # Create an iterable list
 input_lists = [[t_myeloma,R_myeloma,epsilon_vector_PLM,PLM_fitted_to_myeloma_ODR,"PLM"],[t_myeloma,R_myeloma,epsilon_vector_IM_III_myeloma,IM_III_fitted_to_myeloma_ODR,"IM-III"],[t_colon,R_colon,epsilon_vector_PLM,PLM_fitted_to_colon_ODR,"PLM"],[t_colon,R_colon,epsilon_vector_IM_III_colon,IM_III_fitted_to_colon_ODR,"IM-III"],[t_CML,R_CML,epsilon_vector_PLM,PLM_fitted_to_CML_ODR,"PLM"],[t_CML,R_CML,epsilon_vector_IM_III_CML,IM_III_fitted_to_CML_ODR,"IM-III"]]
@@ -258,7 +258,7 @@ else:
 print("\t\t\tPLM, number of transformation parameters:\t%d"%(int(len(epsilon_transf_PLM_myeloma))))
 #----------------------------------------------------------------------------------
 # IM-III MYELOMA
-epsilon_transf_IM_III_myeloma = results[1][1] # IM-III transformation parameters
+epsilon_transf_IM_III_myeloma = results[1][0] # IM-III transformation parameters
 RMS_transf_IM_III_myeloma = results[1][1] # IM-III RMS-values
 transformed_data_IM_III_myeloma = results[1][2] # IM-III Transformed data
 fitted_parameters_IM_III_myeloma = results[1][3] # IM-III fitted parameters
@@ -458,7 +458,7 @@ print("\t\tIllustrate framework!\n")
 # STEP 1 OUT OF 4: TRANSFORM DATA
 #------------------------------------------------------------------------------
 # Find the index closest to the epsilon scale of the PLM
-index_PLM_colon = np.where(epsilon_transf_PLM_colon==epsilon_transf_PLM_colon[np.abs(epsilon_transf_PLM_colon-epsilon_scale_PLM).argmin()])[0][0]
+index_PLM_colon = np.where(epsilon_transf_PLM_colon==epsilon_transf_PLM_colon[np.abs(epsilon_transf_PLM_colon-(epsilon_scale_PLM*0.5)).argmin()])[0][0]
 # Extract out epsilon value
 epsilon = epsilon_transf_PLM_colon[index_PLM_colon]
 print("\t\tPLM\n")
