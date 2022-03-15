@@ -32,7 +32,7 @@ import numpy as np  # For the exponential function
 def objective_PLM(parameters, t):
     # Extract the parameters to be fitted
     A, gamma = parameters
-    # Return the output
+    # Return the function value
     return A*(t**gamma)
 # ---------------------------------------------------------------------------------------
 # Function 2: "objective_IM_III"
@@ -45,7 +45,7 @@ def objective_PLM(parameters, t):
 def objective_IM_III(parameters, t):
     # Extract the parameters to be fitted
     A, tau, C, alpha = parameters
-    # Return the logarithm of the output
+    # Return function value
     return ((A)/(np.exp(np.exp(-alpha*(t-tau)))-C))
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
