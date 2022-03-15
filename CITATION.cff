@@ -6,5 +6,5 @@ authors:
     orcid:  https://orcid.org/0000-0001-6441-2942
 title: "A python implementation for the symmetry based framework for model selection."
 version: 1.0
-doi: 
+doi: https://github.com/JohannesBorgqvist/symmetry_based_model_selsection_carcinogenesis
 date-released: 2022-03-15
