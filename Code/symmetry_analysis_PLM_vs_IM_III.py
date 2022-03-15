@@ -197,14 +197,14 @@ print("\n\t---------------------------------------------------------------------
 print("\n\t\tThe symmetry based framework for model selection\n")
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\t\tThe scales for the framework are the following:")
-print("\t\t\tPLM\tAll datasets:\t epsilon_scale\t=\t%0.12f"%(2*epsilon_scale_PLM))
+print("\t\t\tPLM\tAll datasets:\t epsilon_scale\t=\t%0.12f"%(5*epsilon_scale_PLM))
 print("\t\t\tIM-III\t myeloma:\t epsilon_scale\t=\t%0.12f"%(2*epsilon_scale_IM_III_myeloma))
 print("\t\t\tIM-III\t colon:\t epsilon_scale\t=\t%0.12f"%(2*epsilon_scale_IM_III_colon))
 print("\t\t\tIM-III\t CML:\t epsilon_scale\t=\t%0.12f\n\n"%(2*epsilon_scale_IM_III_CML))
 # Allocate four epsilon vectors with transformation parameters
 #epsilon_vector_PLM = np.array([0.0,30*epsilon_scale_PLM])
 #epsilon_vector_PLM = np.array([0.0,epsilon_scale_PLM])
-epsilon_vector_PLM = np.linspace(0,2*epsilon_scale_PLM,4000,endpoint=True)
+epsilon_vector_PLM = np.linspace(0,5*epsilon_scale_PLM,4000,endpoint=True)
 #--------------------------------------------------------------------------------------------------------
 #epsilon_vector_PLM = np.array([0.0,0.2*epsilon_scale_PLM])
 #epsilon_vector_IM_III_myeloma = np.array([0,0.6795*epsilon_scale_IM_III_myeloma])
