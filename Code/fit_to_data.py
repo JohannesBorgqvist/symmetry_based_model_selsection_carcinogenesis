@@ -77,8 +77,8 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
     # save the optimal parameters that resulted in the best fit.
     #num_of_start_guesses = 20
     #num_of_start_guesses = 10
-    num_of_start_guesses = 5
-    #num_of_start_guesses = 3    
+    #num_of_start_guesses = 5
+    num_of_start_guesses = 3    
     # We have two models to consider, namely the PLM and the IM-III. In order to do the ODR
     # based model fitting, we need to construct a model object and a start guess for the
     # parameters.
