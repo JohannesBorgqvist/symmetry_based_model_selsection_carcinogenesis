@@ -113,8 +113,8 @@ def PLM_transformation_scale(n):
 # The symmetry of the immunological model IM-III
 def IM_III_symmetry(t,R,epsilon,tau,alpha):
     # Define t_hat recursively
-    t_hat =  np.log(np.log(np.exp(np.exp(-alpha*(t-tau))) - (alpha*np.exp(alpha*tau)*epsilon) ))
-    #t_hat =  np.log(np.log(abs(np.exp(np.exp(-alpha*(t-tau))) - (alpha*np.exp(alpha*tau)*epsilon) )))
+    #t_hat =  np.log(np.log(np.exp(np.exp(-alpha*(t-tau))) - (alpha*np.exp(alpha*tau)*epsilon) ))
+    t_hat =  np.log(np.log(abs(np.exp(np.exp(-alpha*(t-tau))) - (alpha*np.exp(alpha*tau)*epsilon) )))
     t_hat = tau - ((t_hat)/(alpha))
     R_hat = R
     return t_hat,R_hat
