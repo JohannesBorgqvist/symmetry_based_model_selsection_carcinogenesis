@@ -60,7 +60,7 @@ def remove_outliers(epsilon,RMS,fitted_parameters,inverse_parameters,transformed
     # Re-cast our array y as a pandas times series
     ts = pd.Series(list(RMS))
     # Calculate the outlier indices using the hampel function
-    outlier_indices = hampel(ts, window_size=50, n=3)
+    outlier_indices = hampel(ts, window_size=10, n=3)
     # Delete the outliers from the original time series
     new_epsilon = np.delete(epsilon, outlier_indices)
     new_RMS = np.delete(RMS, outlier_indices)
