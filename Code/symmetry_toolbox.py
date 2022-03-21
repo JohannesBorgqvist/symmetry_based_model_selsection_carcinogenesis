@@ -245,6 +245,9 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
     # We also define the previous parameters as well as their error bounds
     prev_para = model_fitting_structure.beta
     prev_para_bounds = model_fitting_structure.sd_beta
+    # We also save the original parameters
+    original_para = model_fitting_structure.beta
+    original_bounds = model_fitting_structure.sd_beta
     # We have a logical variable saying whether the fitting was successful or not
     fitting_successful = True
     # Loop over the epsilon vectors and for each epsilon we do the following four steps:
@@ -309,6 +312,36 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
             elif model_str == "IM-III":
                 # Fit the IM-III to the data but without any start guesses
                 fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM-III","ODR",[],[])
+            # If the fitting was successful we save the parameters, otherwise we re-do the fitting with new parameters
+            if fitting_successful:
+                # Update previous parameters 
+                prev_para = fitting_structure.beta
+                # Update the previous bounds
+                prev_para_bounds = fitting_structure.sd_beta
+            else:
+                if model_str == "PLM":
+                    # Start guesses of the parameter A
+                    A_vec = np.array([(original_para[0]-0.10*original_bounds[0])*np.exp(original_para[1]*epsilon),(original_para[0]-0.05*original_bounds[0])*np.exp(original_para[1]*epsilon),(original_para[0]-0*original_bounds[0])*np.exp(original_para[1]*epsilon),(original_para[0]+0.05*original_bounds[0])*np.exp(original_para[1]*epsilon),(original_para[0]+0.10*original_bounds[0])*np.exp(original_para[1]*epsilon)])
+                    # Start guesses of the parameter gamma
+                    gamma_vec = np.array([original_para[1]-0.10*original_bounds[1],original_para[1]-0.05*original_bounds[1],original_para[1],original_para[1]+0.05*original_bounds[1],original_para[1]+0.10*original_bounds[1]])
+                    # Create the start guesses for the next attempt of model fitting
+                    start_guesses = [[A, gamma] for A in A_vec for gamma in gamma_vec]
+                    # Fit the PLM to the data again but with these start guesses
+                    fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"PLM","ODR",[],start_guesses)
+                elif model_str == "IM-III":
+                    # Start guesses of the parameter A
+                    A_vec = np.array([original_para[0]-0.10*original_bounds[0],original_para[0]-0.05*original_bounds[0],original_para[0],original_para[0]+0.05*original_bounds[0],original_para[0]+0.10*original_bounds[0]])
+                    # Start guesses of the parameter gamma
+                    tau_vec = np.array([original_para[1]-0.10*original_bounds[1],original_para[1]-0.05*original_bounds[1],original_para[1],original_para[1]+0.05*original_bounds[1],original_para[1]+0.10*original_bounds[1]])
+                    # Start guesses of the parameter A
+                    C_vec = np.array([(original_para[2]-0.10*original_bounds[2])-original_para[3]*np.exp(original_para[3]*original_para[1])*epsilon,(original_para[2]-0.05*original_bounds[2])-original_para[3]*np.exp(original_para[3]*original_para[1])*epsilon,(original_para[2]-0*original_bounds[2])-original_para[3]*np.exp(original_para[3]*original_para[1])*epsilon,(original_para[2]+0.05*original_bounds[2])-original_para[3]*np.exp(original_para[3]*original_para[1])*epsilon,(original_para[2]+0.10*original_bounds[2])-original_para[3]*np.exp(original_para[3]*original_para[1])*epsilon])
+                    # Start guesses of the parameter gamma
+                    alpha_vec = np.array([original_para[3]-0.10*original_bounds[3],original_para[3]-0.05*original_bounds[3],original_para[3],original_para[3]+0.05*original_bounds[3],original_para[3]+0.10*original_bounds[3]])
+                    # Create the vector of start guesses for the parameters in the model fitting
+                    start_guesses = [[A, tau, C, alpha] for A in A_vec for tau in tau_vec for C in C_vec for alpha in alpha_vec]
+                    # Fit the IM-III to the data again but with these start guesses
+                    fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM-III","ODR",[],start_guesses)                
+            # If the fitting was succesful we save the results. Otherwise, we re-do the fitting with new start guesses
             if fitting_successful:
                 # Update previous parameters 
                 prev_para = fitting_structure.beta
@@ -336,7 +369,8 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
                     # Create the vector of start guesses for the parameters in the model fitting
                     start_guesses = [[A, tau, C, alpha] for A in A_vec for tau in tau_vec for C in C_vec for alpha in alpha_vec]
                     # Fit the IM-III to the data again but with these start guesses
-                    fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM-III","ODR",[],start_guesses)                
+                    fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM-III","ODR",[],start_guesses)
+                
             # If fitting was successful, we do the remaining two steps of the algorithm. Otherwise, we break and return our results
             if fitting_successful:                
                 #------------------------------------------------------
