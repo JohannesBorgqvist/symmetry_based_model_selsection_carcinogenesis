@@ -414,7 +414,8 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
                     fitted_parameters.append((fitting_structure.beta[0],fitting_structure.beta[1],fitting_structure.beta[2],fitting_structure.beta[3]))
                     inverse_parameters.append((parameters_inverse[0],parameters_inverse[1],parameters_inverse[2],parameters_inverse[3]))      
             else: # The fitting was unsuccessful, so we abort!
-                break
+                #break
+                continue
     # Lastly, cast the RMS-values as an array before we return
     return np.array(epsilon_transf),np.array(RMS_transf), transformed_data, fitted_parameters, inverse_parameters    
 
