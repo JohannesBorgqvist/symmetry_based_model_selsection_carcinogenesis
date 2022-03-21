@@ -317,22 +317,22 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
             else:
                 if model_str == "PLM":
                     # Start guesses of the parameter A
-                    A_vec = np.array([prev_para[0]-prev_para_bounds[0],prev_para[0]-0.5*prev_para_bounds[0],prev_para[0],prev_para[0]+0.5*prev_para_bounds[0],prev_para[0]+prev_para_bounds[0]])
+                    A_vec = np.array([prev_para[0]-0.10*prev_para_bounds[0],prev_para[0]-0.05*prev_para_bounds[0],prev_para[0],prev_para[0]+0.05*prev_para_bounds[0],prev_para[0]+0.10*prev_para_bounds[0]])
                     # Start guesses of the parameter gamma
-                    gamma_vec = np.array([prev_para[1]-prev_para_bounds[1],prev_para[1]-0.5*prev_para_bounds[1],prev_para[1],prev_para[1]+0.5*prev_para_bounds[1],prev_para[1]+prev_para_bounds[1]])
+                    gamma_vec = np.array([prev_para[1]-0.10*prev_para_bounds[1],prev_para[1]-0.05*prev_para_bounds[1],prev_para[1],prev_para[1]+0.05*prev_para_bounds[1],prev_para[1]+0.10*prev_para_bounds[1]])
                     # Create the start guesses for the next attempt of model fitting
                     start_guesses = [[A, gamma] for A in A_vec for gamma in gamma_vec]
                     # Fit the PLM to the data again but with these start guesses
                     fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"PLM","ODR",[],start_guesses)
                 elif model_str == "IM-III":
                     # Start guesses of the parameter A
-                    A_vec = np.array([prev_para[0]-prev_para_bounds[0],prev_para[0]-0.5*prev_para_bounds[0],prev_para[0],prev_para[0]+0.5*prev_para_bounds[0],prev_para[0]+prev_para_bounds[0]])
+                    A_vec = np.array([prev_para[0]-0.10*prev_para_bounds[0],prev_para[0]-0.05*prev_para_bounds[0],prev_para[0],prev_para[0]+0.05*prev_para_bounds[0],prev_para[0]+0.10*prev_para_bounds[0]])
                     # Start guesses of the parameter gamma
-                    tau_vec = np.array([prev_para[1]-prev_para_bounds[1],prev_para[1]-0.5*prev_para_bounds[1],prev_para[1],prev_para[1]+0.5*prev_para_bounds[1],prev_para[1]+prev_para_bounds[1]])
+                    tau_vec = np.array([prev_para[1]-0.10*prev_para_bounds[1],prev_para[1]-0.05*prev_para_bounds[1],prev_para[1],prev_para[1]+0.05*prev_para_bounds[1],prev_para[1]+0.10*prev_para_bounds[1]])
                     # Start guesses of the parameter A
-                    C_vec = np.array([prev_para[2]-prev_para_bounds[2],prev_para[2]-0.5*prev_para_bounds[2],prev_para[2],prev_para[2]+0.5*prev_para_bounds[2],prev_para[2]+prev_para_bounds[2]])
+                    C_vec = np.array([prev_para[2]-0.10*prev_para_bounds[2],prev_para[2]-0.05*prev_para_bounds[2],prev_para[2],prev_para[2]+0.05*prev_para_bounds[2],prev_para[2]+0.10*prev_para_bounds[2]])
                     # Start guesses of the parameter gamma
-                    alpha_vec = np.array([prev_para[3]-prev_para_bounds[3],prev_para[3]-0.5*prev_para_bounds[3],prev_para[3],prev_para[3]+0.5*prev_para_bounds[3],prev_para[3]+prev_para_bounds[3]])
+                    alpha_vec = np.array([prev_para[3]-0.10*prev_para_bounds[3],prev_para[3]-0.05*prev_para_bounds[3],prev_para[3],prev_para[3]+0.05*prev_para_bounds[3],prev_para[3]+0.10*prev_para_bounds[3]])
                     # Create the vector of start guesses for the parameters in the model fitting
                     start_guesses = [[A, tau, C, alpha] for A in A_vec for tau in tau_vec for C in C_vec for alpha in alpha_vec]
                     # Fit the IM-III to the data again but with these start guesses
