@@ -321,7 +321,7 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
             else:
                 if model_str == "PLM":
                     # Start guesses of the parameter A
-                    A_vec = np.array([(original_para[0]-0.10*original_bounds[0])*np.exp(original_para[1]*epsilon),(original_para[0]-0.05*original_bounds[0])*np.exp(original_para[1]*epsilon),(original_para[0]-0*original_bounds[0])*np.exp(original_para[1]*epsilon),(original_para[0]+0.05*original_bounds[0])*np.exp(original_para[1]*epsilon),(original_para[0]+0.10*original_bounds[0])*np.exp(original_para[1]*epsilon)])
+                    A_vec = np.array([(original_para[0]-0.10*original_bounds[0])*np.exp(-original_para[1]*epsilon),(original_para[0]-0.05*original_bounds[0])*np.exp(-original_para[1]*epsilon),(original_para[0]-0*original_bounds[0])*np.exp(-original_para[1]*epsilon),(original_para[0]+0.05*original_bounds[0])*np.exp(-original_para[1]*epsilon),(original_para[0]+0.10*original_bounds[0])*np.exp(-original_para[1]*epsilon)])
                     # Start guesses of the parameter gamma
                     gamma_vec = np.array([original_para[1]-0.10*original_bounds[1],original_para[1]-0.05*original_bounds[1],original_para[1],original_para[1]+0.05*original_bounds[1],original_para[1]+0.10*original_bounds[1]])
                     # Create the start guesses for the next attempt of model fitting
