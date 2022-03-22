@@ -1,7 +1,7 @@
 # =================================================================================
 # =================================================================================
 # Script:"symmetry_analysis_PLM_vs_IM_III.py"
-# Date: 2022-03-08
+# Date: 2022-03-22
 # Implemented by: Johannes Borgqvist
 # Description:
 # The script re-generates all the results presented in the article.
@@ -477,7 +477,7 @@ for index in index_vector:
     R_PLM_trans.append(R_trans)
     t_PLM_trans.append(t_trans)
 # Transform the data
-t_colon_trans_PLM,R_colon_trans_PLM = transformed_data_PLM_colon[len(epsilon_transf_PLM_colon)-1]
+t_colon_trans_PLM,R_colon_trans_PLM = transformed_data_PLM_colon[index_PLM_colon]
 #------------------------------------------------------------------------------
 # STEP 2 OUT OF 4: FIT MODEL TO TRANSFORMED DATA
 #------------------------------------------------------------------------------
@@ -523,7 +523,7 @@ for index in index_vector:
     R_IM_III_trans.append(R_trans)
     t_IM_III_trans.append(t_trans)
 # Transform the data
-t_colon_trans_IM_III,R_colon_trans_IM_III = transformed_data_IM_III_colon[len(epsilon_transf_IM_III_colon)-1]
+t_colon_trans_IM_III,R_colon_trans_IM_III = transformed_data_IM_III_colon[index_IM_III_colon]
 #------------------------------------------------------------------------------
 # STEP 2 OUT OF 4: FIT MODEL TO TRANSFORMED DATA
 #------------------------------------------------------------------------------
