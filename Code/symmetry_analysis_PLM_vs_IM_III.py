@@ -482,7 +482,7 @@ t_colon_trans_PLM,R_colon_trans_PLM = transformed_data_PLM_colon[index_PLM_colon
 # STEP 2 OUT OF 4: FIT MODEL TO TRANSFORMED DATA
 #------------------------------------------------------------------------------
 # Fit the model to the transformed data
-R_hat_PLM_trans = np.array([fit_to_data.objective_PLM(fitted_parameters_PLM_colon[len(epsilon_transf_PLM_colon)-1], t_i) for t_i in list(t_colon_trans_PLM)])
+R_hat_PLM_trans = np.array([fit_to_data.objective_PLM(fitted_parameters_PLM_colon[index_PLM_colon], t_i) for t_i in list(t_colon_trans_PLM)])
 #------------------------------------------------------------------------------
 # STEP 3 OUT OF 4: INVERSELY TRANSFORM FITTED MODEL BACK
 #------------------------------------------------------------------------------
@@ -492,12 +492,12 @@ t_PLM_trans_inv = []
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.PLM_transformation(t_colon_trans_PLM[index],R_hat_PLM_trans[index],-0.95*epsilon,inverse_parameters_PLM_colon[len(epsilon_transf_PLM_colon)-1][1])
+    t_trans,R_trans = symmetry_toolbox.PLM_transformation(t_colon_trans_PLM[index],R_hat_PLM_trans[index],-0.95*epsilon,inverse_parameters_PLM_colon[index_PLM_colon][1])
     # Save the transformed variables
     R_PLM_trans_inv.append(R_trans)
     t_PLM_trans_inv.append(t_trans)
 # Calculate inversely transformed solution
-R_hat_PLM_inv_trans = np.array([fit_to_data.objective_PLM(inverse_parameters_PLM_colon[len(epsilon_transf_PLM_colon)-1], t_i) for t_i in list(t_colon)])
+R_hat_PLM_inv_trans = np.array([fit_to_data.objective_PLM(inverse_parameters_PLM_colon[index_PLM_colon], t_i) for t_i in list(t_colon)])
 #------------------------------------------------------------------------------
 # IM-III
 #------------------------------------------------------------------------------
@@ -528,7 +528,7 @@ t_colon_trans_IM_III,R_colon_trans_IM_III = transformed_data_IM_III_colon[index_
 # STEP 2 OUT OF 4: FIT MODEL TO TRANSFORMED DATA
 #------------------------------------------------------------------------------
 t_sym_IM_III_trans = np.linspace(t_colon_trans_IM_III[0],t_colon_trans_IM_III[len(t_colon_trans_IM_III)-1],100, endpoint=True)
-R_hat_IM_III_trans = np.array([fit_to_data.objective_IM_III(fitted_parameters_IM_III_colon[len(epsilon_transf_IM_III_colon)-1], t_i) for t_i in list(t_sym_IM_III_trans)])
+R_hat_IM_III_trans = np.array([fit_to_data.objective_IM_III(fitted_parameters_IM_III_colon[index_IM_III_colon], t_i) for t_i in list(t_sym_IM_III_trans)])
 #------------------------------------------------------------------------------
 # STEP 3 OUT OF 4: INVERSELY TRANSFORM FITTED MODEL BACK
 #------------------------------------------------------------------------------
@@ -542,13 +542,13 @@ index_vector = index_vector_1 + index_vector_2
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym_IM_III_trans[index],R_hat_IM_III_trans[index],-epsilon*0.8,inverse_parameters_IM_III_colon[len(epsilon_transf_IM_III_colon)-1][1],inverse_parameters_IM_III_colon[len(epsilon_transf_IM_III_colon)-1][3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym_IM_III_trans[index],R_hat_IM_III_trans[index],-epsilon*0.8,inverse_parameters_IM_III_colon[index_IM_III_colon][1],inverse_parameters_IM_III_colon[index_IM_III_colon][3])
     # Save the transformed variables
     R_IM_III_trans_inv.append(R_trans)
     t_IM_III_trans_inv.append(t_trans)
 # Calculate inversely transformed solution
 t_sym_IM_III_inv_trans = np.linspace(t_colon[0],t_colon[len(t_colon)-1]+2,100, endpoint=True)
-R_hat_IM_III_inv_trans = np.array([fit_to_data.objective_IM_III(inverse_parameters_IM_III_colon[len(epsilon_transf_IM_III_colon)-1], t_i) for t_i in list(t_sym_IM_III_inv_trans)])
+R_hat_IM_III_inv_trans = np.array([fit_to_data.objective_IM_III(inverse_parameters_IM_III_colon[index_IM_III_colon], t_i) for t_i in list(t_sym_IM_III_inv_trans)])
 #----------------------------------------------------------------------------------
 # Plot the illustration of the model selection framework
 #----------------------------------------------------------------------------------
