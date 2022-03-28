@@ -151,10 +151,10 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
         # Define the model fitting object
         if len(fixed_parameters) == 0:
             # Set up ODR with the model and data.
-            odr = ODR(data, model, parameter_guess, sstol=1e-15, partol=1e-15)
+            odr = ODR(data, model, beta0=parameter_guess, sstol=1e-15, partol=1e-15)
         else:
             # Set up ODR with the model and data and fixed parameters.
-            odr = ODR(data, model, parameter_guess,
+            odr = ODR(data, model, beta0=parameter_guess,
                       ifixb=fixed_parameters, sstol=1e-15, partol=1e-15)
         # Define whether we should use standard least square or the fancy ODR fitting
         if fit_string == "LS":  # Least square fitting
@@ -210,4 +210,3 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
     # ------------------------------------------------------------------------------------------
     # Return the fitted_model
     return fitted_model, R_hat, RMS, fitting_successful
-
