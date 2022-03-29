@@ -19,47 +19,6 @@ import pandas as pd #
 # Functions
 # =================================================================================
 # =================================================================================
-# Function 1: "plot_LaTeX_2D"
-# The function takes the following input:
-# 1. "t" being the list of t-values or input values,
-# 2. "y" being the list of y-values or output values,
-# 3. "file_str" being the string defining where the output
-# file with format tex is stored,
-# 4. "plot_str" is the string defining properties such as
-# colour and linewidth,
-# 5. "legend_str" is a string containing the legend of the plot.
-# The function then creates a tex file which can be plotted
-# in LaTeX using pgfplots. 
-def plot_LaTeX_2D(t,y,file_str,plot_str,legend_str):
-    # Open a file with the append option
-    # so that we can write to the same
-    # file multiple times
-    f = open(file_str, "a")
-    # Create a temporary string which
-    # is the one that does the plotting.
-    # Here we incorporate the input plot_str
-    # which contains the color, and the markers
-    # of the plot at hand
-    if len(legend_str)==0:
-        temp_str = "\\addplot[\nforget plot,\n" + plot_str+ "\n]\n"
-    else:
-        temp_str = "\\addplot[\n" + plot_str+ "\n]\n"
-    # Add the coordinates
-    temp_str += "coordinates {%\n"
-    # Loop over the input files and add
-    # them to the file
-    for i in range(len(t)):
-        temp_str += "(" + str(t[i]) + "," + str(y[i]) + ")\n"
-    # The plotting is done, let's close the shop    
-    temp_str += "};\n"
-    # Add a legend if one is provided
-    if len(legend_str) > 0:
-        temp_str += "\\addlegendentry{" + legend_str + "}\n"
-    # Finally, we write the huge string
-    # we have created
-    f.write("%s"%(temp_str))
-    # Close the file
-    f.close()
 # Function 1: "save_data_PE"
 # The function saves the data from the parameter estimation
 # or curve fitting procedure. It takes in the following input:
