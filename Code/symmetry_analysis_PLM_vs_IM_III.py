@@ -354,36 +354,19 @@ print("\t\tSymmetry framework is done!")
 #----------------------------------------------------------------------------------
 # PLM RESULTS
 # Overall properties
-fig, axes = plt.subplots(1,1,figsize=(15,5))
+fig, axes = plt.subplots(1,2,figsize=(15,5))
 plt.rc('axes', labelsize=15)    # fontsize of the x and y label
 plt.rc('legend', fontsize=10)    # legend fontsize
 plt.rc('xtick', labelsize=10)    # fontsize of the tick labels
 plt.rc('ytick', labelsize=10)    # fontsize of the tick labels
-axes.plot(epsilon_transf_PLM_myeloma_sparse,RMS_transf_PLM_myeloma_sparse,'-', color = (103/256,0/256,31/256),label='PLM Myeloma cancer')
-axes.plot(epsilon_transf_PLM_colon_sparse,RMS_transf_PLM_colon_sparse,'-', color = (206/256,18/256,86/256),label='PLM Colon cancer')
-axes.plot(epsilon_transf_PLM_CML_sparse,RMS_transf_PLM_CML_sparse,'-', color = (223/256,101/256,176/256),label='PLM CML')
-# add a big axis, hide frame
-fig.add_subplot(111, frameon=False)
-#hide tick and tick label of the big axis
-plt.tick_params(labelcolor='none', which='both', top=False, bottom=False, left=False, right=False)
-plt.xlabel("Transformation parameter, $\epsilon$")
-plt.ylabel("Root mean square, $\mathrm{RMS}(\epsilon)$")
-# displaying the title
-plt.title("The symmetry based model selection for the PLM",fontsize=20, fontweight='bold')
-plt.savefig("../Figures/symmetry_based_model_selection_PLM.png")
-# IM-III
-# Overall properties
-fig, axes = plt.subplots(1,3,figsize=(15,5))
-plt.rc('axes', labelsize=15)    # fontsize of the x and y label
-plt.rc('legend', fontsize=10)    # legend fontsize
-plt.rc('xtick', labelsize=10)    # fontsize of the tick labels
-plt.rc('ytick', labelsize=10)    # fontsize of the tick labels
-# Subplot 1: Myeloma
-axes[0].plot(epsilon_transf_IM_III_myeloma_sparse,RMS_transf_IM_III_myeloma_sparse,'-', color = (2/256,56/256,88/256),label='IM-III Myeloma cancer')
-# Subplot 2: Colon cancer
+# Subplot 1: PLM
+axes[0].plot(epsilon_transf_PLM_myeloma_sparse,RMS_transf_PLM_myeloma_sparse,'-', color = (103/256,0/256,31/256),label='PLM Myeloma cancer')
+axes[0].plot(epsilon_transf_PLM_colon_sparse,RMS_transf_PLM_colon_sparse,'-', color = (206/256,18/256,86/256),label='PLM Colon cancer')
+axes[0].plot(epsilon_transf_PLM_CML_sparse,RMS_transf_PLM_CML_sparse,'-', color = (223/256,101/256,176/256),label='PLM CML')
+# Subplot 2: IM-III
+axes[1].plot(epsilon_transf_IM_III_myeloma_sparse,RMS_transf_IM_III_myeloma_sparse,'-', color = (2/256,56/256,88/256),label='IM-III Myeloma cancer')
 axes[1].plot(epsilon_transf_IM_III_colon_sparse,RMS_transf_IM_III_colon_sparse,'-', color = (54/256,144/256,192/256),label='IM-III Colon cancer')
-# Subplot 3: CML
-axes[2].plot(epsilon_transf_IM_III_CML_sparse,RMS_transf_IM_III_CML_sparse,'-', color = (208/256,209/256,230/256),label='IM-III CML')
+axes[1].plot(epsilon_transf_IM_III_CML_sparse,RMS_transf_IM_III_CML_sparse,'-', color = (208/256,209/256,230/256),label='IM-III CML')
 # add a big axis, hide frame
 fig.add_subplot(111, frameon=False)
 #hide tick and tick label of the big axis
@@ -391,9 +374,8 @@ plt.tick_params(labelcolor='none', which='both', top=False, bottom=False, left=F
 plt.xlabel("Transformation parameter, $\epsilon$")
 plt.ylabel("Root mean square, $\mathrm{RMS}(\epsilon)$")
 # displaying the title
-plt.title("The symmetry based model selection for the IM-III",fontsize=20, fontweight='bold')
-plt.savefig("../Figures/symmetry_based_model_selection_IM_III.png")
-#plt.show()    
+plt.title("The symmetry based model selection",fontsize=20, fontweight='bold')
+plt.savefig("../Figures/symmetry_based_model_selection.png")
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # ILLUSTRATE THE SYMMETRY BASED MODEL SELECTION IN LATEX
