@@ -135,37 +135,6 @@ plt.ylabel("Incidence, $R(t)$")
 plt.title("Fit of candidate models to three data sets",fontsize=20, fontweight='bold')
 #plt.show()
 plt.savefig("../Figures/Fit_of_models_to_cancer_data.png")
-#----------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------
-# Plot the data and the fit in latex
-#----------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------
-# PLOT DATA
-# Myeloma
-write_output.plot_LaTeX_2D(t_myeloma,R_myeloma,"../Figures/latex_figures/fit_of_models_to_cancer_data/Input/myeloma.tex","only marks, mark=halfcircle*,mark size=1.5pt,color=black,","Data Myeloma cancer")
-# Colon cancer
-write_output.plot_LaTeX_2D(t_colon,R_colon,"../Figures/latex_figures/fit_of_models_to_cancer_data/Input/colon.tex","only marks, mark=halfcircle*,mark size=1.5pt,color=black,","Data Colon cancer")
-# CML
-write_output.plot_LaTeX_2D(t_CML,R_CML,"../Figures/latex_figures/fit_of_models_to_cancer_data/Input/CML.tex","only marks, mark=halfcircle*,mark size=1.5pt,color=black,","Data Chronic Myeloid Leukemia (CML)")
-#----------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------
-# Orthogonal Distance Regression (ODR)
-#----------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------
-# PLOT PLM
-# Myeloma
-write_output.plot_LaTeX_2D(t_myeloma,R_hat_PLM_myeloma_ODR,"../Figures/latex_figures/fit_of_models_to_cancer_data/Input/myeloma.tex","color=pow_1,line width=2pt,","PLM")
-# Colon cancer
-write_output.plot_LaTeX_2D(t_colon,R_hat_PLM_colon_ODR,"../Figures/latex_figures/fit_of_models_to_cancer_data/Input/colon.tex","color=pow_1,line width=2pt,","PLM")
-# CML
-write_output.plot_LaTeX_2D(t_CML,R_hat_PLM_CML_ODR,"../Figures/latex_figures/fit_of_models_to_cancer_data/Input/CML.tex","color=pow_1,line width=2pt,","PLM")
-# PLOT IM-III
-# Myeloma
-write_output.plot_LaTeX_2D(t_myeloma,R_hat_IM_III_myeloma_ODR,"../Figures/latex_figures/fit_of_models_to_cancer_data/Input/myeloma.tex","color=mixed_1,line width=2pt,","IM-III")
-# Colon cancer
-write_output.plot_LaTeX_2D(t_colon,R_hat_IM_III_colon_ODR,"../Figures/latex_figures/fit_of_models_to_cancer_data/Input/colon.tex","color=mixed_1,line width=2pt,","IM-III")
-# CML
-write_output.plot_LaTeX_2D(t_CML,R_hat_IM_III_CML_ODR,"../Figures/latex_figures/fit_of_models_to_cancer_data/Input/CML.tex","color=mixed_1,line width=2pt,","IM-III")
 # =================================================================================
 # =================================================================================
 # CALCULATE THE TRANSFORMATION SCALES
@@ -378,20 +347,6 @@ plt.ylabel("Root mean square, $\mathrm{RMS}(\epsilon)$")
 # displaying the title
 plt.title("The symmetry based model selection",fontsize=20, fontweight='bold')
 plt.savefig("../Figures/symmetry_based_model_selection.png")
-#----------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------
-# ILLUSTRATE THE SYMMETRY BASED MODEL SELECTION IN LATEX
-#----------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------
-# MYELOMA
-write_output.plot_LaTeX_2D(epsilon_transf_PLM_myeloma_sparse,RMS_transf_PLM_myeloma_sparse,"../Figures/latex_figures/symmetry_based_model_selection/Input/PLM.tex","color=pow_1,line width=2pt,","PLM myeloma cancer")
-write_output.plot_LaTeX_2D(epsilon_transf_IM_III_myeloma_sparse,RMS_transf_IM_III_myeloma_sparse,"../Figures/latex_figures/symmetry_based_model_selection/Input/IM_III_myeloma.tex","color=mixed_1,line width=2pt,","IM-III Myeloma cancer")
-# COLON CANCER
-write_output.plot_LaTeX_2D(epsilon_transf_PLM_colon_sparse,RMS_transf_PLM_colon_sparse,"../Figures/latex_figures/symmetry_based_model_selection/Input/PLM.tex","color=pow_2,line width=2pt,","PLM colon cancer")
-write_output.plot_LaTeX_2D(epsilon_transf_IM_III_colon_sparse,RMS_transf_IM_III_colon_sparse,"../Figures/latex_figures/symmetry_based_model_selection/Input/IM_III_colon.tex","color=mixed_2,line width=2pt,","IM-III Colon cancer")
-# CML
-write_output.plot_LaTeX_2D(epsilon_transf_PLM_CML_sparse,RMS_transf_PLM_CML_sparse,"../Figures/latex_figures/symmetry_based_model_selection/Input/PLM.tex","color=pow_3,line width=2pt,","PLM CML")
-write_output.plot_LaTeX_2D(epsilon_transf_IM_III_CML_sparse,RMS_transf_IM_III_CML_sparse,"../Figures/latex_figures/symmetry_based_model_selection/Input/IM_III_CML.tex","color=mixed_3,line width=2pt,","IM-III CML")
 # =================================================================================
 # =================================================================================
 # ILLUSTRATE THE MODEL SELECTION FRAMEWORK
@@ -567,62 +522,6 @@ plt.ylabel("Incidence, $R(t)$")
 plt.title("The steps of the symmetry based model selection",fontsize=20, fontweight='bold')
 plt.savefig("../Figures/step_symmetry_based_model_selection.png")
 #plt.show()
-# ---------------------------------------------------------------------------------
-# ---------------------------------------------------------------------------------
-# ILLUSTRATE THE FRAMEWORK IN LATEX
-# ---------------------------------------------------------------------------------
-# ---------------------------------------------------------------------------------
-# STEP 1 OUT OF 4: TRANSFORM DATA
-# ---------------------------------------------------------------------------------
-# PLM
-write_output.plot_LaTeX_2D(t_colon,R_colon,"../Figures/latex_figures/illustrate_framework/Input/step_1_PLM.tex","only marks, mark=halfcircle*,mark size=1.5pt,color=black,","Data")
-write_output.plot_LaTeX_2D(t_colon,R_hat_PLM_colon_ODR,"../Figures/latex_figures/illustrate_framework/Input/step_1_PLM.tex","color=pow_1,line width=2pt,","PLM $R(t)$")
-write_output.plot_LaTeX_2D(t_colon_trans_PLM, R_colon_trans_PLM,"../Figures/latex_figures/illustrate_framework/Input/step_1_PLM.tex","only marks, mark=halfcircle*,mark size=1.5pt,color=gray,","Transf. data")
-write_output.plot_LaTeX_2D(np.array(t_PLM_trans[0]),np.array(R_PLM_trans[0]),"../Figures/latex_figures/illustrate_framework/Input/step_1_PLM.tex","color=black,->,>=latex,densely dashed","Symmetry $\Gamma^{\mathrm{PLM}}_{\epsilon}$")
-for index in range(1,len(t_PLM_trans)):
-    write_output.plot_LaTeX_2D(np.array(t_PLM_trans[index]),np.array(R_PLM_trans[index]),"../Figures/latex_figures/illustrate_framework/Input/step_1_PLM.tex","color=black,->,>=latex,densely dashed",[])
-# IM-III
-write_output.plot_LaTeX_2D(t_colon,R_colon,"../Figures/latex_figures/illustrate_framework/Input/step_1_IM_III.tex","only marks, mark=halfcircle*,mark size=1.5pt,color=black,","Data")
-write_output.plot_LaTeX_2D(t_colon,R_hat_IM_III_colon_ODR,"../Figures/latex_figures/illustrate_framework/Input/step_1_IM_III.tex","color=mixed_1,line width=2pt,","IM-III $R(t)$")
-write_output.plot_LaTeX_2D(t_colon_trans_IM_III, R_colon_trans_IM_III,"../Figures/latex_figures/illustrate_framework/Input/step_1_IM_III.tex","only marks, mark=halfcircle*,mark size=1.5pt,color=gray,","Transf. data")
-write_output.plot_LaTeX_2D(np.array(t_IM_III_trans[0]),np.array(R_IM_III_trans[0]),"../Figures/latex_figures/illustrate_framework/Input/step_1_IM_III.tex","color=black,->,>=latex,densely dashed","Symmetry $\Gamma^{\mathrm{IM-III}}_{\epsilon}$")
-for index in range(1,len(t_IM_III_trans)):
-    write_output.plot_LaTeX_2D(np.array(t_IM_III_trans[index]),np.array(R_IM_III_trans[index]),"../Figures/latex_figures/illustrate_framework/Input/step_1_IM_III.tex","color=black,->,>=latex,densely dashed",[])
-# ---------------------------------------------------------------------------------
-# STEP 2 OUT OF 4: FIT TO TRANSFORMED DATA
-# ---------------------------------------------------------------------------------    
-# PLM
-write_output.plot_LaTeX_2D(t_colon_trans_PLM, R_colon_trans_PLM,"../Figures/latex_figures/illustrate_framework/Input/step_2_PLM.tex","only marks, mark=halfcircle*,mark size=1.5pt,color=gray,","Transf. data")
-write_output.plot_LaTeX_2D(t_colon_trans_PLM, R_hat_PLM_trans,"../Figures/latex_figures/illustrate_framework/Input/step_2_PLM.tex","color=pow_2,line width=2pt,","PLM $\hat{R}(t)$")
-# IM-III
-write_output.plot_LaTeX_2D(t_colon_trans_IM_III, R_colon_trans_IM_III,"../Figures/latex_figures/illustrate_framework/Input/step_2_IM_III.tex","only marks, mark=halfcircle*,mark size=1.5pt,color=gray,","Transf. data")
-write_output.plot_LaTeX_2D(t_sym_IM_III_trans, R_hat_IM_III_trans,"../Figures/latex_figures/illustrate_framework/Input/step_2_IM_III.tex","color=mixed_2,line width=2pt,","IM-III $\hat{R}(t)$")
-# ---------------------------------------------------------------------------------
-# STEP 3 OUT OF 4: INVERSELY TRANSFORM MODEL BACK
-# ---------------------------------------------------------------------------------
-# PLM
-write_output.plot_LaTeX_2D(t_colon_trans_PLM, R_hat_PLM_trans,"../Figures/latex_figures/illustrate_framework/Input/step_3_PLM.tex","color=pow_2,line width=2pt,","PLM $\hat{R}(t,\epsilon)$")
-write_output.plot_LaTeX_2D(t_colon, R_hat_PLM_inv_trans,"../Figures/latex_figures/illustrate_framework/Input/step_3_PLM.tex","color=pow_3,line width=2pt,","PLM $\Gamma^{\mathrm{PLM}}_{-\epsilon}\hat{R}(t)$")
-write_output.plot_LaTeX_2D(np.array(t_PLM_trans_inv[0]),np.array(R_PLM_trans_inv[0]),"../Figures/latex_figures/illustrate_framework/Input/step_3_PLM.tex","color=black,->,>=latex,densely dashed","Inv. Symmetry $\Gamma^{\mathrm{PLM}}_{-\epsilon}$")
-for index in range(1,len(t_PLM_trans_inv)):
-    write_output.plot_LaTeX_2D(np.array(t_PLM_trans_inv[index]),np.array(R_PLM_trans_inv[index]),"../Figures/latex_figures/illustrate_framework/Input/step_3_PLM.tex","color=black,->,>=latex,densely dashed",[])
-# IM-III
-write_output.plot_LaTeX_2D(t_sym_IM_III_trans, R_hat_IM_III_trans,"../Figures/latex_figures/illustrate_framework/Input/step_3_IM_III.tex","color=mixed_2,line width=2pt,","IM-III $\hat{R}(t)$")
-write_output.plot_LaTeX_2D(t_sym_IM_III_inv_trans, R_hat_IM_III_inv_trans,"../Figures/latex_figures/illustrate_framework/Input/step_3_IM_III.tex","color=mixed_3,line width=2pt,","IM-III $\Gamma_{-\epsilon}^{\mathrm{IM-III}}\hat{R}(t)$")
-write_output.plot_LaTeX_2D(np.array(t_IM_III_trans_inv[0]),np.array(R_IM_III_trans_inv[0]),"../Figures/latex_figures/illustrate_framework/Input/step_3_IM_III.tex","color=black,->,>=latex,densely dashed","Inv. Symmetry $\Gamma^{\mathrm{IM-III}}_{-\epsilon}$")
-for index in range(1,len(t_IM_III_trans_inv)):
-    write_output.plot_LaTeX_2D(np.array(t_IM_III_trans_inv[index]),np.array(R_IM_III_trans_inv[index]),"../Figures/latex_figures/illustrate_framework/Input/step_3_IM_III.tex","color=black,->,>=latex,densely dashed",[])    
-# ---------------------------------------------------------------------------------
-# STEP 4 OUT OF 4: INVERSELY TRANSFORM MODEL BACK
-# ---------------------------------------------------------------------------------
-# PLM
-write_output.plot_LaTeX_2D(t_colon,R_colon,"../Figures/latex_figures/illustrate_framework/Input/step_4_PLM.tex","only marks, mark=halfcircle*,mark size=1.5pt,color=black,","Data")
-write_output.plot_LaTeX_2D(t_colon,R_hat_PLM_colon_ODR,"../Figures/latex_figures/illustrate_framework/Input/step_4_PLM.tex","color=pow_1,line width=2pt,","PLM $R(t)$")
-write_output.plot_LaTeX_2D(t_colon, R_hat_PLM_inv_trans,"../Figures/latex_figures/illustrate_framework/Input/step_4_PLM.tex","color=pow_3,line width=2pt,","PLM $\Gamma^{\mathrm{PLM}}_{-\epsilon}\hat{R}(t)$")
-# IM-III
-write_output.plot_LaTeX_2D(t_colon,R_colon,"../Figures/latex_figures/illustrate_framework/Input/step_4_IM_III.tex","only marks, mark=halfcircle*,mark size=1.5pt,color=black,","Data")
-write_output.plot_LaTeX_2D(t_colon,R_hat_IM_III_colon_ODR,"../Figures/latex_figures/illustrate_framework/Input/step_4_IM_III.tex","color=mixed_1,line width=2pt,","IM-III $R(t)$")
-write_output.plot_LaTeX_2D(t_sym_IM_III_inv_trans, R_hat_IM_III_inv_trans,"../Figures/latex_figures/illustrate_framework/Input/step_4_IM_III.tex","color=mixed_3,line width=2pt,","IM-III $\Gamma_{-\epsilon}^{\mathrm{IM-III}}\hat{R}(t)$")
 # =================================================================================
 # =================================================================================
 # =================================================================================
@@ -749,34 +648,7 @@ plt.ylabel("Incidence, $R(t)$")
 plt.title("The symmetries of the PLM and the IM-III",fontsize=20, fontweight='bold')
 plt.savefig("../Figures/action_of_symmetries.png")
 plt.show()
-
-# ---------------------------------------------------------------------------------
-# ---------------------------------------------------------------------------------
-# ILLUSTRATE THE ACTION OF THE SYMMETRIES IN LATEX
-# ---------------------------------------------------------------------------------
-# ---------------------------------------------------------------------------------
-#-----------------------------------------------------------------------------------------------------
-# PLM
-#-----------------------------------------------------------------------------------------------------
-write_output.plot_LaTeX_2D(t_sym,R_hat_PLM_original,"../Figures/latex_figures/action_of_symmetries/Input/PLM.tex","color=pow_1,line width=2pt,","PLM sol., $R(t)$")
-write_output.plot_LaTeX_2D(t_hat_PLM_1,R_hat_PLM_1,"../Figures/latex_figures/action_of_symmetries/Input/PLM.tex","color=pow_2,line width=2pt,","PLM Transf. sol., $\hat{R}_1(t,\epsilon)$")
-write_output.plot_LaTeX_2D(t_hat_PLM_2,R_hat_PLM_2,"../Figures/latex_figures/action_of_symmetries/Input/PLM.tex","color=pow_3,line width=2pt,","PLM Transf. sol., $\hat{R}_2(t,\epsilon)$")
-write_output.plot_LaTeX_2D(np.array(t_PLM_trans_1[0]),np.array(R_PLM_trans_1[0]),"../Figures/latex_figures/action_of_symmetries/Input/PLM.tex","color=black,->,>=latex,densely dashed","Symmetry $\Gamma^{\mathrm{PLM}}_{\epsilon}$")
-for index in range(1,len(t_PLM_trans_1)):
-    write_output.plot_LaTeX_2D(np.array(t_PLM_trans_1[index]),np.array(R_PLM_trans_1[index]),"../Figures/latex_figures/action_of_symmetries/Input/PLM.tex","color=black,->,>=latex,densely dashed",[])    
-for index in range(len(t_PLM_trans_2)):
-    write_output.plot_LaTeX_2D(np.array(t_PLM_trans_2[index]),np.array(R_PLM_trans_2[index]),"../Figures/latex_figures/action_of_symmetries/Input/PLM.tex","color=black,->,>=latex,densely dashed",[])    
-#-----------------------------------------------------------------------------------------------------
-# IM-II
-#-----------------------------------------------------------------------------------------------------
-write_output.plot_LaTeX_2D(t_sym,R_hat_IM_III_original,"../Figures/latex_figures/action_of_symmetries/Input/IM_III.tex","color=mixed_1,line width=2pt,","IM-III sol., $R(t)$")
-write_output.plot_LaTeX_2D(t_hat_IM_III_1,R_hat_IM_III_1,"../Figures/latex_figures/action_of_symmetries/Input/IM_III.tex","color=mixed_2,line width=2pt,","IM-III Transf. sol., $\hat{R}_1(\hat{t}_1)$")
-write_output.plot_LaTeX_2D(t_hat_IM_III_2,R_hat_IM_III_2,"../Figures/latex_figures/action_of_symmetries/Input/IM_III.tex","color=mixed_3,line width=2pt,","IM-III Transf. sol., $\hat{R}_2(\hat{t}_2)$")
-write_output.plot_LaTeX_2D(np.array(t_IM_III_trans_1[0]),np.array(R_IM_III_trans_1[0]),"../Figures/latex_figures/action_of_symmetries/Input/IM_III.tex","color=black,->,>=latex,densely dashed","Symmetry $\Gamma^{\mathrm{IM-III}}_{\epsilon}$")
-for index in range(1,len(t_IM_III_trans_1)):
-    write_output.plot_LaTeX_2D(np.array(t_IM_III_trans_1[index]),np.array(R_IM_III_trans_1[index]),"../Figures/latex_figures/action_of_symmetries/Input/IM_III.tex","color=black,->,>=latex,densely dashed",[])  
-for index in range(len(t_IM_III_trans_2)):
-    write_output.plot_LaTeX_2D(np.array(t_IM_III_trans_2[index]),np.array(R_IM_III_trans_2[index]),"../Figures/latex_figures/action_of_symmetries/Input/IM_III.tex","color=black,->,>=latex,densely dashed",[])
+# Final prompt to the user
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\n\t\tCalculations are done!\n")
 print("\n\t--------------------------------------------------------------------------------------\n")    
