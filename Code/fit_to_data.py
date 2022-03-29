@@ -35,14 +35,14 @@ def objective_PLM(parameters, t):
     # Return the function value
     return A*(t**gamma)
 # ---------------------------------------------------------------------------------------
-# Function 2: "objective_IM_III"
+# Function 2: "objective_IM"
 # The function returns the objective value of the exponential model and it takes
 # the following two inputs:
 # 1."t" being the ages in the time series (or the independent variable if you will),
-# 2. "parameters" containing the parameters (A,tau,C,alpha) of the IM-III.
+# 2. "parameters" containing the parameters (A,tau,C,alpha) of the IM.
 
 
-def objective_IM_III(parameters, t):
+def objective_IM(parameters, t):
     # Extract the parameters to be fitted
     A, tau, C, alpha = parameters
     # Return function value
@@ -50,11 +50,11 @@ def objective_IM_III(parameters, t):
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # Function 3: "PE_risk_profiles"
-# The function fits one of the two candidate models (the PLM or the IM-III) to experimental
+# The function fits one of the two candidate models (the PLM or the IM) to experimental
 # data. It takes five inputs:
 # 1. The vector t being the ages of the patients,
 # 2. The vector R being the number of incidences of cancer for a given age,
-# 3. The string model_str defining whether it is the PLM or the IM-III that is fitted to the data,
+# 3. The string model_str defining whether it is the PLM or the IM that is fitted to the data,
 # 4. The string fit_type defining whether it is the standard least square or the Orthogonal Distance Regression (ODR) measure that is used,
 # 5. A list with a single start guess for the parameters of the model. If this vector is empty, a multi-shooting technique will be used with multiple start guesses for the parameters.
 # The function returns three outputs:
@@ -71,7 +71,7 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
     # we use a multiple shooting technique were we test multiple start guesses and then we
     # save the optimal parameters that resulted in the best fit.
     num_of_start_guesses = 10
-    # We have two models to consider, namely the PLM and the IM-III. In order to do the ODR
+    # We have two models to consider, namely the PLM and the IM. In order to do the ODR
     # based model fitting, we need to construct a model object and a start guess for the
     # parameters.
     if model_str == "PLM":  # The PLM
@@ -92,9 +92,9 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
         else:  # We run with the provided start guesses for the parameters
             parameter_guesses = [start_guesses]
 
-    elif model_str == "IM-III":  # The IM-III
+    elif model_str == "IM":  # The IM
         # Define the model
-        model = Model(objective_IM_III)
+        model = Model(objective_IM)
         # If we do not have any start guesses, we do a multiple shooting technique
         if len(start_guesses) == 0:
             # Define the start guess [A, tau, C, ]
@@ -144,7 +144,7 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
             if model_str =="PLM":
                 # Set up ODR with the model and data.
                 odr = ODR(data, model, beta0=parameter_guess, sstol=1e-15, partol=1e-15)
-            elif model_str == "IM-III":
+            elif model_str == "IM":
                 # Set up ODR with the model and data.
                 odr = ODR(data, model, beta0=parameter_guess, ifixb=[1, 1, 1, 0],sstol=1e-15, partol=1e-15)                
         else:
@@ -162,9 +162,9 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
         if model_str == "PLM":  # The PLM
             R_hat_temp = np.array(
                 [objective_PLM(fitted_model_temp.beta, t_i) for t_i in list(t)])
-        elif model_str == "IM-III":  # The IM-III
+        elif model_str == "IM":  # The IM
             R_hat_temp = np.array(
-                [objective_IM_III(fitted_model_temp.beta, t_i) for t_i in list(t)])
+                [objective_IM(fitted_model_temp.beta, t_i) for t_i in list(t)])
         elif model_str == "PLM-II":  # The PLM-II
             R_hat_temp = np.array(
                 [objective_PLM_II(fitted_model_temp.beta, t_i) for t_i in list(t)])
@@ -177,18 +177,18 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
             Data_point = (t[time_series_index], R[time_series_index])
             # Update the curve specific parameters that are transformed corresponding to
             # the parameter A in the case of the PLM and the parameter C in the case of
-            # the IM-III. Also, we find the orthogonal point on the solution curve using
+            # the IM. Also, we find the orthogonal point on the solution curve using
             # fmin_cobyla
             if model_str == "PLM":
                 # Find the orthogonal point on the solution curve (t,R(t)) of the PLM
                 Model_point = fmin_cobyla(symmetry_toolbox.SS_res_model_data, x0=list(Data_point), cons=[
                                           symmetry_toolbox.PLM_constraint], args=(Data_point,), consargs=(fitted_model_temp.beta[0], fitted_model_temp.beta[1]))
-            elif model_str == "IM-III":
-                # Find the orthogonal point on the solution curve (t,R(t)) of the IM-III
-                Model_point = fmin_cobyla(symmetry_toolbox.SS_res_model_data, x0=list(Data_point), cons=[symmetry_toolbox.IM_III_constraint], args=(
+            elif model_str == "IM":
+                # Find the orthogonal point on the solution curve (t,R(t)) of the IM
+                Model_point = fmin_cobyla(symmetry_toolbox.SS_res_model_data, x0=list(Data_point), cons=[symmetry_toolbox.IM_constraint], args=(
                     Data_point,), consargs=(fitted_model_temp.beta[0], fitted_model_temp.beta[1], fitted_model_temp.beta[2], fitted_model_temp.beta[3]))
             elif model_str == "PLM-II":
-                # Find the orthogonal point on the solution curve (t,R(t)) of the IM-III
+                # Find the orthogonal point on the solution curve (t,R(t)) of the IM
                 Model_point = fmin_cobyla(symmetry_toolbox.SS_res_model_data, x0=list(Data_point), cons=[symmetry_toolbox.PLM_II_constraint], args=(
                     Data_point,), consargs=(fitted_model_temp.beta[0], fitted_model_temp.beta[1], fitted_model_temp.beta[2]))
             # Add the squared distances to our growing sum of squares (SS)
