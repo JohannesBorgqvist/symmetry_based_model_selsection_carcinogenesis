@@ -75,10 +75,7 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
     # are multiple local optima which can be found for different start guesses. Therefore,
     # we use a multiple shooting technique were we test multiple start guesses and then we
     # save the optimal parameters that resulted in the best fit.
-    #num_of_start_guesses = 20
-    #num_of_start_guesses = 10
-    #num_of_start_guesses = 5
-    num_of_start_guesses = 3    
+    num_of_start_guesses = 5
     # We have two models to consider, namely the PLM and the IM-III. In order to do the ODR
     # based model fitting, we need to construct a model object and a start guess for the
     # parameters.
@@ -113,8 +110,7 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
             A_vec = np.linspace(0.01, 50, num_of_start_guesses*3, endpoint=True)
             C_vec = np.linspace(0.5, 1, num_of_start_guesses, endpoint=True)
             tau_vec = np.linspace(30, 40, num_of_start_guesses, endpoint=True)
-            #alpha_vec = np.array([0.040, 0.045])
-            alpha_vec = np.linspace(0.043, 0.045, num_of_start_guesses, endpoint=True)
+            alpha_vec = np.array([0.044])
             # Save all start guesses in a big list which we loop over in the end
             parameter_guesses = [[A, tau, C, alpha]
                                  for A in A_vec for tau in tau_vec for C in C_vec for alpha in alpha_vec]
@@ -150,8 +146,12 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
     for parameter_guess in parameter_guesses:
         # Define the model fitting object
         if len(fixed_parameters) == 0:
-            # Set up ODR with the model and data.
-            odr = ODR(data, model, beta0=parameter_guess, sstol=1e-15, partol=1e-15)
+            if model_str =="PLM":
+                # Set up ODR with the model and data.
+                odr = ODR(data, model, beta0=parameter_guess, sstol=1e-15, partol=1e-15)
+            elif model_str == "IM-III":
+                # Set up ODR with the model and data.
+                odr = ODR(data, model, beta0=parameter_guess, ifixb=[1, 1, 1, 0],sstol=1e-15, partol=1e-15)                
         else:
             # Set up ODR with the model and data and fixed parameters.
             odr = ODR(data, model, beta0=parameter_guess,
