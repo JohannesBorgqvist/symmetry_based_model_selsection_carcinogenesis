@@ -90,7 +90,6 @@ def PLM_objective(t,args):
     gamma = args[1]
     # Return the objective value of the PLM
     return A*(t**gamma)
-    #return A + gamma*np.log(t)
 #----------------------------------------------------------------------------------
 # FUNCTION 5: PLM_constraint
 # This function is a help function that is necessary for finding the orthogonal distance
@@ -100,7 +99,6 @@ def PLM_constraint(Model_Point,*args):
     t,R = Model_Point
     # Pass the constraint to the optimisation
     return PLM_objective(t,args) - R
-    #return PLM_objective(t,args) - np.log(R)
 #----------------------------------------------------------------------------------
 # FUNCTION 6: PLM_transformation_scale
 # This function calculates the transformation scale for the PLM model. It calculates
@@ -114,7 +112,6 @@ def PLM_transformation_scale(n):
 def IM_symmetry(t,R,epsilon,tau,alpha):
     # Define t_hat recursively
     t_hat =  np.log(np.log(np.exp(np.exp(-alpha*(t-tau))) - (alpha*np.exp(alpha*tau)*epsilon) ))
-    #t_hat =  np.log(np.log(abs(np.exp(np.exp(-alpha*(t-tau))) - (alpha*np.exp(alpha*tau)*epsilon) )))
     t_hat = tau - ((t_hat)/(alpha))
     R_hat = R
     return t_hat,R_hat
@@ -179,11 +176,8 @@ def IM_objective(t,args):
     tau = args[1]
     C = args[2]
     alpha = args[3]
-    # Define the value of the fixed parameter alpha
-    #alpha = 0.044
     # Return the objective value of the IM
     return ((A)/(np.exp(np.exp(-alpha*(t-tau)))-C))
-    #return np.log(A)-np.log(np.exp(np.exp(-alpha*(t-tau)))-C)
 #----------------------------------------------------------------------------------
 # FUNCTION 11: IM_constraint
 # This function is a help function that is necessary for finding the orthogonal distance
@@ -193,7 +187,6 @@ def IM_constraint(Model_Point,*args):
     t,R = Model_Point
     # Pass the constraint to the optimisation
     return IM_objective(t,args) - R
-    #return IM_objective(t,args) - np.log(R)
 #----------------------------------------------------------------------------------
 # FUNCTION 12: IM_transformation_scale
 # This function calculates the transformation scale for the IM model. It calculates
@@ -357,7 +350,6 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
                     fitted_parameters.append((fitting_structure.beta[0],fitting_structure.beta[1],fitting_structure.beta[2],fitting_structure.beta[3]))
                     inverse_parameters.append((parameters_inverse[0],parameters_inverse[1],parameters_inverse[2],parameters_inverse[3]))      
             else: # The fitting was unsuccessful, so we abort!
-                #break
                 continue
     # Lastly, cast the RMS-values as an array before we return
     return np.array(epsilon_transf),np.array(RMS_transf), transformed_data, fitted_parameters, inverse_parameters   
