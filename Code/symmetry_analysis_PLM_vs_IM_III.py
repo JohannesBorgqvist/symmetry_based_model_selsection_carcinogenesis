@@ -400,10 +400,10 @@ plt.savefig("../Figures/symmetry_based_model_selection_IM_III.png")
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # MYELOMA
-write_output.plot_LaTeX_2D(epsilon_transf_PLM_myeloma_sparse,RMS_transf_PLM_myeloma_sparse,"../Figures/latex_figures/symmetry_based_model_selection/Input/PLM.tex","color=pow_1,line width=2pt,","PLM Myeloma cancer")
+write_output.plot_LaTeX_2D(epsilon_transf_PLM_myeloma_sparse,RMS_transf_PLM_myeloma_sparse,"../Figures/latex_figures/symmetry_based_model_selection/Input/PLM.tex","color=pow_1,line width=2pt,","PLM myeloma cancer")
 write_output.plot_LaTeX_2D(epsilon_transf_IM_III_myeloma_sparse,RMS_transf_IM_III_myeloma_sparse,"../Figures/latex_figures/symmetry_based_model_selection/Input/IM_III_myeloma.tex","color=mixed_1,line width=2pt,","IM-III Myeloma cancer")
 # COLON CANCER
-write_output.plot_LaTeX_2D(epsilon_transf_PLM_colon_sparse,RMS_transf_PLM_colon_sparse,"../Figures/latex_figures/symmetry_based_model_selection/Input/PLM.tex","color=pow_2,line width=2pt,","PLM Colon cancer")
+write_output.plot_LaTeX_2D(epsilon_transf_PLM_colon_sparse,RMS_transf_PLM_colon_sparse,"../Figures/latex_figures/symmetry_based_model_selection/Input/PLM.tex","color=pow_2,line width=2pt,","PLM colon cancer")
 write_output.plot_LaTeX_2D(epsilon_transf_IM_III_colon_sparse,RMS_transf_IM_III_colon_sparse,"../Figures/latex_figures/symmetry_based_model_selection/Input/IM_III_colon.tex","color=mixed_2,line width=2pt,","IM-III Colon cancer")
 # CML
 write_output.plot_LaTeX_2D(epsilon_transf_PLM_CML_sparse,RMS_transf_PLM_CML_sparse,"../Figures/latex_figures/symmetry_based_model_selection/Input/PLM.tex","color=pow_3,line width=2pt,","PLM CML")
