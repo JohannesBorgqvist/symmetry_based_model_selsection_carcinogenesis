@@ -22,7 +22,7 @@ In particular we study a concrete examples of two candidate models describing th
 <p align="center">
 <img src="https://render.githubusercontent.com/render/math?math=R(t) = At^\gamma"><br>
 </p>
-and the second candidate model is called the *immunological model* (IM-III) given by
+and the second candidate model is called the *immunological model* (IM) given by
 <p align="center">
 <img src="https://render.githubusercontent.com/render/math?math=R(t) = \dfrac{A}{\exp\left(e^{-\alpha(t-\tau)}\right)-C}."><br>
 </p>
@@ -34,17 +34,28 @@ To test our proposed model selection criteria, we also derive two unique symmetr
 
 ![Unique symmetries of the candidate models](./Figures/action_of_symmetries.png)
 
-Using these symmetries, we then transform the data with each symmetry and then we see if the transformed solution curve still fits the data (see figure below). 
+Using these symmetries, we then implement the a symmetry based procedure for model selection which can be summarised in four steps:
+
+1. *Transform the data with the symmetry of the candidate model*,
+2. *Fit the model to the transformed data*,
+3. *Inversely transform the fitted model back*,
+4. *Compare the fit of the inversely transformed model to the original data*.
+An illustration of this framework for our two models is illustrated below, where the PLM is depicted in the top row and the IM-III in the bottom row.
 
 ![The detailed steps of the symmetry based framework](./Figures/step_symmetry_based_model_selection.png)
 
-Lastly, by transforming the data with multiple transformation parameters, we see that the fit in terms of the *root mean square* (RMS) is decreased the more we transform the data (see the figure below). For a model where the fit is invariant, we would have expected the RMS-value to be constant for all transformation parameters. Thus, we conclude that neither of the two proposed models are in fact correct.
+Lastly, we repeated these steps for multiple transformation parameters and then plotted the fit RMS as a function of the transformation parameter epsilon. Based on this, we select the model that best fits the original data *and* whose fit is invariant under transformations by its symmetry. Based on this, we draw three conclusions for the different cancer types:
 
+1. *Myeloma cancer*: The IM captures the underlying mechanism,
+2. *Colon cancer*: The PLM captures the underlying mechanism,
+3. *Chronic Myeloid Leukemia* (CML): The IM captures the underlying mechanism.
+
+This is illustrated in the figure below.
 ![The symmetry based framework reveals the underlying mechanism](./Figures/symmetry_based_model_selection.png)
 
 All the scripts required to reproduce these results can be found in the Code-folder. The data is provided in the Data-folder, the parameters obtained from the model-fitting are stored in the Output-folder and all the above figures are found in the Figure-folder. 
 
-Next we will describe the Python packages that are required in order to run these scripts. 
+Next, we will describe the Python packages that are required in order to run these scripts. 
 
 ## The required Python packages
 The main Python packages are the following:
