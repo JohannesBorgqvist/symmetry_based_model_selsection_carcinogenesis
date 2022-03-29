@@ -183,7 +183,7 @@ epsilon_scale_IM_III_colon = symmetry_toolbox.IM_III_transformation_scale(85,2,I
 epsilon_scale_IM_III_CML = symmetry_toolbox.IM_III_transformation_scale(85,2,IM_III_fitted_to_CML_ODR.beta[3],IM_III_fitted_to_CML_ODR.beta[1])
 # Prompt to the user
 print("\n\t--------------------------------------------------------------------------------------\n")
-print("\n\t\tThe transformation scales increasing the age from 80 years to 160 years\n")
+print("\n\t\tThe transformation scales increasing the age from 85 years to 170 years\n")
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\t\tThe PLM:\tepsilon_PLM\t=\t%0.12f"%(2*epsilon_scale_PLM))
 print("\t\tThe IM-III myeloma:\tepsilon_IM_III_myeloma\t=\t%0.12f"%(epsilon_scale_IM_III_myeloma))
@@ -437,7 +437,7 @@ index_vector = list(np.arange(10,len(t_colon),2))
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.PLM_transformation(t_colon[index],R_colon[index],0.97*epsilon,fitted_parameters_PLM_colon[0][1])
+    t_trans,R_trans = symmetry_toolbox.PLM_transformation(t_colon[index],R_colon[index],0.9*epsilon,fitted_parameters_PLM_colon[0][1])
     # Save the transformed variables
     R_PLM_trans.append(R_trans)
     t_PLM_trans.append(t_trans)
@@ -457,7 +457,7 @@ t_PLM_trans_inv = []
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.PLM_transformation(t_colon_trans_PLM[index],R_hat_PLM_trans[index],-0.97*epsilon,inverse_parameters_PLM_colon[index_PLM_colon][1])
+    t_trans,R_trans = symmetry_toolbox.PLM_transformation(t_colon_trans_PLM[index],R_hat_PLM_trans[index],-0.9*epsilon,inverse_parameters_PLM_colon[index_PLM_colon][1])
     # Save the transformed variables
     R_PLM_trans_inv.append(R_trans)
     t_PLM_trans_inv.append(t_trans)
@@ -483,7 +483,7 @@ index_vector = list(np.arange(60,len(t_colon),1))
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_colon[index],R_colon[index],epsilon*0.9,fitted_parameters_IM_III_colon[0][1],fitted_parameters_IM_III_colon[0][3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_colon[index],R_colon[index],epsilon*0.95,fitted_parameters_IM_III_colon[0][1],fitted_parameters_IM_III_colon[0][3])
     # Save the transformed variables
     R_IM_III_trans.append(R_trans)
     t_IM_III_trans.append(t_trans)
@@ -507,7 +507,7 @@ index_vector = index_vector_1 + index_vector_2
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym_IM_III_trans[index],R_hat_IM_III_trans[index],-epsilon*0.9,inverse_parameters_IM_III_colon[index_IM_III_colon][1],inverse_parameters_IM_III_colon[index_IM_III_colon][3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym_IM_III_trans[index],R_hat_IM_III_trans[index],-epsilon*0.95,inverse_parameters_IM_III_colon[index_IM_III_colon][1],inverse_parameters_IM_III_colon[index_IM_III_colon][3])
     # Save the transformed variables
     R_IM_III_trans_inv.append(R_trans)
     t_IM_III_trans_inv.append(t_trans)
@@ -696,7 +696,7 @@ index_vector = list(np.arange(193,len(t_sym)-1,2))
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym[index],R_hat_IM_III_original[index],epsilon*0.97,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym[index],R_hat_IM_III_original[index],epsilon*0.9,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
     # Save the transformed variables
     R_IM_III_trans_1.append(R_trans)
     t_IM_III_trans_1.append(t_trans)
@@ -711,7 +711,7 @@ index_vector = list(np.arange(190,len(t_sym)-1,2))
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_hat_IM_III_1[index],R_hat_IM_III_1[index],epsilon*0.97,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_hat_IM_III_1[index],R_hat_IM_III_1[index],epsilon*0.9,IM_III_fitted_to_myeloma_ODR.beta[1],IM_III_fitted_to_myeloma_ODR.beta[3])
     # Save the transformed variables
     R_IM_III_trans_2.append(R_trans)
     t_IM_III_trans_2.append(t_trans)
