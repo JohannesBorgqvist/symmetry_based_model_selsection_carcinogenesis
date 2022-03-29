@@ -1,7 +1,7 @@
 # =================================================================================
 # =================================================================================
 # Script:"symmetry_based_model_selection"
-# Date: 2022-02-15
+# Date: 2022-03-29
 # Implemented by: Johannes Borgqvist
 # Description:
 # The script involves all the symmetry functionalities used for transforming the
@@ -109,9 +109,9 @@ def PLM_constraint(Model_Point,*args):
 def PLM_transformation_scale(n):
     return np.log(n)
 #----------------------------------------------------------------------------------
-# FUNCTION 7: IM_III_symmetry
-# The symmetry of the immunological model IM-III
-def IM_III_symmetry(t,R,epsilon,tau,alpha):
+# FUNCTION 7: IM_symmetry
+# The symmetry of the immunological model IM
+def IM_symmetry(t,R,epsilon,tau,alpha):
     # Define t_hat recursively
     t_hat =  np.log(np.log(np.exp(np.exp(-alpha*(t-tau))) - (alpha*np.exp(alpha*tau)*epsilon) ))
     #t_hat =  np.log(np.log(abs(np.exp(np.exp(-alpha*(t-tau))) - (alpha*np.exp(alpha*tau)*epsilon) )))
@@ -119,11 +119,11 @@ def IM_III_symmetry(t,R,epsilon,tau,alpha):
     R_hat = R
     return t_hat,R_hat
 #----------------------------------------------------------------------------------
-# FUNCTION 8: IM_III_transformation
+# FUNCTION 8: IM_transformation
 # The function plots the action of
-# the symmetries of the IM-III from
+# the symmetries of the IM from
 # a given starting point and an end point
-def IM_III_transformation(t_from,R_from,epsilon,tau,alpha):
+def IM_transformation(t_from,R_from,epsilon,tau,alpha):
     # In order to plot the action of the transformation
     # continuously we will add small plots along the
     # way.
@@ -136,7 +136,7 @@ def IM_III_transformation(t_from,R_from,epsilon,tau,alpha):
     t_trans_list.append(t_from)
     R_trans_list.append(R_from)
     # Calculate the transformed point of interest
-    t_to, R_to = IM_III_symmetry(t_from,R_from,epsilon_increment,tau,alpha)
+    t_to, R_to = IM_symmetry(t_from,R_from,epsilon_increment,tau,alpha)
     # Save the new rotated point
     t_trans_list.append(t_to)
     R_trans_list.append(R_to)
@@ -147,7 +147,7 @@ def IM_III_transformation(t_from,R_from,epsilon,tau,alpha):
         t_from = t_to
         R_from = R_to
         # Calculate the next transformed point
-        t_to, R_to = IM_III_symmetry(t_from,R_from,epsilon_increment,tau,alpha)
+        t_to, R_to = IM_symmetry(t_from,R_from,epsilon_increment,tau,alpha)
         # Save the rotated point
         t_trans_list.append(t_to)
         R_trans_list.append(R_to)
@@ -159,21 +159,21 @@ def IM_III_transformation(t_from,R_from,epsilon,tau,alpha):
     # Return the action of the transformation
     return t_trans,R_trans
 #----------------------------------------------------------------------------------
-# FUNCTION 9: IM_III_transformed_solution
-# This function returns the transformed solution of the IM-III for a given value
+# FUNCTION 9: IM_transformed_solution
+# This function returns the transformed solution of the IM for a given value
 # of the parameters A, tau and C as well as the transformation parameter epsilon
-def IM_III_transformed_solution(t,R,epsilon,tau,alpha):
+def IM_transformed_solution(t,R,epsilon,tau,alpha):
     # Allocate memory for the transformed solution
-    t_trans = np.asarray([IM_III_symmetry(t[index],R[index],epsilon,tau,alpha)[0] for index in range(len(t))])
+    t_trans = np.asarray([IM_symmetry(t[index],R[index],epsilon,tau,alpha)[0] for index in range(len(t))])
     R_trans = R
     # Return the transformed solution
     return t_trans,R_trans
 #----------------------------------------------------------------------------------
-# FUNCTION 10: IM_III_objective
-# This function returns the objective value of the IM_III which is used to calculate
+# FUNCTION 10: IM_objective
+# This function returns the objective value of the IM which is used to calculate
 # the orthogonal distance between the data point (t_data,R_data) and the solution
 # the solution curve (t,R(t)) of the immunological model.
-def IM_III_objective(t,args):
+def IM_objective(t,args):
     # Extract the parameters
     A = args[0]
     tau = args[1]
@@ -181,25 +181,25 @@ def IM_III_objective(t,args):
     alpha = args[3]
     # Define the value of the fixed parameter alpha
     #alpha = 0.044
-    # Return the objective value of the IM-III
+    # Return the objective value of the IM
     return ((A)/(np.exp(np.exp(-alpha*(t-tau)))-C))
     #return np.log(A)-np.log(np.exp(np.exp(-alpha*(t-tau)))-C)
 #----------------------------------------------------------------------------------
-# FUNCTION 11: IM_III_constraint
+# FUNCTION 11: IM_constraint
 # This function is a help function that is necessary for finding the orthogonal distance
-# between a data point and a point on a solution curve of the IM-III.
-def IM_III_constraint(Model_Point,*args):
+# between a data point and a point on a solution curve of the IM.
+def IM_constraint(Model_Point,*args):
     # Extract the data point
     t,R = Model_Point
     # Pass the constraint to the optimisation
-    return IM_III_objective(t,args) - R
-    #return IM_III_objective(t,args) - np.log(R)
+    return IM_objective(t,args) - R
+    #return IM_objective(t,args) - np.log(R)
 #----------------------------------------------------------------------------------
-# FUNCTION 12: IM_III_transformation_scale
-# This function calculates the transformation scale for the IM-III model. It calculates
+# FUNCTION 12: IM_transformation_scale
+# This function calculates the transformation scale for the IM model. It calculates
 # the value of epsilon that is needed to increase the age from t years to n*t years
 # where n>1 is a scaling factor.
-def IM_III_transformation_scale(t,n,alpha,tau):
+def IM_transformation_scale(t,n,alpha,tau):
     # Calculate the nominator
     nom = np.exp(np.exp(-alpha*(t-tau))) - np.exp(np.exp(-alpha*((n*t)-tau)))
     # Calculate the denominator
@@ -226,7 +226,7 @@ def SS_res_model_data(Model_Point,Data_Point):
 # 2. DATA: R_data, the number of incidences of cancer,
 # 3. epsilon_vector, the transformation parameters we transform the data with,
 # 4. model_fitting_structure, a structure with parameters, error bounds etc. that is returned from the ODR function,
-# 5. model_str, a string indicating which model we consider (i.e. the PLM or the IM-III).
+# 5. model_str, a string indicating which model we consider (i.e. the PLM or the IM).
 # The function has one output and it is the RMS profile as a function of the epsilon vector.
 def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_structure,model_str):
     # SETTING UP THE MODEL SELECTION
@@ -271,9 +271,9 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
                 if model_str == "PLM":
                     # Find the orthogonal point on the solution curve (t,R(t)) of the PLM
                     Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[PLM_constraint], args=(Data_point,),consargs=(model_fitting_structure.beta[0],model_fitting_structure.beta[1]))          
-                elif model_str == "IM-III":    
-                    # Find the orthogonal point on the solution curve (t,R(t)) of the IM-III
-                    Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[IM_III_constraint], args=(Data_point,),consargs=(model_fitting_structure.beta[0],model_fitting_structure.beta[1],model_fitting_structure.beta[2],model_fitting_structure.beta[3]))    
+                elif model_str == "IM":    
+                    # Find the orthogonal point on the solution curve (t,R(t)) of the IM
+                    Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[IM_constraint], args=(Data_point,),consargs=(model_fitting_structure.beta[0],model_fitting_structure.beta[1],model_fitting_structure.beta[2],model_fitting_structure.beta[3]))    
                 # Add the squared distances to our growing sum of squares (SS)
                 SS += SS_res_model_data(Model_point,Data_point)
             # Append the root mean squared calculated based on the SS-value
@@ -288,7 +288,7 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
                 fitted_parameters.append((model_fitting_structure.beta[0],model_fitting_structure.beta[1]))
                 # Append the parameters of the inversely transformed curve
                 inverse_parameters.append((model_fitting_structure.beta[0],model_fitting_structure.beta[1]))                            
-            elif model_str == "IM-III":
+            elif model_str == "IM":
                 # Fitted parameters 
                 fitted_parameters.append((model_fitting_structure.beta[0],model_fitting_structure.beta[1],model_fitting_structure.beta[2],model_fitting_structure.beta[3]))
                 # Inverse parameters
@@ -300,20 +300,20 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
             if model_str == "PLM":
                 t_trans = np.array([PLM_symmetry(t_data[index],R_data[index],epsilon)[0] for index in range(len(t_data))])
                 R_trans = np.array([PLM_symmetry(t_data[index],R_data[index],epsilon)[1] for index in range(len(t_data))])
-            elif model_str == "IM-III":
-                t_trans = np.array([IM_III_symmetry(t_data[index],R_data[index],epsilon,model_fitting_structure.beta[1],model_fitting_structure.beta[3])[0] for index in range(len(t_data))])
-                R_trans = np.array([IM_III_symmetry(t_data[index],R_data[index],epsilon,model_fitting_structure.beta[1],model_fitting_structure.beta[3])[1] for index in range(len(t_data))])
+            elif model_str == "IM":
+                t_trans = np.array([IM_symmetry(t_data[index],R_data[index],epsilon,model_fitting_structure.beta[1],model_fitting_structure.beta[3])[0] for index in range(len(t_data))])
+                R_trans = np.array([IM_symmetry(t_data[index],R_data[index],epsilon,model_fitting_structure.beta[1],model_fitting_structure.beta[3])[1] for index in range(len(t_data))])
             #------------------------------------------------------
             # STEP 2 OUT OF 4: FIT THE CANDIDATE MODEL TO THE TRANSFORMED DATA
             # We start by fitting the models to the data without any special start guesses
             if model_str == "PLM":
                 # Fit the PLM to the data without any start guesses
                 fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"PLM","ODR",[1,0],[original_para[0]*np.exp(-original_para[1]*epsilon), original_para[1]])
-            elif model_str == "IM-III":
+            elif model_str == "IM":
                 C_vec = np.linspace(-5,1,10)
                 start_guesses = [[original_para[0],original_para[1],C,original_para[3]] for C in C_vec]
-                # Fit the IM-III to the data but without any start guesses
-                fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM-III","ODR",[0,0,1,0],start_guesses)                          
+                # Fit the IM to the data but without any start guesses
+                fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM","ODR",[0,0,1,0],start_guesses)                          
             # If fitting was successful, we do the remaining two steps of the algorithm. Otherwise, we break and return our results
             if fitting_successful:                
                 #------------------------------------------------------
@@ -321,8 +321,8 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
                 if model_str == "PLM":
                     # Define the parameters of the inversely transformed curve of the PLM (parameters=[A, gamma])
                     parameters_inverse = [fitting_structure.beta[0]*np.exp(fitting_structure.beta[1]*epsilon),fitting_structure.beta[1]]
-                elif model_str == "IM-III":
-                    # Define the parameters of the inversely transformed curve of the IM-III (parameters=[A, tau, C, alpha])
+                elif model_str == "IM":
+                    # Define the parameters of the inversely transformed curve of the IM (parameters=[A, tau, C, alpha])
                     parameters_inverse = [fitting_structure.beta[0],fitting_structure.beta[1],fitting_structure.beta[2] + fitting_structure.beta[3]*np.exp(fitting_structure.beta[3]*fitting_structure.beta[1])*epsilon,fitting_structure.beta[3]]                
                 #------------------------------------------------------
                 # STEP 4 OUT OF 4: CALCULATE THE FIT OF THE INVERSELY TRANSFORMED CURVE TO THE ORIGINAL DATA
@@ -332,14 +332,14 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
                     Data_point = (t_data[time_series_index],R_data[time_series_index])
                     # Update the curve specific parameters that are transformed corresponding to
                     # the parameter A in the case of the PLM and the parameter C in the case of
-                    # the IM-III. Also, we find the orthogonal point on the solution curve using
+                    # the IM. Also, we find the orthogonal point on the solution curve using
                     # fmin_cobyla
                     if model_str == "PLM":
                         # Find the orthogonal point on the solution curve (t,R(t)) of the PLM
                         Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[PLM_constraint], args=(Data_point,),consargs=(parameters_inverse[0],parameters_inverse[1]))          
-                    elif model_str == "IM-III":    
-                        # Find the orthogonal point on the solution curve (t,R(t)) of the IM-III
-                        Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[IM_III_constraint], args=(Data_point,),consargs=(parameters_inverse[0],parameters_inverse[1],parameters_inverse[2],parameters_inverse[3]))    
+                    elif model_str == "IM":    
+                        # Find the orthogonal point on the solution curve (t,R(t)) of the IM
+                        Model_point = fmin_cobyla(SS_res_model_data, x0=list(Data_point), cons=[IM_constraint], args=(Data_point,),consargs=(parameters_inverse[0],parameters_inverse[1],parameters_inverse[2],parameters_inverse[3]))    
                     # Add the squared distances to our growing sum of squares (SS)
                     SS += SS_res_model_data(Model_point,Data_point)
                 #------------------------------------------------------                
@@ -353,7 +353,7 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
                 if model_str == "PLM":
                     fitted_parameters.append((fitting_structure.beta[0],fitting_structure.beta[1]))
                     inverse_parameters.append((parameters_inverse[0],parameters_inverse[1]))      
-                elif model_str == "IM-III":
+                elif model_str == "IM":
                     fitted_parameters.append((fitting_structure.beta[0],fitting_structure.beta[1],fitting_structure.beta[2],fitting_structure.beta[3]))
                     inverse_parameters.append((parameters_inverse[0],parameters_inverse[1],parameters_inverse[2],parameters_inverse[3]))      
             else: # The fitting was unsuccessful, so we abort!
