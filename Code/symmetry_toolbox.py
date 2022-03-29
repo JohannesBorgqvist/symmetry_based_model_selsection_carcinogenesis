@@ -314,7 +314,7 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
             elif model_str == "IM-III":
                 print("IM-III original_para")
                 print([original_para[0],original_para[1],original_para[2],original_para[3]])
-                C_vec = np.linspace(-2,1,10)
+                C_vec = np.linspace(-5,1,10)
                 start_guesses = [[original_para[0],original_para[1],C,original_para[3]] for C in C_vec]
                 # Fit the IM-III to the data but without any start guesses
                 fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM-III","ODR",[0,0,1,0],start_guesses)                          
