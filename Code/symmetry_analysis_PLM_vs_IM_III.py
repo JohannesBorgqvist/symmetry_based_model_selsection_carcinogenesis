@@ -437,7 +437,7 @@ index_vector = list(np.arange(10,len(t_colon),2))
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.PLM_transformation(t_colon[index],R_colon[index],0.95*epsilon,fitted_parameters_PLM_colon[0][1])
+    t_trans,R_trans = symmetry_toolbox.PLM_transformation(t_colon[index],R_colon[index],0.97*epsilon,fitted_parameters_PLM_colon[0][1])
     # Save the transformed variables
     R_PLM_trans.append(R_trans)
     t_PLM_trans.append(t_trans)
@@ -457,7 +457,7 @@ t_PLM_trans_inv = []
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.PLM_transformation(t_colon_trans_PLM[index],R_hat_PLM_trans[index],-0.95*epsilon,inverse_parameters_PLM_colon[index_PLM_colon][1])
+    t_trans,R_trans = symmetry_toolbox.PLM_transformation(t_colon_trans_PLM[index],R_hat_PLM_trans[index],-0.97*epsilon,inverse_parameters_PLM_colon[index_PLM_colon][1])
     # Save the transformed variables
     R_PLM_trans_inv.append(R_trans)
     t_PLM_trans_inv.append(t_trans)
@@ -483,7 +483,7 @@ index_vector = list(np.arange(60,len(t_colon),1))
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_colon[index],R_colon[index],epsilon*0.8,fitted_parameters_IM_III_colon[0][1],fitted_parameters_IM_III_colon[0][3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_colon[index],R_colon[index],epsilon*0.9,fitted_parameters_IM_III_colon[0][1],fitted_parameters_IM_III_colon[0][3])
     # Save the transformed variables
     R_IM_III_trans.append(R_trans)
     t_IM_III_trans.append(t_trans)
@@ -507,7 +507,7 @@ index_vector = index_vector_1 + index_vector_2
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
-    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym_IM_III_trans[index],R_hat_IM_III_trans[index],-epsilon*0.8,inverse_parameters_IM_III_colon[index_IM_III_colon][1],inverse_parameters_IM_III_colon[index_IM_III_colon][3])
+    t_trans,R_trans = symmetry_toolbox.IM_III_transformation(t_sym_IM_III_trans[index],R_hat_IM_III_trans[index],-epsilon*0.9,inverse_parameters_IM_III_colon[index_IM_III_colon][1],inverse_parameters_IM_III_colon[index_IM_III_colon][3])
     # Save the transformed variables
     R_IM_III_trans_inv.append(R_trans)
     t_IM_III_trans_inv.append(t_trans)
