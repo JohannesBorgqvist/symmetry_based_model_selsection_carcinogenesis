@@ -62,20 +62,15 @@ def objective_IM_III(parameters, t):
 # 2. The vector R_hat containing the simulated incidences with the optimal parameters where each age is given by the data vector t,
 # 3. The float number R_squared which quantifies the R_squared fit of the candidate model to the data at hand.
 def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesses):
-    # Take the logarithm of the data
-    #R_log = np.array([np.log(R_temp) for R_temp in list(R)])
     # Define the data at hand as a structure on which
     # the scipy odr package will do the estimation
-    # if model_str == "PLM":
     data = Data(t, R)
-    # elif model_str == "IM-III":
-    #data = Data(t, R_log)
     # Define the number of start guesses we will try. Note that the optimisation for finding
     # the optimal parameters is local, and the cost function is non-convex meaning that there
     # are multiple local optima which can be found for different start guesses. Therefore,
     # we use a multiple shooting technique were we test multiple start guesses and then we
     # save the optimal parameters that resulted in the best fit.
-    num_of_start_guesses = 5
+    num_of_start_guesses = 10
     # We have two models to consider, namely the PLM and the IM-III. In order to do the ODR
     # based model fitting, we need to construct a model object and a start guess for the
     # parameters.
@@ -89,7 +84,7 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
             # In the end, we pick the parameters resulting in the lowest minima. This
             # is because we have a non-convex optimisation problem with many local minima.
             A_vec = np.linspace(
-                0.00001, 1, num_of_start_guesses, endpoint=True)
+                0.0000001, 1, num_of_start_guesses, endpoint=True)
             gamma_vec = np.linspace(1, 10, num_of_start_guesses, endpoint=True)
             # Save all start guesses in a big list which we loop over in the end
             parameter_guesses = [[A, gamma]
