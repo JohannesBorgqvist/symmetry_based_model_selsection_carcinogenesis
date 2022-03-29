@@ -26,7 +26,7 @@ and the second candidate model is called the *immunological model* (IM) given by
 <p align="center">
 <img src="https://render.githubusercontent.com/render/math?math=R(t) = \dfrac{A}{\exp\left(e^{-\alpha(t-\tau)}\right)-C}."><br>
 </p>
-When we fit these models to experimental data for three cancer types (see the figure below), we see that the IM-III has a better fit and would therefore be selected. 
+When we fit these models to experimental data for three cancer types (see the figure below), we see that the IM has a better fit and would therefore be selected. 
 
 ![Fit of candidate models](./Figures/Fit_of_models_to_cancer_data.png )
 
@@ -40,7 +40,7 @@ Using these symmetries, we then implement the a symmetry based procedure for mod
 2. *Fit the model to the transformed data*,
 3. *Inversely transform the fitted model back*,
 4. *Compare the fit of the inversely transformed model to the original data*.
-An illustration of this framework for our two models is illustrated below, where the PLM is depicted in the top row and the IM-III in the bottom row.
+An illustration of this framework for our two models is illustrated below, where the PLM is depicted in the top row and the IM in the bottom row.
 
 ![The detailed steps of the symmetry based framework](./Figures/step_symmetry_based_model_selection.png)
 
