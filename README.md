@@ -36,11 +36,11 @@ To test our proposed model selection criteria, we also derive two unique symmetr
 
 Using these symmetries, we then transform the data with each symmetry and then we see if the transformed solution curve still fits the data (see figure below). 
 
-![Transform data with symmetries and compare fit with transformed solution curve](./Figures/illustrate_framework.png)
+![The detailed steps of the symmetry based framework](./Figures/step_symmetry_based_model_selection.png)
 
 Lastly, by transforming the data with multiple transformation parameters, we see that the fit in terms of the *root mean square* (RMS) is decreased the more we transform the data (see the figure below). For a model where the fit is invariant, we would have expected the RMS-value to be constant for all transformation parameters. Thus, we conclude that neither of the two proposed models are in fact correct.
 
-![Neither of the two candidate models are correct](./Figures/symmetry_based_model_selection.png)
+![The symmetry based framework reveals the underlying mechanism](./Figures/symmetry_based_model_selection.png)
 
 All the scripts required to reproduce these results can be found in the Code-folder. The data is provided in the Data-folder, the parameters obtained from the model-fitting are stored in the Output-folder and all the above figures are found in the Figure-folder. 
 
