@@ -105,7 +105,6 @@ write_output.save_data_PE("CML", "IM", IM_fitted_to_CML_ODR, RMS_IM_CML_ODR, "OD
 # PLOT OF THE FIT OF THE MODEL TO THE DATA
 # Overall properties
 fig, axes = plt.subplots(1,3,figsize=(15,5))
-#fig, axes = plt.subplots(1,1,figsize=(15,5))
 plt.rc('axes', labelsize=15)    # fontsize of the x and y label
 plt.rc('legend', fontsize=10)    # legend fontsize
 plt.rc('xtick', labelsize=10)    # fontsize of the tick labels
@@ -133,7 +132,6 @@ plt.xlabel("Age, $t$")
 plt.ylabel("Incidence, $R(t)$")
 # displaying the title
 plt.title("Fit of candidate models to three data sets",fontsize=20, fontweight='bold')
-#plt.show()
 plt.savefig("../Figures/Fit_of_models_to_cancer_data.png")
 # =================================================================================
 # =================================================================================
@@ -158,8 +156,6 @@ print("\t\tThe PLM:\tepsilon_PLM\t=\t%0.12f"%(2*epsilon_scale_PLM))
 print("\t\tThe IM myeloma:\tepsilon_IM_myeloma\t=\t%0.12f"%(epsilon_scale_IM_myeloma))
 print("\t\tThe IM colon:\tepsilon_IM_colon\t=\t%0.12f"%(epsilon_scale_IM_colon))
 print("\t\tThe IM CML:\tepsilon_IM_CML\t=\t%0.12f"%(epsilon_scale_IM_CML))
-#epsilon_scale_IM_myeloma = symmetry_toolbox.IM_transformation_scale(86,2,IM_fitted_to_myeloma_ODR.beta[3],IM_fitted_to_myeloma_ODR.beta[1])
-#print("\t\tThe new IM myeloma scale for the plot:\tepsilon_IM_myeloma\t=\t%0.12f"%(epsilon_scale_IM_myeloma))
 # Prompt to the user
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\n\t\tThe symmetry based framework for model selection\n")
@@ -372,7 +368,6 @@ R_PLM_trans = []
 t_PLM_trans = []
 # Allocate an index vector
 index_vector = list(np.arange(10,len(t_colon),2))
-#index_vector = list(np.linspace(10,55,30,dtype=int))
 # Save all the transformed stuff
 for index in index_vector:
     # Transform stuff
@@ -521,7 +516,6 @@ plt.ylabel("Incidence, $R(t)$")
 # displaying the title
 plt.title("The steps of the symmetry based model selection",fontsize=20, fontweight='bold')
 plt.savefig("../Figures/step_symmetry_based_model_selection.png")
-#plt.show()
 # =================================================================================
 # =================================================================================
 # =================================================================================
