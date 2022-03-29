@@ -34,7 +34,7 @@ def save_data_PE(data_str,model_str,optimal_fits,RMS,fit_str):
     if model_str == "PLM":
         header = ["Data", "Model", "Fitting method","RMS", "Parameter, A", "Std error, A", "Parameter, gamma", "Std error, gamma", "Sum of squares", "Sum of squares variable", "Sum of squares response variable"]
         data = [data_str, model_str, fit_str, RMS, optimal_fits.beta[0], optimal_fits.sd_beta[0], optimal_fits.beta[1], optimal_fits.sd_beta[1], optimal_fits.sum_square, optimal_fits.sum_square_delta, optimal_fits.sum_square_eps]
-    elif model_str == "IM-III":
+    elif model_str == "IM":
         header = ["Data", "Model", "Fitting method","RMS", "Parameter, A", "Std error, A", "Parameter, tau", "Std error, tau","Parameter, C", "Std error, C", "Parameter, alpha", "Std error, alpha", "Sum of squares", "Sum of squares variable", "Sum of squares response variable"]
         data = [data_str, model_str, fit_str, RMS, optimal_fits.beta[0], optimal_fits.sd_beta[0], optimal_fits.beta[1], optimal_fits.sd_beta[1],optimal_fits.beta[2], optimal_fits.sd_beta[2], optimal_fits.beta[3], optimal_fits.sd_beta[3], optimal_fits.sum_square, optimal_fits.sum_square_delta, optimal_fits.sum_square_eps]        
     # Write the data to the defined file    
@@ -68,7 +68,7 @@ def save_data_symmetry_based_model_selection(data_str,model_str,epsilon,RMS,fitt
         temp_data = np.array([list(epsilon),list(RMS),A_list,gamma_list,A_inv_list,gamma_inv_list])
         # Create a list of the names
         col_names = ["Transformation parameter epsilon", "RMS " + data_str + " " + model_str, "Parameter A", "Parameter gamma", "Inverse parameter A", "Inverse parameter gamma"]
-    elif model_str == "IM-III":
+    elif model_str == "IM":
         # Optimal parameters when model is fitted to transformed data
         A_list = [fitted_parameters[index][0] for index in range(len(fitted_parameters))]
         tau_list = [fitted_parameters[index][1] for index in range(len(fitted_parameters))]
