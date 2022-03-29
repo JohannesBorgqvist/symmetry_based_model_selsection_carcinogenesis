@@ -111,24 +111,6 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
                                  for A in A_vec for tau in tau_vec for C in C_vec for alpha in alpha_vec]
         else:  # We run with the provided start guesses for the parameters
             parameter_guesses = start_guesses
-    elif model_str == "PLM-II":  # The PLM-II
-        # Define the model
-        model = Model(objective_PLM_II)
-        # If we do not have any start guesses, we do a multiple shooting technique
-        if len(start_guesses) == 0:
-            # Define the start guess [A, gamma, K]
-            # Define a set of parameter values for the multiple shooting technique
-            # where we do many local optimisations starting from these startguesses.
-            # In the end, we pick the parameters resulting in the lowest minima. This
-            # is because we have a non-convex optimisation problem with many local minima.
-            A_vec = np.linspace(0.1, 5, num_of_start_guesses, endpoint=True)
-            gamma_vec = np.linspace(1, 10, num_of_start_guesses, endpoint=True)
-            K_vec = np.linspace(1, 100, num_of_start_guesses, endpoint=True)
-            # Save all start guesses in a big list which we loop over in the end
-            parameter_guesses = [[A, gamma, K]
-                                 for A in A_vec for gamma in gamma_vec for K in K_vec]
-        else:  # We run with the provided start guess for the parameters
-            parameter_guesses = start_guesses
     # Set an initial value of the RMS so that it will be updated
     RMS = 50000
     # Also, initiate the other two outputs that we return
@@ -187,10 +169,6 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
                 # Find the orthogonal point on the solution curve (t,R(t)) of the IM
                 Model_point = fmin_cobyla(symmetry_toolbox.SS_res_model_data, x0=list(Data_point), cons=[symmetry_toolbox.IM_constraint], args=(
                     Data_point,), consargs=(fitted_model_temp.beta[0], fitted_model_temp.beta[1], fitted_model_temp.beta[2], fitted_model_temp.beta[3]))
-            elif model_str == "PLM-II":
-                # Find the orthogonal point on the solution curve (t,R(t)) of the IM
-                Model_point = fmin_cobyla(symmetry_toolbox.SS_res_model_data, x0=list(Data_point), cons=[symmetry_toolbox.PLM_II_constraint], args=(
-                    Data_point,), consargs=(fitted_model_temp.beta[0], fitted_model_temp.beta[1], fitted_model_temp.beta[2]))
             # Add the squared distances to our growing sum of squares (SS)
             SS += symmetry_toolbox.SS_res_model_data(Model_point, Data_point)
         # Lastly, append the root mean squared calculated based on the SS-value
