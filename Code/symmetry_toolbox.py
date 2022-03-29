@@ -307,13 +307,9 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
             # STEP 2 OUT OF 4: FIT THE CANDIDATE MODEL TO THE TRANSFORMED DATA
             # We start by fitting the models to the data without any special start guesses
             if model_str == "PLM":
-                print("PLM original_para")
-                print([original_para[0]*np.exp(-original_para[1]*epsilon), original_para[1]])
                 # Fit the PLM to the data without any start guesses
                 fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"PLM","ODR",[1,0],[original_para[0]*np.exp(-original_para[1]*epsilon), original_para[1]])
             elif model_str == "IM-III":
-                print("IM-III original_para")
-                print([original_para[0],original_para[1],original_para[2],original_para[3]])
                 C_vec = np.linspace(-5,1,10)
                 start_guesses = [[original_para[0],original_para[1],C,original_para[3]] for C in C_vec]
                 # Fit the IM-III to the data but without any start guesses
