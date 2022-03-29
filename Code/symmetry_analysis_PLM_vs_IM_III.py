@@ -54,8 +54,7 @@ print("\n\t---------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # Create a list which we iterate over
 input_lists = [[t_myeloma,R_myeloma,"PLM"],[t_myeloma,R_myeloma,"IM-III"],[t_colon,R_colon,"PLM"],[t_colon,R_colon,"IM-III"],[t_CML,R_CML,"PLM"],[t_CML,R_CML,"IM-III"]]
-# We do the fitting in parallel (to use all 8 cores, use mp.cpu_count())
-#pool = mp.Pool(6)
+# We do the fitting in parallel (to use all cores, use mp.cpu_count())
 pool = mp.Pool(mp.cpu_count())
 # Do the fitting in parallel
 results = pool.starmap(fit_to_data.PE_risk_profiles,[(input_list[0],input_list[1],input_list[2],"ODR",[],[]) for input_list in input_lists])
@@ -177,16 +176,16 @@ write_output.plot_LaTeX_2D(t_CML,R_hat_IM_III_CML_ODR,"../Figures/latex_figures/
 epsilon_scale_PLM = symmetry_toolbox.PLM_transformation_scale(2)
 # The IM-III
 # Myeloma data
-epsilon_scale_IM_III_myeloma = symmetry_toolbox.IM_III_transformation_scale(80,2,IM_III_fitted_to_myeloma_ODR.beta[3],IM_III_fitted_to_myeloma_ODR.beta[1])
+epsilon_scale_IM_III_myeloma = symmetry_toolbox.IM_III_transformation_scale(85,2,IM_III_fitted_to_myeloma_ODR.beta[3],IM_III_fitted_to_myeloma_ODR.beta[1])
 # Colon data
-epsilon_scale_IM_III_colon = symmetry_toolbox.IM_III_transformation_scale(80,2,IM_III_fitted_to_colon_ODR.beta[3],IM_III_fitted_to_colon_ODR.beta[1])
+epsilon_scale_IM_III_colon = symmetry_toolbox.IM_III_transformation_scale(85,2,IM_III_fitted_to_colon_ODR.beta[3],IM_III_fitted_to_colon_ODR.beta[1])
 # CML data
-epsilon_scale_IM_III_CML = symmetry_toolbox.IM_III_transformation_scale(80,2,IM_III_fitted_to_CML_ODR.beta[3],IM_III_fitted_to_CML_ODR.beta[1])
+epsilon_scale_IM_III_CML = symmetry_toolbox.IM_III_transformation_scale(85,2,IM_III_fitted_to_CML_ODR.beta[3],IM_III_fitted_to_CML_ODR.beta[1])
 # Prompt to the user
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\n\t\tThe transformation scales increasing the age from 80 years to 160 years\n")
 print("\n\t--------------------------------------------------------------------------------------\n")
-print("\t\tThe PLM:\tepsilon_PLM\t=\t%0.12f"%(epsilon_scale_PLM))
+print("\t\tThe PLM:\tepsilon_PLM\t=\t%0.12f"%(2*epsilon_scale_PLM))
 print("\t\tThe IM-III myeloma:\tepsilon_IM_III_myeloma\t=\t%0.12f"%(epsilon_scale_IM_III_myeloma))
 print("\t\tThe IM-III colon:\tepsilon_IM_III_colon\t=\t%0.12f"%(epsilon_scale_IM_III_colon))
 print("\t\tThe IM-III CML:\tepsilon_IM_III_CML\t=\t%0.12f"%(epsilon_scale_IM_III_CML))
@@ -197,34 +196,19 @@ print("\n\t---------------------------------------------------------------------
 print("\n\t\tThe symmetry based framework for model selection\n")
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\t\tThe scales for the framework are the following:")
-print("\t\t\tPLM\tAll datasets:\t epsilon_scale\t=\t%0.12f"%(5*epsilon_scale_PLM))
-print("\t\t\tIM-III\t myeloma:\t epsilon_scale\t=\t%0.12f"%(2*epsilon_scale_IM_III_myeloma))
-print("\t\t\tIM-III\t colon:\t epsilon_scale\t=\t%0.12f"%(2*epsilon_scale_IM_III_colon))
-print("\t\t\tIM-III\t CML:\t epsilon_scale\t=\t%0.12f\n\n"%(2*epsilon_scale_IM_III_CML))
+print("\t\t\tPLM\tAll datasets:\t epsilon_scale\t=\t%0.12f"%(2*epsilon_scale_PLM))
+print("\t\t\tIM-III\t myeloma:\t epsilon_scale\t=\t%0.12f"%(epsilon_scale_IM_III_myeloma))
+print("\t\t\tIM-III\t colon:\t epsilon_scale\t=\t%0.12f"%(epsilon_scale_IM_III_colon))
+print("\t\t\tIM-III\t CML:\t epsilon_scale\t=\t%0.12f\n\n"%(epsilon_scale_IM_III_CML))
 # Allocate four epsilon vectors with transformation parameters
-#epsilon_vector_PLM = np.array([0.0,30*epsilon_scale_PLM])
-#epsilon_vector_PLM = np.array([0.0,epsilon_scale_PLM])
-epsilon_vector_PLM = np.linspace(0,5*epsilon_scale_PLM,500,endpoint=True)
-#--------------------------------------------------------------------------------------------------------
-#epsilon_vector_PLM = np.array([0.0,0.2*epsilon_scale_PLM])
-#epsilon_vector_IM_III_myeloma = np.array([0,0.6795*epsilon_scale_IM_III_myeloma])
-#epsilon_vector_IM_III_colon = np.array([0,0.89*epsilon_scale_IM_III_colon])
-#epsilon_vector_IM_III_CML = np.array([0,0.8286*epsilon_scale_IM_III_CML])
-#--------------------------------------------------------------------------------------------------------
-#epsilon_vector_IM_III_myeloma = np.array([0,0.745*epsilon_scale_IM_III_myeloma,0.75*epsilon_scale_IM_III_myeloma,0.80*epsilon_scale_IM_III_myeloma,0.85*epsilon_scale_IM_III_myeloma,0.90*epsilon_scale_IM_III_myeloma,0.95*epsilon_scale_IM_III_myeloma,epsilon_scale_IM_III_myeloma,])
-#epsilon_vector_IM_III_myeloma = np.array([0,0.5*epsilon_scale_IM_III_myeloma,0.55*epsilon_scale_IM_III_myeloma,0.60*epsilon_scale_IM_III_myeloma,0.65*epsilon_scale_IM_III_myeloma,0.70*epsilon_scale_IM_III_myeloma,0.75*epsilon_scale_IM_III_myeloma,0.80*epsilon_scale_IM_III_myeloma,])
-#epsilon_vector_IM_III_colon = np.array([0,0.745*epsilon_scale_IM_III_colon,0.75*epsilon_scale_IM_III_colon,0.80*epsilon_scale_IM_III_colon,0.85*epsilon_scale_IM_III_colon,0.90*epsilon_scale_IM_III_colon,0.95*epsilon_scale_IM_III_colon,epsilon_scale_IM_III_colon])
-#epsilon_vector_IM_III_colon = np.array([0,0.5*epsilon_scale_IM_III_colon,0.55*epsilon_scale_IM_III_colon,0.60*epsilon_scale_IM_III_colon,0.65*epsilon_scale_IM_III_colon,0.70*epsilon_scale_IM_III_colon,0.75*epsilon_scale_IM_III_colon,0.80*epsilon_scale_IM_III_colon])
-#epsilon_vector_IM_III_CML = np.array([0,0.745*epsilon_scale_IM_III_CML,0.75*epsilon_scale_IM_III_CML,0.80*epsilon_scale_IM_III_CML,0.85*epsilon_scale_IM_III_CML,0.90*epsilon_scale_IM_III_CML,0.95*epsilon_scale_IM_III_CML,epsilon_scale_IM_III_CML])
-#--------------------------------------------------------------------------------------------------------
-epsilon_vector_IM_III_myeloma = np.linspace(0,2*epsilon_scale_IM_III_myeloma,500,endpoint=True)
-epsilon_vector_IM_III_colon = np.linspace(0,2*epsilon_scale_IM_III_colon,500,endpoint=True)
-epsilon_vector_IM_III_CML = np.linspace(0,2*epsilon_scale_IM_III_CML,500,endpoint=True)
+epsilon_vector_PLM = np.linspace(0,2*epsilon_scale_PLM,200,endpoint=True)
+epsilon_vector_IM_III_myeloma = np.linspace(0,epsilon_scale_IM_III_myeloma,200,endpoint=True)
+epsilon_vector_IM_III_colon = np.linspace(0,epsilon_scale_IM_III_colon,200,endpoint=True)
+epsilon_vector_IM_III_CML = np.linspace(0,epsilon_scale_IM_III_CML,200,endpoint=True)
 #--------------------------------------------------------------------------------------------------------
 # Create an iterable list
 input_lists = [[t_myeloma,R_myeloma,epsilon_vector_PLM,PLM_fitted_to_myeloma_ODR,"PLM"],[t_myeloma,R_myeloma,epsilon_vector_IM_III_myeloma,IM_III_fitted_to_myeloma_ODR,"IM-III"],[t_colon,R_colon,epsilon_vector_PLM,PLM_fitted_to_colon_ODR,"PLM"],[t_colon,R_colon,epsilon_vector_IM_III_colon,IM_III_fitted_to_colon_ODR,"IM-III"],[t_CML,R_CML,epsilon_vector_PLM,PLM_fitted_to_CML_ODR,"PLM"],[t_CML,R_CML,epsilon_vector_IM_III_CML,IM_III_fitted_to_CML_ODR,"IM-III"]]
-# We do the fitting in parallel (to use all 8 cores, use mp.cpu_count())
-#pool = mp.Pool(6)
+# We do the fitting in parallel (to use all cores, use mp.cpu_count())
 pool = mp.Pool(mp.cpu_count())
 # Do the model selection in parallel
 results = pool.starmap(symmetry_toolbox.symmetry_based_model_selection,[(input_list[0],input_list[1],input_list[2],input_list[3],input_list[4]) for input_list in input_lists])
@@ -255,7 +239,6 @@ if len(epsilon_transf_PLM_myeloma) > 200:
 else:
     epsilon_transf_PLM_myeloma_sparse = epsilon_transf_PLM_myeloma
     RMS_transf_PLM_myeloma_sparse = RMS_transf_PLM_myeloma
-print("\t\t\tPLM, number of transformation parameters:\t%d"%(int(len(epsilon_transf_PLM_myeloma))))
 #----------------------------------------------------------------------------------
 # IM-III MYELOMA
 epsilon_transf_IM_III_myeloma = results[1][0] # IM-III transformation parameters
@@ -275,7 +258,6 @@ if len(epsilon_transf_IM_III_myeloma) > 200:
 else:
     epsilon_transf_IM_III_myeloma_sparse = epsilon_transf_IM_III_myeloma
     RMS_transf_IM_III_myeloma_sparse = RMS_transf_IM_III_myeloma
-print("\t\t\tIM-III, number of transformation parameters:\t%d"%(int(len(epsilon_transf_IM_III_myeloma))))
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # Colon
@@ -300,7 +282,6 @@ if len(epsilon_transf_PLM_colon) > 200:
 else:
     epsilon_transf_PLM_colon_sparse = epsilon_transf_PLM_colon
     RMS_transf_PLM_colon_sparse = RMS_transf_PLM_colon
-print("\t\t\tPLM, number of transformation parameters:\t%d"%(int(len(epsilon_transf_PLM_colon))))
 #----------------------------------------------------------------------------------
 # IM-III COLON
 epsilon_transf_IM_III_colon = results[3][0] # IM-III transformation parameters
@@ -320,7 +301,6 @@ if len(epsilon_transf_IM_III_colon) > 200:
 else:
     epsilon_transf_IM_III_colon_sparse = epsilon_transf_IM_III_colon
     RMS_transf_IM_III_colon_sparse = RMS_transf_IM_III_colon
-print("\t\t\tIM-III, number of transformation parameters:\t%d"%(int(len(epsilon_transf_IM_III_colon))))
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # CML
@@ -345,7 +325,6 @@ if len(epsilon_transf_PLM_CML)>200:
 else:
     epsilon_transf_PLM_CML_sparse = epsilon_transf_PLM_CML
     RMS_transf_PLM_CML_sparse = RMS_transf_PLM_CML
-print("\t\t\tPLM, number of transformation parameters:\t%d"%(int(len(epsilon_transf_PLM_CML))))
 #----------------------------------------------------------------------------------
 # IM-III CML
 epsilon_transf_IM_III_CML = results[5][0] # IM-III
@@ -365,7 +344,6 @@ if len(epsilon_transf_IM_III_CML) > 200:
 else:
     epsilon_transf_IM_III_CML_sparse = epsilon_transf_IM_III_CML
     RMS_transf_IM_III_CML_sparse = RMS_transf_IM_III_CML
-print("\t\t\tIM_III, number of transformation parameters:\t%d\n"%(int(len(epsilon_transf_IM_III_CML))))
 #----------------------------------------------------------------------------------
 # Prompt to the user
 print("\t\tSymmetry framework is done!")
@@ -416,9 +394,6 @@ plt.ylabel("Root mean square, $\mathrm{RMS}(\epsilon)$")
 plt.title("The symmetry based model selection for the IM-III",fontsize=20, fontweight='bold')
 plt.savefig("../Figures/symmetry_based_model_selection_IM_III.png")
 #plt.show()    
-# Prompt to the user
-
-
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # ILLUSTRATE THE SYMMETRY BASED MODEL SELECTION IN LATEX
@@ -444,21 +419,11 @@ write_output.plot_LaTeX_2D(epsilon_transf_IM_III_CML_sparse,RMS_transf_IM_III_CM
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
 print("\t\tIllustrate framework!\n")
-#print("\t\tPLM\n")
-#print("\t\t\tPLM original parameters:\t%s"%(str(fitted_parameters_PLM_colon[0])))
-#print("\t\t\tPLM inverse parameters:\t%s"%(str(inverse_parameters_PLM_colon[len(inverse_parameters_PLM_colon)-1])))
-#print("\t\t\tPLM original fit:\t%s"%(str(RMS_transf_PLM_colon[0])))
-#print("\t\t\tPLM inverse fit:\t%s"%(str(RMS_transf_PLM_colon[len(RMS_transf_PLM_colon)-1])))
-#print("\t\tIM-III\n")
-#print("\t\t\tIM-III original parameters:\t%s"%(str(fitted_parameters_IM_III_colon[0])))
-#print("\t\t\tIM-III inverse parameters:\t%s"%(str(inverse_parameters_IM_III_colon[len(inverse_parameters_IM_III_colon)-1])))
-#print("\t\t\tIM-III original fit:\t%s"%(str(RMS_transf_IM_III_colon[0])))
-#print("\t\t\tIM-III inverse fit:\t%s"%(str(RMS_transf_IM_III_colon[len(RMS_transf_IM_III_colon)-1])))
 #------------------------------------------------------------------------------
 # STEP 1 OUT OF 4: TRANSFORM DATA
 #------------------------------------------------------------------------------
 # Find the index closest to the epsilon scale of the PLM
-index_PLM_colon = np.where(epsilon_transf_PLM_colon==epsilon_transf_PLM_colon[np.abs(epsilon_transf_PLM_colon-(epsilon_scale_PLM*0.20)).argmin()])[0][0]
+index_PLM_colon = np.where(epsilon_transf_PLM_colon==epsilon_transf_PLM_colon[np.abs(epsilon_transf_PLM_colon-(epsilon_scale_PLM)).argmin()])[0][0]
 # Extract out epsilon value
 epsilon = epsilon_transf_PLM_colon[index_PLM_colon]
 print("\t\tPLM\n")
@@ -716,7 +681,7 @@ for index in index_vector:
 t_hat_PLM_2,R_hat_PLM_2 = symmetry_toolbox.PLM_transformed_solution(t_hat_PLM_1,R_hat_PLM_1,epsilon,PLM_fitted_to_myeloma_ODR.beta[0],PLM_fitted_to_myeloma_ODR.beta[1])
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
-epsilon = epsilon_scale_IM_III_myeloma*0.35
+epsilon = epsilon_scale_IM_III_myeloma/2
 # THE IM-II
 # Construct a t vector
 t_sym = np.linspace(0,t_myeloma[len(t_myeloma)-1],200)
@@ -757,7 +722,7 @@ print("\n\t\tAction of symmetries!\n")
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\t\tEpsilon scales for illustrations (i.e. the value that the transformations are pushed with twice)")
 print("\t\tPLM,\t%0.7f"%(epsilon_scale_PLM/2))
-print("\t\tIM-III,\t%0.7f"%(epsilon_scale_IM_III_myeloma*0.35))
+print("\t\tIM-III,\t%0.7f"%(epsilon_scale_IM_III_myeloma/2))
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
 # Plot the action of the symmetries in Python
@@ -766,7 +731,6 @@ print("\t\tIM-III,\t%0.7f"%(epsilon_scale_IM_III_myeloma*0.35))
 # Illustration of the framework
 # Overall properties
 fig, axes = plt.subplots(1,2,figsize=(15,5))
-#fig, axes = plt.subplots(1,1,figsize=(15,5))
 plt.rc('axes', labelsize=15)    # fontsize of the x and y label
 plt.rc('legend', fontsize=10)    # legend fontsize
 plt.rc('xtick', labelsize=10)    # fontsize of the tick labels
@@ -829,8 +793,6 @@ for index in range(1,len(t_IM_III_trans_1)):
     write_output.plot_LaTeX_2D(np.array(t_IM_III_trans_1[index]),np.array(R_IM_III_trans_1[index]),"../Figures/latex_figures/action_of_symmetries/Input/IM_III.tex","color=black,->,>=latex,densely dashed",[])  
 for index in range(len(t_IM_III_trans_2)):
     write_output.plot_LaTeX_2D(np.array(t_IM_III_trans_2[index]),np.array(R_IM_III_trans_2[index]),"../Figures/latex_figures/action_of_symmetries/Input/IM_III.tex","color=black,->,>=latex,densely dashed",[])
-
-
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\n\t\tCalculations are done!\n")
 print("\n\t--------------------------------------------------------------------------------------\n")    
