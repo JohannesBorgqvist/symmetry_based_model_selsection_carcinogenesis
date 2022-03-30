@@ -111,7 +111,7 @@ def PLM_transformation_scale(n):
 # The symmetry of the immunological model IM
 def IM_symmetry(t,R,epsilon,tau,alpha):
     # Define t_hat recursively
-    t_hat =  np.log(np.log(np.exp(np.exp(-alpha*(t-tau))) - (alpha*np.exp(alpha*tau)*epsilon) ))
+    t_hat =  np.log(np.log(np.exp(-epsilon+np.exp(-alpha*(t-tau))) +1 - np.exp(-epsilon) ))
     t_hat = tau - ((t_hat)/(alpha))
     R_hat = R
     return t_hat,R_hat
@@ -303,10 +303,10 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
                 # Fit the PLM to the data without any start guesses
                 fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"PLM","ODR",[1,0],[original_para[0]*np.exp(-original_para[1]*epsilon), original_para[1]])
             elif model_str == "IM":
-                C_vec = np.linspace(-5,1,10)
-                start_guesses = [[original_para[0],original_para[1],C,original_para[3]] for C in C_vec]
+                A_vec = np.linspace(-5,1,10)
+                start_guesses = [[A,original_para[1],original_para[2],original_para[3]] for A in A_vec]
                 # Fit the IM to the data but without any start guesses
-                fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM","ODR",[0,0,1,0],start_guesses)                          
+                fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM","ODR",[1,0,0,0],start_guesses)                          
             # If fitting was successful, we do the remaining two steps of the algorithm. Otherwise, we break and return our results
             if fitting_successful:                
                 #------------------------------------------------------
@@ -316,7 +316,7 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
                     parameters_inverse = [fitting_structure.beta[0]*np.exp(fitting_structure.beta[1]*epsilon),fitting_structure.beta[1]]
                 elif model_str == "IM":
                     # Define the parameters of the inversely transformed curve of the IM (parameters=[A, tau, C, alpha])
-                    parameters_inverse = [fitting_structure.beta[0],fitting_structure.beta[1],fitting_structure.beta[2] + fitting_structure.beta[3]*np.exp(fitting_structure.beta[3]*fitting_structure.beta[1])*epsilon,fitting_structure.beta[3]]                
+                    parameters_inverse = [fitting_structure.beta[0]*np.exp(epsilon),fitting_structure.beta[1],fitting_structure.beta[2],fitting_structure.beta[3]]                
                 #------------------------------------------------------
                 # STEP 4 OUT OF 4: CALCULATE THE FIT OF THE INVERSELY TRANSFORMED CURVE TO THE ORIGINAL DATA
                 # Loop over the transformed time series

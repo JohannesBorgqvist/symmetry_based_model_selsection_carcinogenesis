@@ -143,11 +143,11 @@ plt.savefig("../Figures/Fit_of_models_to_cancer_data.png")
 epsilon_scale_PLM = symmetry_toolbox.PLM_transformation_scale(2)
 # The IM
 # Myeloma data
-epsilon_scale_IM_myeloma = symmetry_toolbox.IM_transformation_scale(85,2,IM_fitted_to_myeloma_ODR.beta[3],IM_fitted_to_myeloma_ODR.beta[1])
+epsilon_scale_IM_myeloma = 17
 # Colon data
-epsilon_scale_IM_colon = symmetry_toolbox.IM_transformation_scale(85,2,IM_fitted_to_colon_ODR.beta[3],IM_fitted_to_colon_ODR.beta[1])
+epsilon_scale_IM_colon = 17
 # CML data
-epsilon_scale_IM_CML = symmetry_toolbox.IM_transformation_scale(85,2,IM_fitted_to_CML_ODR.beta[3],IM_fitted_to_CML_ODR.beta[1])
+epsilon_scale_IM_CML = 17
 # Prompt to the user
 print("\n\t--------------------------------------------------------------------------------------\n")
 print("\n\t\tThe transformation scales increasing the age from 85 years to 170 years\n")

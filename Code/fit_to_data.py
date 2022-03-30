@@ -103,7 +103,7 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
             # In the end, we pick the parameters resulting in the lowest minima. This
             # is because we have a non-convex optimisation problem with many local minima.
             A_vec = np.linspace(0.01, 50, num_of_start_guesses*3, endpoint=True)
-            C_vec = np.linspace(0.5, 1, num_of_start_guesses, endpoint=True)
+            C_vec = np.array([1])
             tau_vec = np.linspace(30, 40, num_of_start_guesses, endpoint=True)
             alpha_vec = np.array([0.044])
             # Save all start guesses in a big list which we loop over in the end
@@ -128,7 +128,7 @@ def PE_risk_profiles(t, R, model_str, fit_string, fixed_parameters, start_guesse
                 odr = ODR(data, model, beta0=parameter_guess, sstol=1e-15, partol=1e-15)
             elif model_str == "IM":
                 # Set up ODR with the model and data.
-                odr = ODR(data, model, beta0=parameter_guess, ifixb=[1, 1, 1, 0],sstol=1e-15, partol=1e-15)                
+                odr = ODR(data, model, beta0=parameter_guess, ifixb=[1, 1, 0, 0],sstol=1e-15, partol=1e-15)                
         else:
             # Set up ODR with the model and data and fixed parameters.
             odr = ODR(data, model, beta0=parameter_guess,
