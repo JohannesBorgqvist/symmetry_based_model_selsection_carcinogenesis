@@ -90,7 +90,7 @@ vuongtest(colon.model.IM,colon.model.PLM)
 vuongtest(CML.model.IM,CML.model.PLM)
 # =================================================================================
 # =================================================================================
-# Conducts Vuong's nested likelihood ratio test on the candidate models
+# Print the sources for R and the used packages so we can cite them in the article
 # =================================================================================
 # =================================================================================
 citation()
