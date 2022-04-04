@@ -14,7 +14,6 @@
 if (!require('nonnest2')) install.packages('nonnest2'); library(nonnest2) 
 # Analysis of Dose-Response Curves enabling flexible and versatile model fitting and after-fitting functions.
 if (!require('drc')) install.packages('drc'); library(drc)
-citation('drc')
 # =================================================================================
 # =================================================================================
 # Reading the data and extracting the time series
