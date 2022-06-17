@@ -13,7 +13,7 @@
 # =================================================================================
 import csv # In order to write to csv format
 import numpy as np # To take the exponential of data
-import pandas as pd # 
+import pandas as pd # Pandas for saving numpy arrays efficiently
 # =================================================================================
 # =================================================================================
 # Functions
