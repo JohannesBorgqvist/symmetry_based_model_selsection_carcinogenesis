@@ -235,6 +235,8 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
     fitted_parameters = []
     # We allocate a list with all inverse parameters
     inverse_parameters = []
+    # Return the forward fit as well
+    RMS_forward = []
     # We also define the previous parameters as well as their error bounds
     prev_para = model_fitting_structure.beta
     prev_para_bounds = model_fitting_structure.sd_beta
@@ -271,6 +273,8 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
                 SS += SS_res_model_data(Model_point,Data_point)
             # Append the root mean squared calculated based on the SS-value
             RMS_transf.append(np.sqrt(SS/len(t_data)))
+            # We also add this to the forward fit in this cas
+            RMS_forward.append(np.sqrt(SS/len(t_data)))            
             # Also, we save the current epsilon value
             epsilon_transf.append(epsilon)
             # Append the original data
@@ -306,7 +310,9 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
                 C_vec = np.linspace(-5,1,10)
                 start_guesses = [[original_para[0],original_para[1],C,original_para[3]] for C in C_vec]
                 # Fit the IM to the data but without any start guesses
-                fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM","ODR",[0,0,1,0],start_guesses)                          
+                fitting_structure, R_hat, RMS, fitting_successful  = fit_to_data.PE_risk_profiles(t_trans,R_trans,"IM","ODR",[0,0,1,0],start_guesses)
+            # Append the forward fit
+            RMS_forward.append(RMS)            
             # If fitting was successful, we do the remaining two steps of the algorithm. Otherwise, we break and return our results
             if fitting_successful:                
                 #------------------------------------------------------
@@ -352,4 +358,4 @@ def symmetry_based_model_selection(t_data,R_data,epsilon_vector,model_fitting_st
             else: # The fitting was unsuccessful, so we abort!
                 continue
     # Lastly, cast the RMS-values as an array before we return
-    return np.array(epsilon_transf),np.array(RMS_transf), transformed_data, fitted_parameters, inverse_parameters   
+    return np.array(epsilon_transf),np.array(RMS_transf), transformed_data, fitted_parameters, inverse_parameters, np.array(RMS_forward)
