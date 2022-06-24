@@ -89,3 +89,4 @@ def save_data_symmetry_based_model_selection(data_str,model_str,epsilon,RMS,fitt
     df = pd.DataFrame(data,columns=col_names)
     # Finally, save the data frame to the given file name
     df.to_csv(file_name)
+
