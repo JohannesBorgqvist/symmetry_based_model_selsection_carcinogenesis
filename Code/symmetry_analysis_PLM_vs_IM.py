@@ -193,6 +193,7 @@ RMS_transf_PLM_myeloma = results[0][1] # PLM RMS-values
 transformed_data_PLM_myeloma = results[0][2] # PLM Transformed data
 fitted_parameters_PLM_myeloma = results[0][3] # PLM fitted parameters
 inverse_parameters_PLM_myeloma = results[0][4] # PLM inversely transformed parameters
+RMS_forward_PLM_myeloma = results[0][5] # RMS forward PLM myeloma
 # Remove outliers
 epsilon_transf_PLM_myeloma,RMS_transf_PLM_myeloma, fitted_parameters_PLM_myeloma,inverse_parameters_PLM_myeloma,transformed_data_PLM_myeloma = clean_up_output.remove_outliers(epsilon_transf_PLM_myeloma,RMS_transf_PLM_myeloma,fitted_parameters_PLM_myeloma,inverse_parameters_PLM_myeloma,transformed_data_PLM_myeloma)
 # Save the data
@@ -211,6 +212,7 @@ RMS_transf_IM_myeloma = results[1][1] # IM RMS-values
 transformed_data_IM_myeloma = results[1][2] # IM Transformed data
 fitted_parameters_IM_myeloma = results[1][3] # IM fitted parameters
 inverse_parameters_IM_myeloma = results[1][4] # IM inversely transformed parameters
+RMS_forward_IM_myeloma = results[1][5] # RMS forward IM myeloma
 # Remove outliers
 epsilon_transf_IM_myeloma,RMS_transf_IM_myeloma,fitted_parameters_IM_myeloma,inverse_parameters_IM_myeloma,transformed_data_IM_myeloma = clean_up_output.remove_outliers(epsilon_transf_IM_myeloma,RMS_transf_IM_myeloma,fitted_parameters_IM_myeloma,inverse_parameters_IM_myeloma,transformed_data_IM_myeloma)
 # Save the data
@@ -235,6 +237,7 @@ RMS_transf_PLM_colon = results[2][1] # PLM RMS-values
 transformed_data_PLM_colon = results[2][2] # PLM Transformed data
 fitted_parameters_PLM_colon = results[2][3] # PLM fitted parameters
 inverse_parameters_PLM_colon = results[2][4] # PLM inversely transformed parameters
+RMS_forward_PLM_colon = results[2][5] # RMS forward PLM colon
 # Remove outliers
 epsilon_transf_PLM_colon,RMS_transf_PLM_colon,fitted_parameters_PLM_colon,inverse_parameters_PLM_colon,transformed_data_PLM_colon = clean_up_output.remove_outliers(epsilon_transf_PLM_colon,RMS_transf_PLM_colon,fitted_parameters_PLM_colon,inverse_parameters_PLM_colon,transformed_data_PLM_colon)
 # Save the data
@@ -254,6 +257,7 @@ RMS_transf_IM_colon = results[3][1] # IM RMS-values
 transformed_data_IM_colon = results[3][2] # IM Transformed data
 fitted_parameters_IM_colon = results[3][3] # IM fitted parameters
 inverse_parameters_IM_colon = results[3][4] # IM inversely transformed parameters
+RMS_forward_IM_colon = results[3][5] # RMS forward IM colon
 # Remove outliers
 epsilon_transf_IM_colon,RMS_transf_IM_colon,fitted_parameters_IM_colon,inverse_parameters_IM_colon,transformed_data_IM_colon = clean_up_output.remove_outliers(epsilon_transf_IM_colon,RMS_transf_IM_colon,fitted_parameters_IM_colon,inverse_parameters_IM_colon,transformed_data_IM_colon)
 # Save the data
@@ -278,6 +282,7 @@ RMS_transf_PLM_CML = results[4][1] # PLM RMS-values
 transformed_data_PLM_CML = results[4][2] # PLM Transformed data
 fitted_parameters_PLM_CML = results[4][3] # PLM fitted parameters
 inverse_parameters_PLM_CML = results[4][4] # PLM inversely transformed parameters
+RMS_forward_PLM_CML = results[4][5] # RMS forward PLM CML
 # Remove outliers
 epsilon_transf_PLM_CML,RMS_transf_PLM_CML,fitted_parameters_PLM_CML,inverse_parameters_PLM_CML,transformed_data_PLM_CML = clean_up_output.remove_outliers(epsilon_transf_PLM_CML,RMS_transf_PLM_CML,fitted_parameters_PLM_CML,inverse_parameters_PLM_CML,transformed_data_PLM_CML)
 # Save the data
@@ -297,6 +302,7 @@ RMS_transf_IM_CML = results[5][1] # IM
 transformed_data_IM_CML = results[5][2] # IM Transformed data
 fitted_parameters_IM_CML = results[5][3] # IM fitted parameters
 inverse_parameters_IM_CML = results[5][4] # IM inversely transformed parameters
+RMS_forward_IM_CML = results[5][5] # IM CML
 # Remove outliers
 epsilon_transf_IM_CML,RMS_transf_IM_CML,fitted_parameters_IM_CML,inverse_parameters_IM_CML,transformed_data_IM_CML = clean_up_output.remove_outliers(epsilon_transf_IM_CML,RMS_transf_IM_CML,fitted_parameters_IM_CML,inverse_parameters_IM_CML,transformed_data_IM_CML)
 # Save the data
@@ -309,6 +315,7 @@ if len(epsilon_transf_IM_CML) > 200:
 else:
     epsilon_transf_IM_CML_sparse = epsilon_transf_IM_CML
     RMS_transf_IM_CML_sparse = RMS_transf_IM_CML
+#----------------------------------------------------------------------------------    
 #----------------------------------------------------------------------------------
 # Prompt to the user
 print("\t\tSymmetry framework is done!")
@@ -317,7 +324,11 @@ print("\t\tSymmetry framework is done!")
 # Plot the symmetry based model selection
 #----------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------
-# PLM RESULTS
+# Proper framework where we do all four steps:
+# 1. Transform data,
+# 2. Fit to transformed data,
+# 3. Inversely transform model back,
+# 4. Compare fit to original data.
 # Overall properties
 fig, axes = plt.subplots(1,2,figsize=(15,5))
 plt.rc('axes', labelsize=15)    # fontsize of the x and y label
@@ -325,7 +336,7 @@ plt.rc('legend', fontsize=10)    # legend fontsize
 plt.rc('xtick', labelsize=10)    # fontsize of the tick labels
 plt.rc('ytick', labelsize=10)    # fontsize of the tick labels
 # Subplot 1: PLM
-axes[0].plot(epsilon_transf_PLM_myeloma_sparse,RMS_transf_PLM_myeloma_sparse,'-', color = (103/256,0/256,31/256),label='PLM Myeloma cancer')
+axes[0].plot(epsilon_transf_PLM_myeloma,RMS_transf_PLM_myeloma_sparse,'-', color = (103/256,0/256,31/256),label='PLM Myeloma cancer')
 axes[0].plot(epsilon_transf_PLM_colon_sparse,RMS_transf_PLM_colon_sparse,'-', color = (206/256,18/256,86/256),label='PLM Colon cancer')
 axes[0].plot(epsilon_transf_PLM_CML_sparse,RMS_transf_PLM_CML_sparse,'-', color = (223/256,101/256,176/256),label='PLM CML')
 axes[0].legend()
@@ -343,6 +354,35 @@ plt.ylabel("Root mean square, $\mathrm{RMS}(\epsilon)$")
 # displaying the title
 plt.title("The symmetry based model selection",fontsize=20, fontweight='bold')
 plt.savefig("../Figures/symmetry_based_model_selection.png")
+#-----------------------------------------------------------------------------------------------------------------------------
+# Cheating where we only do forward fittig. I.e. we only do two steps:
+# 1. Transform data,
+# 2. Fit to transformed data.
+# Overall properties
+fig, axes = plt.subplots(1,2,figsize=(15,5))
+plt.rc('axes', labelsize=15)    # fontsize of the x and y label
+plt.rc('legend', fontsize=10)    # legend fontsize
+plt.rc('xtick', labelsize=10)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=10)    # fontsize of the tick labels
+# Subplot 1: PLM
+axes[0].plot(results[0][0],RMS_forward_PLM_myeloma,'-', color = (103/256,0/256,31/256),label='PLM Myeloma cancer')
+axes[0].plot(results[2][0],RMS_forward_PLM_colon,'-', color = (206/256,18/256,86/256),label='PLM Colon cancer')
+axes[0].plot(results[4][0],RMS_forward_PLM_CML,'-', color = (223/256,101/256,176/256),label='PLM CML')
+axes[0].legend()
+# Subplot 2: IM
+axes[1].plot(results[1][0],RMS_forward_IM_myeloma,'-', color = (2/256,56/256,88/256),label='IM Myeloma cancer')
+axes[1].plot(results[3][0],RMS_forward_IM_colon,'-', color = (54/256,144/256,192/256),label='IM Colon cancer')
+axes[1].plot(results[5][0],RMS_forward_IM_CML,'-', color = (208/256,209/256,230/256),label='IM CML')
+axes[1].legend()
+# add a big axis, hide frame
+fig.add_subplot(111, frameon=False)
+#hide tick and tick label of the big axis
+plt.tick_params(labelcolor='none', which='both', top=False, bottom=False, left=False, right=False)
+plt.xlabel("Transformation parameter, $\epsilon$")
+plt.ylabel("Root mean square, $\mathrm{RMS}(\epsilon)$")
+# displaying the title
+plt.title("Fitting to transformed data",fontsize=20, fontweight='bold')
+plt.savefig("../Figures/forward_fitting.png")
 # =================================================================================
 # =================================================================================
 # ILLUSTRATE THE MODEL SELECTION FRAMEWORK
